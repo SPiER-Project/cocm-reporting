@@ -1,9 +1,10 @@
 # Mapping: a prototype CoCM registry → data contract
 
 This page maps the data model of a prototype CoCM registry (Next.js + Prisma +
-PostgreSQL) to the [data contract](../data-contract.md). It is the first registry mapping
-(way 2 in [`filling-the-tables.md`](../filling-the-tables.md)), and also a worked example
-of what a mapping has to settle.
+PostgreSQL) to the [data contract](../../data-contract.md). It is the first registry
+mapping (the [registry route](../overview.md#2-a-registry-product-plus-an-ehr-report)),
+and also a worked example of what a mapping has to settle. Where it applies a rule from
+the guide, it links to the page that sets the rule.
 
 **Mapped against:** the registry's Prisma schema as of 2026-03. No export code exists yet.
 
@@ -26,13 +27,13 @@ practice-management system, which is the two-source pattern every site will have
 
 | Contract | Registry | Notes |
 |---|---|---|
-| `patient_id` | keyed hash of `Patient.mrn` | Not `Patient.id`, which is an internal id the EHR never sees; the two sources would never join (Q-T3) |
+| `patient_id` | keyed hash of `Patient.mrn` | Not `Patient.id`, which is an internal id the EHR never sees; the two sources would never join ([one patient id](../overview.md#one-patient-id)) |
 | `birth_date` | `dateOfBirth` | Only metric 9 uses it, and metric 9's patients come from the EHR |
 
 ## T2 `coverage` ← nothing usable
 
 `Patient.insurance` is one JSON object (`payerId`, `memberId`, `planName`, `groupNumber`).
-It has no dates, so the first-of-month rule (D-07) cannot be applied; no payer category,
+It has no dates, so the [first-of-month rule](../../guide/concepts/medicaid.md#the-rule) cannot be applied; no payer category,
 so Medicaid can only be guessed from `planName`; and no history. **Coverage comes from
 the practice-management system.**
 
@@ -41,19 +42,19 @@ the practice-management system.**
 | Contract | Registry | Notes |
 |---|---|---|
 | `episode_id`, `patient_id` | `id`, `patientId` | |
-| `enrollment_date` | `startDate` | Entered by the user at enrollment. Nothing says it is the initial assessment date rather than the referral date (D-03) |
+| `enrollment_date` | `startDate` | Entered by the user at enrollment. Nothing says it is the initial assessment date rather than the referral date ([enrollment date](../../guide/concepts/enrollment-and-discharge.md#enrollment-date)) |
 | `enrollment_source` | `registry` | Constant |
 | `primary_condition` | the `diagnoses` entry with `isPrimary`, by ICD-10 range | F32, F33 → `depression`; F41 → `anxiety`; F43.1 → `ptsd`; F90 → `adhd`; else `other`. **Gap:** the schema allows zero or several primary entries; both are extraction errors |
-| `primary_scale` | — | **Gap.** Derived from `primary_condition` by the D-13 default mapping. The registry stores only PHQ-9 and GAD-7, so PTSD and ADHD episodes have no scale |
+| `primary_scale` | — | **Gap.** Derived from `primary_condition` by the [default mapping](../../guide/concepts/scales-and-outcomes.md#primary-scale), and disclosed. The registry stores only PHQ-9 and GAD-7, so PTSD and ADHD episodes have no scale |
 | `diagnosis_date` | — | |
-| `discharge_date` | `endDate` | **Gap:** optional even on `FINISHED`. Do not fall back to `updatedAt` or the audit log: those are documentation dates, which is the backdating error in D-04 |
+| `discharge_date` | `endDate` | **Gap:** optional even on `FINISHED`. Do not fall back to `updatedAt` or the audit log: those are documentation dates, which is the [backdating error](../../guide/concepts/enrollment-and-discharge.md#discharge). Without an end date, the [inactivity rule](../../guide/concepts/enrollment-and-discharge.md#discharge) still closes the episode 90 days after the last clinical contact |
 | `discharge_reason` | `dischargeReason` | Free text; needs a lookup to the contract's list, else `other` |
 
 ### Episode status
 
 | `status` | Contract meaning |
 |---|---|
-| `PLANNED`, `WAITLIST` | Not enrolled; these are referral states (D-02). Not extracted |
+| `PLANNED`, `WAITLIST` | Not enrolled; these are referral states ([what counts as enrolled](../../guide/concepts/enrollment-and-discharge.md#enrolled)). Not extracted |
 | `ACTIVE`, `ONHOLD` | Enrolled. On hold still counts in the denominators until discharged |
 | `FINISHED` | Discharged on `endDate` |
 | `CANCELLED` | **Depends on the prior status.** From `PLANNED` or `WAITLIST`: never enrolled, not extracted. From `ACTIVE` or `ONHOLD`: a discharge. Only the audit log records which |
@@ -70,10 +71,15 @@ The weakest mapping.
 | `staff_role` | — | **Gap:** no author. Extracted as `bhcm`, and disclosed |
 | `with_caregiver` | — | |
 
-A stricter rule for `treatment`, closer to D-14's "corroborating documentation": a
-reached contact counts only if a `ClinicalNote` of type `PROGRESS` or `PHONE` exists for
-that patient on the same day. Notes carry only `createdAt` (entry time), so a note written
-the next morning misses. Which rule a site uses goes in the disclosures.
+**Use the stricter rule for `treatment`.** A reached contact counts as treatment only if
+a `ClinicalNote` of type `PROGRESS` or `PHONE` exists for that patient on the same day.
+That is the "corroborating documentation" NYS asks for in a
+[clinical contact](../../guide/concepts/contacts-and-reviews.md#clinical-contact). Notes carry only
+`createdAt` (entry time), so a note written the next morning misses; widen the match to
+the next calendar day if that's common at the site. Disclose the rule used.
+
+Without the note check, every reached call, including scheduling calls, counts as
+treatment, and metric 5 is overstated.
 
 ## T5 `scale_result` ← `AssessmentScore`
 
@@ -82,10 +88,10 @@ The cleanest mapping.
 | Contract | Registry | Notes |
 |---|---|---|
 | `result_id`, `patient_id` | `id`, `patientId` | |
-| `administered_date` | `administeredAt` | Stored in UTC. **Convert to the site's time zone before taking the date** (D-01), or an evening score on the last day of the month lands in the next month |
+| `administered_date` | `administeredAt` | Stored in UTC. **Convert to the site's time zone before taking the date** ([reporting month](../../guide/concepts/reporting-month.md#the-rule)), or an evening score on the last day of the month lands in the next month |
 | `instrument` | `instrumentType` | `PHQ9` → `phq9`, `GAD7` → `gad7`, `PHQ2` → `phq2`. `GAD2` and `CSSRS` are not NYS instruments and are not extracted |
 | `total_score` | `totalScore` | |
-| `context` / `context_basis` | `monitoring` / `registry` | Every score belongs to an episode. **Except** a score dated before its episode's `startDate`: that is a screening score entered into the episode, extracted as `screening`, so it cannot become the baseline (D-12) |
+| `context` / `context_basis` | `monitoring` / `registry` | No metric reads this under the guide's calls ([screening or monitoring?](../../guide/concepts/screening.md#screening-or-monitoring)). A score dated before the episode's `startDate` is a screening score entered into the episode; its date alone keeps it from being the [baseline](../../guide/concepts/scales-and-outcomes.md#baseline) |
 | `administered_by_role` | `performer.role` | `BHCM` → `bhcm`, `PCP` → `medical_provider`, else `other`. The performer is whoever "administered or entered" it, so this is weak evidence |
 | `loinc` | `loincCode` | |
 
@@ -97,8 +103,7 @@ The cleanest mapping.
 | `recommendation_documented` | `recommendations` is non-empty after trimming | Required in the schema, but an empty string passes |
 | `recommendation_to` | — | Not captured |
 
-Not sources for T6: `TimeEntry` with `SCR_PARTICIPATION` (meeting attendance, the error in
-D-17), and `ClinicalNote` of type `SCR` (one note per caseload review, not per patient).
+Not sources for T6: `TimeEntry` with `SCR_PARTICIPATION` (meeting attendance; see [psychiatric case review](../../guide/concepts/contacts-and-reviews.md#psychiatric-case-review-metric-8)), and `ClinicalNote` of type `SCR` (one note per caseload review, not per patient).
 
 ## T7 `practice_visit`, T8 `site_month`
 
@@ -114,4 +119,5 @@ month could cross-check an attested figure, but logged time is not scheduled eff
 3. A coverage history table with a payer category, if the registry should report
    metrics 2–8 without the practice-management system.
 4. `Consultation.recommendationTo`.
-5. PCL-5, SMFQ, SCARED, PSC-17 and Vanderbilt, for pediatric or PTSD caseloads.
+5. PCL-5, SMFQ, SCARED, PSC-17 and Vanderbilt, for pediatric or PTSD caseloads, and the
+   PHQ-A for adolescents.

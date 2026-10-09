@@ -193,7 +193,7 @@ for metric 5, because no scale was completed.
 
 - Many registries store only PHQ-9 and GAD-7. Episodes for PTSD, ADHD or pediatric
   concerns then have no primary-scale scores at all. The
-  [prototype registry mapping](../../mappings/prototype-cocm-registry.md#t5-scale_result--assessmentscore)
+  [prototype registry mapping](../../collecting/registries/prototype-cocm-registry.md#t5-scale_result--assessmentscore)
   is an example.
 - In an EHR, the same PHQ-9 questionnaire may be used by the PCP for screening and by the
   BHCM for monitoring. For this page, only the date matters: a score before the

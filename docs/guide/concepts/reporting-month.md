@@ -55,7 +55,7 @@ event happened:
 | Psychiatric review | Date of the review | Date the consultant's note was signed |
 
 Registries built on databases often store the event date as a UTC timestamp. The
-[prototype registry mapping](../../mappings/prototype-cocm-registry.md) shows one
+[prototype registry mapping](../../collecting/registries/prototype-cocm-registry.md) shows one
 example.
 
 ## Common mistakes

@@ -113,7 +113,7 @@ Metric 5 for these six: 3 of 6, or **50.0%**.
 
 - **Registries often record only whether the patient was reached**, not whether treatment
   was delivered. A scheduling call and a session then look the same. The
-  [prototype registry mapping](../../mappings/prototype-cocm-registry.md#t4-contact--patientcontact)
+  [prototype registry mapping](../../collecting/registries/prototype-cocm-registry.md#t4-contact--patientcontact)
   shows the gap and a stricter rule that uses same-day progress notes.
 - **Don't build case reviews from attendance or time logs.** A record that the consultant
   spent an hour at the caseload meeting says nothing about which patients were reviewed.

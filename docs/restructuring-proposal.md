@@ -1,6 +1,6 @@
 # Proposal: restructure the docs as a clinic's reporting guide
 
-**Status:** agreed; Markdown in the repo. Steps 1 to 3 are done. The calls table below has
+**Status:** agreed; Markdown in the repo. Steps 1 to 4 are done. The calls table below has
 moved to [`reference/our-calls.md`](reference/our-calls.md), which is now the version to
 review and edit.
 
@@ -74,7 +74,7 @@ docs/
       11-bhcm-staffing.md
   collecting/                      How to get the facts out of your systems
     overview.md                    Two sources (registry + EHR), the shared patient id,
-                                   what lives where (today's filling-the-tables.md)
+                                   what lives where (from filling-the-tables.md)
     workbook.md                    The spreadsheet route
     registries/
       prototype-cocm-registry.md   (moved from mappings/)
@@ -157,6 +157,9 @@ Each step is a reviewable PR.
 2. **Concepts.** Rewrite D-01 – D-19 as the seven concept pages, applying the calls.
 3. **Metrics.** The eleven metric pages, with worked examples. These are the core of the guide.
 4. **Collecting.** Move `filling-the-tables.md` and the mapping, then add the workbook page.
+   Done. The builder-facing parts of `filling-the-tables.md` (costs to us, FHIR coverage,
+   what to build first) went to a new [`tooling.md`](tooling.md), and `collecting/ehrs/`
+   starts with a vendor-neutral specification of the EHR reports.
 5. **Reference.** Write `instruments.md` with verified LOINC codes. Update the data
    contract wherever a call changed what's needed. Q-04 and Q-07 shrink what `context`
    must carry.

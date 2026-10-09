@@ -38,4 +38,12 @@ patients.
 - [Screening](concepts/screening.md)
 - [BHCM FTE](concepts/bhcm-fte.md)
 
+## Getting the data
+
+[Collecting the data](../collecting/overview.md) says where each fact lives in a clinic's
+systems, and gives three routes for getting it out:
+- a spreadsheet registry;
+- a registry product plus an EHR report;
+- the EHR alone.
+
 Before the first report, work through [site setup](site-setup.md).

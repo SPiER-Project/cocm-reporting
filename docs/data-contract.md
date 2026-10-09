@@ -2,7 +2,7 @@
 
 Every site produces the same eight tables, however it produces them. One calculator
 reads them and computes the eleven NYS metrics. How a site fills each table is in
-[`filling-the-tables.md`](filling-the-tables.md).
+[`collecting/overview.md`](collecting/overview.md).
 
 **Status:** sketch. Column names and code lists will change; no schema file exists yet.
 

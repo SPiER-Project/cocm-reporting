@@ -63,7 +63,7 @@ registry.
 - The payer or financial class field is a starting point, but check it. Managed care
   plans are often classed as commercial.
 - Registries rarely hold payer, and almost never its history. The
-  [prototype registry](../../mappings/prototype-cocm-registry.md#t2-coverage--nothing-usable)
+  [prototype registry](../../collecting/registries/prototype-cocm-registry.md#t2-coverage--nothing-usable)
   stores a single insurance record with no dates, which can't support the rule.
 
 ## Common mistakes

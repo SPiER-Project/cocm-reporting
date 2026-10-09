@@ -29,7 +29,7 @@ decisions.
 | [`docs/reference/our-calls.md`](docs/reference/our-calls.md) | Every place the guide interprets NYS or goes beyond it: the call, why, and how firm it is |
 | [`docs/reference/nys-source/`](docs/reference/nys-source/) | The NYS OMH metrics document (2025), as a PDF and as a linkable transcription |
 | [`docs/data-contract.md`](docs/data-contract.md) | The eight tables |
-| [`docs/filling-the-tables.md`](docs/filling-the-tables.md) | Where each table's facts live, the ways to fill them, and what to build first |
-| [`docs/mappings/`](docs/mappings/) | One page per source system, mapping its data model to the eight tables |
+| [`docs/collecting/`](docs/collecting/overview.md) | Where each fact lives in a clinic's systems, the routes for getting it out, and one page per registry or EHR |
+| [`docs/tooling.md`](docs/tooling.md) | The plan for electronic capture: the ways in, what each costs, what to build first |
 | [`docs/open-questions.md`](docs/open-questions.md) | What's still open: for NYS, for a clinician, to verify, and about the tooling |
 | [`docs/archive/`](docs/archive/) | Draft v0.1 and its review notes, frozen. Superseded by the guide and `our-calls.md` |

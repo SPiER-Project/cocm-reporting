@@ -132,7 +132,7 @@ Things to check in a registry:
 - A cancelled episode may have been a cancelled referral (never enrolled) or a
   discharge. Only the history shows which.
 
-The [prototype registry mapping](../../mappings/prototype-cocm-registry.md#episode-status)
+The [prototype registry mapping](../../collecting/registries/prototype-cocm-registry.md#episode-status)
 works through each of these.
 
 ## Common mistakes
