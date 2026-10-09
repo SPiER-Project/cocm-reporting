@@ -1,4 +1,4 @@
-# NYS CoCM Reporting Specification
+# Collaborative Care (CoCM) Caseload Reporting Framework for the New York State Office of Mental Health: Specification
 
 **Status:** Draft v0.1 for review
 
@@ -6,7 +6,8 @@
 
 **Audience:** Reporting analysts, EHR report writers, registry administrators, and CoCM program leads
 
-> **About this copy.** This is draft v0.1 as circulated, with decision owners removed.
+> **About this copy.** This is draft v0.1 as circulated, retitled to match the framework's
+> name and with decision owners removed.
 > Known errors and gaps are listed in [`review-notes.md`](review-notes.md) and are
 > deliberately **not** corrected here yet, so each correction stays traceable to a
 > review note. Questions raised after v0.1 are in [`../open-questions.md`](../open-questions.md).

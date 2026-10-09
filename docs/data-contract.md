@@ -66,11 +66,11 @@ so a baseline never carries across episodes.
 | `patient_id` | string | ✓ | |
 | `contact_date` | date | ✓ | Date of service, not of note signature (D-01) |
 | `staff_role` | enum | ✓ | `bhcm` · `other_cocm_clinician` · `psychiatric_consultant` · `other` |
-| `contact_kind` | enum | ✓ | `treatment` · `outreach_attempt` · `scheduling` · `no_show` |
-| `modality` | enum | ✓ | `in_person` · `video` · `phone` |
+| `contact_kind` | enum | ✓ | `treatment` · `outreach_attempt` · `scheduling` · `no_show` · `message` |
+| `modality` | enum | | `in_person` · `video` · `phone`. Required unless `contact_kind` is `message` |
 | `with_caregiver` | bool | | Pediatric caregiver sessions |
 
-Extract the attempts too. Only `treatment` counts toward metric 5, but the full log
+Extract the attempts and messages too. Only `treatment` counts toward metric 5, but the full log
 shows a caseload that is mostly unanswered outreach, and it is the evidence for the
 D-04a inactivity rule. Psychiatric case reviews go in T6, not here.
 

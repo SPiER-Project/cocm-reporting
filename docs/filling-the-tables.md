@@ -51,6 +51,7 @@ and the commercial measurement-based-care platforms.
 - **Cost to the site:** run the registry's existing export.
 - **Cost to us:** one mapping per registry product, kept current as products change.
   We need a survey of which registries NYS sites use before choosing.
+- **Mappings so far:** [a prototype CoCM registry](mappings/prototype-cocm-registry.md).
 
 ### 3. EHR report recipes
 

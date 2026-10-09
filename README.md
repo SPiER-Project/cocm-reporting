@@ -1,7 +1,7 @@
-# NYS CoCM Reporting
+# Collaborative Care (CoCM) Caseload Reporting Framework for the New York State Office of Mental Health
 
-A specification and tooling for reporting the New York State Office of Mental Health
-(OMH) monthly Collaborative Care (CoCM) metrics. The aim is for practices with very
+A specification and tooling for the monthly CoCM caseload metrics that practices report
+to the New York State Office of Mental Health (OMH). The aim is for practices with very
 different technical capabilities to report them the same way: from a spreadsheet
 registry to an EHR with a reporting team.
 
@@ -30,4 +30,5 @@ decisions.
 | [`docs/spec/review-notes.md`](docs/spec/review-notes.md) | Where draft v0.1 departs from the NYS document, contradicts itself, or leaves a term undefined |
 | [`docs/data-contract.md`](docs/data-contract.md) | The eight tables |
 | [`docs/filling-the-tables.md`](docs/filling-the-tables.md) | Where each table's facts live, the ways to fill them, and what to build first |
+| [`docs/mappings/`](docs/mappings/) | One page per source system, mapping its data model to the eight tables |
 | [`docs/open-questions.md`](docs/open-questions.md) | Questions raised since v0.1, about the measures and about the tooling |
