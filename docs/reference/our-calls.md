@@ -29,6 +29,8 @@ Every call below is **Proposed**. Each lists what it replaces in the archived
 | **Reporting** | | |
 | [Reporting month](#reporting-month) | Our call | Proposed |
 | [When to run the report](#when-to-run-the-report) | Our call | Proposed |
+| [Rounding](#rounding) | Our call | Proposed |
+| [Empty denominators](#empty-denominators) | Our call | Proposed |
 | **Enrollment and discharge** | | |
 | [What counts as enrolled](#what-counts-as-enrolled) | Our call | Proposed |
 | [Enrollment date](#enrollment-date) | Our call | Proposed |
@@ -90,6 +92,32 @@ an error.
 [open questions](../open-questions.md)) overrides the 15 days if it is sooner.
 
 **Replaces.** D-19, D-19a.
+
+### Rounding
+
+**Call.** Report percentages and weeks to one decimal place, rounding half up, and
+calculate from unrounded numbers. For example, 7 of 8 is 87.5%, and 2 of 3 is 66.7%.
+Report BHCM FTE as attested.
+
+**Why.** NYS doesn't say. Rounding at the last step and to the same precision everywhere
+means two sites with the same counts report the same rate.
+
+**If NYS rules otherwise.** The REDCap form's field format wins.
+
+**Replaces.** Nothing; first raised here.
+
+### Empty denominators
+
+**Call.** When a metric's denominator is zero (for example, no Medicaid patient was
+discharged this month, so there's nothing to average for metric 4), report no value and
+say why. Don't report 0 or 0%.
+
+**Why.** Zero would read as a result, such as "no patient improved", when there was no
+one to measure.
+
+**If NYS rules otherwise.** Follow whatever the REDCap form allows.
+
+**Replaces.** Nothing; first raised here.
 
 ## Enrollment and discharge
 

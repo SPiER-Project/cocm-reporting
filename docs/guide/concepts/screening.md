@@ -105,8 +105,8 @@ Reporting month: March 2025.
 | G | 50 | Nurse visit for a flu shot | — | Not in denominator: not a qualifying visit | — |
 | H | 16 | Office visit, 99213 | PHQ-A of 7, 18 Mar; none before | Denominator and **screened** | **Initial, negative** |
 
-- Metric 9: 5 of 6 screened (A, B, C, D and H, out of A to E and H), or **83%**.
-- Metric 10: 1 of 2 positive, or **50%**.
+- Metric 9: 5 of 6 screened (A, B, C, D and H, out of A to E and H), or **83.3%**.
+- Metric 10: 1 of 2 positive, or **50.0%**.
 
 ## What the program should do
 

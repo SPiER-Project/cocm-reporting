@@ -1,6 +1,6 @@
 # Proposal: restructure the docs as a clinic's reporting guide
 
-**Status:** agreed; Markdown in the repo. Steps 1 and 2 are done. The calls table below has
+**Status:** agreed; Markdown in the repo. Steps 1 to 3 are done. The calls table below has
 moved to [`reference/our-calls.md`](reference/our-calls.md), which is now the version to
 review and edit.
 

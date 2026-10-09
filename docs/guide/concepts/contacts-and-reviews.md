@@ -85,7 +85,7 @@ Reporting month: March 2025. All patients enrolled before March, all Medicaid.
 | E | Portal exchange about coping skills 20 Mar; GAD-7 the same day | No: a message isn't a clinical contact |
 | F | Phone session 25 Mar; GAD-7 on 25 Mar, but primary scale is PHQ-9 | **Yes**: any NYS scale counts for metric 5 |
 
-Metric 5 for these six: 3 of 6, or **50%**.
+Metric 5 for these six: 3 of 6, or **50.0%**.
 
 ## What the program should do
 

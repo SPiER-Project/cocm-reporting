@@ -1,8 +1,8 @@
 # Start here
 
-**Status:** the concept pages are written; the metric pages are not yet. Until they
-are, each metric's rules are in the concept pages and in
-[`our-calls.md`](../reference/our-calls.md).
+**Status:** the metric and concept pages are written. Every call they make is
+**Proposed** until the project adopts it; see [`our-calls.md`](../reference/our-calls.md).
+Site setup is not yet written.
 
 This guide tells a New York clinic how to report the eleven CoCM metrics NYS OMH asks for
 each month, and how to get each fact out of the systems it has. Where the
@@ -24,6 +24,9 @@ ambiguous, the guide makes a call and says why.
 | 9 | [Depression screening rate](metrics/09-depression-screening-rate.md) | Whole practice, all payers |
 | 10 | [Depression screening yield](metrics/10-depression-screening-yield.md) | Whole practice, all payers |
 | 11 | [BHCM staffing](metrics/11-bhcm-staffing.md) | Attested |
+
+Metrics 1 to 8 are worked through on one [example caseload](example-caseload.md) of ten
+patients.
 
 ## The concepts the metrics share
 
