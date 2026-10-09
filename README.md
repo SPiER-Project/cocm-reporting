@@ -61,23 +61,42 @@ capture is built yet.
 
 ## Changing the guide
 
-- **Every interpretation of NYS is a call** in [`our-calls.md`](docs/reference/our-calls.md).
-  Pages state the rule and link to the call; they don't argue it. To change a rule, change
-  the call first, then every page that links to it.
-- **Each call has a firmness, a status and an approval.**
+- **Every interpretation of NYS is a call.** Each call has two halves:
+  - its reasoning, in [`our-calls.md`](docs/reference/our-calls.md);
+  - its values, in [`rules/calls.toml`](rules/calls.toml): windows, thresholds, code
+    lists, and the call's status and approval.
+  
+  Pages state the rule and link to the call; they don't argue it.
+- **Change a value only in `rules/calls.toml`, then run the sync.** The docs mark every
+  place they show a rule's value, and the sync rewrites them all, including the tables of
+  thresholds, codes and call statuses. The future calculator will read the same file, so
+  a value can't drift between the guide and the tool.
+
+```bash
+python3 scripts/rules.py sync
+```
+
+- **Change wording in the docs as usual**, but don't edit text between
+  `<!--rule:…-->` and `<!--/rule-->` or inside a `<!--rules:…-->` block; the sync
+  overwrites it.
+- **Each call has a firmness, a status and an approval**, all set in `rules/calls.toml`.
   - Firmness: *NYS says*, *Our call* or *Needs clinical sign-off*.
   - Status: *Proposed* or *Adopted* by the project.
   - Approval: *Needed*, *Approved* or *Confirmed by NYS*. Adopting a call doesn't approve
     it.
   
-  Changing either is a one-word edit; say who decided in the commit.
+  Say who decided in the commit.
 - **Keep the example caseload right.** If a call changes a result in the
   [example caseload](docs/guide/example-caseload.md), update its tables and every metric
   page that quotes it.
 - **Look up codes and thresholds; don't recall them.** Cite the source on the
   [instruments](docs/reference/instruments.md) page.
 - **The archive doesn't change.** Fix the guide instead.
-- **Check links before committing:**
+- **Check before committing.** CI runs both checks on every pull request:
+
+```bash
+python3 scripts/rules.py check
+```
 
 ```bash
 python3 scripts/check_links.py

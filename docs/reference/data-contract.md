@@ -18,7 +18,8 @@ doesn't need it.
 2. **Rows are events, not summaries.** The calculator works out each month's status.
 3. **Raw categories stay raw.** Payer type isn't collapsed to Medicaid yes or no, and
    visit provider type isn't collapsed to "qualifying". The guide's
-   [calls](our-calls.md) are calculator settings, so if a call changes, no site rewrites
+   [calls](our-calls.md) are calculator settings, read from
+   [`rules/calls.toml`](../../rules/calls.toml), so if a call changes, no site rewrites
    its extract.
 4. **No direct identifiers.** `patient_id` is a stable pseudonym, the same in every
    table and every source system (see [one patient id](../collecting/overview.md#one-patient-id)).
@@ -69,7 +70,7 @@ Extract every episode that overlaps the reporting month, plus any episode with n
 recorded discharge, however old. The calculator applies the
 [inactivity discharge](our-calls.md#inactivity-discharge) from T4: an episode's effective
 discharge date is the earlier of the recorded date and the last treatment contact plus
-90 days. A re-enrollment is a new row, so a baseline never carries across episodes.
+<!--rule:inactivity-discharge.days-->90<!--/rule--> days. A re-enrollment is a new row, so a baseline never carries across episodes.
 
 ### T4. `contact` — one row per BHCM or team interaction with the patient
 
@@ -107,13 +108,13 @@ purpose:
 
 - **Metrics 5–8:** any NYS scale dated on or after the episode's enrollment date. A
   score dated before it can never be the [baseline](our-calls.md#baseline).
-- **Metric 9:** any PHQ-2, PHQ-9 or PHQ-A in the 12 months ending on the last day of
+- **Metric 9:** any PHQ-2, PHQ-9 or PHQ-A in the <!--rule:what-counts-as-screened.lookback_months-->12<!--/rule--> months ending on the last day of
   the month ([what counts as screened](our-calls.md#what-counts-as-screened)).
-- **Metric 10:** any PHQ-9 or PHQ-A, with the 365 days before it
+- **Metric 10:** any PHQ-9 or PHQ-A, with the <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days before it
   ([initial PHQ-9](our-calls.md#initial-phq-9)).
 
 Extract every result for the patients in T3 since their episodes' enrollment dates, and
-every PHQ-2, PHQ-9 and PHQ-A for any patient in the 13 months ending on the last day of
+every PHQ-2, PHQ-9 and PHQ-A for any patient in the <!--rule:extraction.phq_history_months-->13<!--/rule--> months ending on the last day of
 the month.
 
 *Changed from the first sketch:* the `context` and `context_basis` columns
@@ -132,7 +133,7 @@ they were the hardest columns for an EHR-only site to fill.
 
 One row per patient discussed, never one per meeting. That shape is what stops "the
 consultant attended the caseload review" from counting as a review of every patient.
-Extract reviews in the 60 days ending on the last day of the month.
+Extract reviews in the <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days ending on the last day of the month.
 
 ### T7. `practice_visit` — the denominator for metric 9
 
@@ -158,7 +159,7 @@ means a change to that rule is a setting, not a new extract.
 | `bhcm_fte` | decimal | ✓ | Attested ([BHCM FTE](our-calls.md#bhcm-fte)) |
 | `screening_age_floor` | int | ✓ | 12 under the guide; a site with a different workflow states its own |
 | `treatment_contact_rule` | text | ✓ | How the extract decided `contact_kind = treatment`, for example "a signed progress note on the same day" |
-| `extract_run_date` | date | ✓ | The calculator warns if this is before the 15th of the following month |
+| `extract_run_date` | date | ✓ | The calculator warns if this is before the <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule-->th of the following month |
 | `source_system` | string | ✓ | For example `registry`, `epic`, `ecw`, `spreadsheet` |
 | `notes` | text | | Sent to NYS |
 

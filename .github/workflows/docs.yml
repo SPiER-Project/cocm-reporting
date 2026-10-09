@@ -1,0 +1,19 @@
+name: docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Docs agree with rules/calls.toml
+        run: python3 scripts/rules.py check
+      - name: Links and anchors resolve
+        run: python3 scripts/check_links.py

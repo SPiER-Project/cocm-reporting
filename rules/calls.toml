@@ -1,0 +1,360 @@
+# The guide's calls, as data.
+#
+# This file is the single source of truth for every value the guide's calls set: windows,
+# thresholds, code lists, and each call's status and approval. The future calculator
+# reads its settings from here, and the docs show the same values.
+#
+# Each [calls.<slug>] matches a "### " heading in docs/reference/our-calls.md, whose
+# anchor is the slug. The prose explaining a call stays in that page.
+#
+# After changing anything here, run:
+#     python3 scripts/rules.py sync     # rewrite the values shown in the docs
+#     python3 scripts/rules.py check    # confirm docs and rules agree (also run in CI)
+#
+# Every call has:
+#   group     the heading it sits under in the our-calls summary table
+#   firmness  nys-says | our-call | needs-clinical-sign-off
+#   status    proposed | adopted                       (has the project agreed it?)
+#   approval  needed | approved | confirmed-by-nys     (can it be relied on?)
+# Every other key is a value the call sets.
+
+# ---------------------------------------------------------------------------- Reporting
+
+[calls.reporting-month]
+title = "Reporting month"
+group = "Reporting"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+time_zone = "America/New_York"
+
+[calls.when-to-run-the-report]
+title = "When to run the report"
+group = "Reporting"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+earliest_run_day = 15        # day of the following month
+
+[calls.rounding]
+title = "Rounding"
+group = "Reporting"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+decimal_places = 1
+
+[calls.empty-denominators]
+title = "Empty denominators"
+group = "Reporting"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+# ------------------------------------------------------------- Enrollment and discharge
+
+[calls.what-counts-as-enrolled]
+title = "What counts as enrolled"
+group = "Enrollment and discharge"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+cocm_billing_codes = ["99492", "99493", "99494", "G2214"]
+
+[calls.enrollment-date]
+title = "Enrollment date"
+group = "Enrollment and discharge"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+[calls.enrolled-this-month]
+title = "Enrolled this month"
+group = "Enrollment and discharge"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+[calls.inactivity-discharge]
+title = "Inactivity discharge"
+group = "Enrollment and discharge"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+days = 90
+
+[calls.seventy-days]
+title = "Seventy days"
+group = "Enrollment and discharge"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+days = 70                    # set by NYS; the call is how to count them
+
+[calls.diagnosed-and-enrolled]
+title = "Diagnosed and enrolled"
+group = "Enrollment and discharge"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+[calls.duration-in-weeks]
+title = "Duration in weeks"
+group = "Enrollment and discharge"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+# ----------------------------------------------------------------------------- Medicaid
+
+[calls.who-counts-as-medicaid]
+title = "Who counts as Medicaid"
+group = "Medicaid"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+# Data-contract payer categories that count. Status is taken on the first of the month.
+medicaid_payer_categories = ["medicaid_ffs", "medicaid_managed_care", "dual_medicare_medicaid"]
+
+[calls.remission-is-a-medicaid-metric]
+title = "Remission is a Medicaid metric"
+group = "Medicaid"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+
+# ------------------------------------------------------------------- Scales and outcomes
+
+[calls.primary-scale]
+title = "Primary scale"
+group = "Scales and outcomes"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+[[calls.primary-scale.default_mapping]]
+diagnosis = "Depression, adult"
+scales = ["phq9"]
+
+[[calls.primary-scale.default_mapping]]
+diagnosis = "Depression, adolescent"
+scales = ["phq9", "smfq_child"]
+note = "the site picks one and uses it for every adolescent"
+
+[[calls.primary-scale.default_mapping]]
+diagnosis = "Anxiety, adult"
+scales = ["gad7"]
+
+[[calls.primary-scale.default_mapping]]
+diagnosis = "Anxiety, child or adolescent"
+scales = ["scared"]
+
+[[calls.primary-scale.default_mapping]]
+diagnosis = "PTSD"
+scales = ["pcl5"]
+
+[[calls.primary-scale.default_mapping]]
+diagnosis = "ADHD"
+scales = ["vanderbilt"]
+
+[[calls.primary-scale.default_mapping]]
+diagnosis = "General pediatric behavioral concern"
+scales = ["psc17"]
+
+[calls.baseline]
+title = "Baseline"
+group = "Scales and outcomes"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+window_days = 14             # days after the enrollment date
+
+[calls.elevated-baseline]
+title = "Elevated baseline"
+group = "Scales and outcomes"
+firmness = "our-call"
+firmness_note = "; needs clinical sign-off beyond PHQ-9 and GAD-7"
+status = "proposed"
+approval = "needed"
+
+# A baseline is elevated at or above `at_or_above`. A scale with no value can't yet
+# count as improved or in remission.
+[calls.elevated-baseline.thresholds]
+phq9 = { at_or_above = 10, firmness = "our-call" }
+gad7 = { at_or_above = 10, firmness = "our-call" }
+pcl5 = { at_or_above = 33, firmness = "needs-clinical-sign-off" }
+scared = { at_or_above = 25, firmness = "needs-clinical-sign-off" }
+psc17 = { at_or_above = 15, firmness = "needs-clinical-sign-off" }
+smfq_child = { at_or_above = 12, firmness = "needs-clinical-sign-off" }
+smfq_parent = { firmness = "needs-clinical-sign-off" }
+vanderbilt = { firmness = "needs-clinical-sign-off" }
+
+[calls.current-score-for-improvement]
+title = "Current score for improvement"
+group = "Scales and outcomes"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+[calls.fifty-percent-improved]
+title = "Fifty percent improved"
+group = "Scales and outcomes"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+boundary_counts = true       # exactly half the baseline counts as improved
+
+[calls.paired-forms]
+title = "Paired forms"
+group = "Scales and outcomes"
+firmness = "nys-says"
+firmness_note = ", for improvement"
+status = "adopted"
+approval = "needed"
+
+[calls.remission-timing]
+title = "Remission timing"
+group = "Scales and outcomes"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+
+[calls.remission-needs-an-elevated-baseline]
+title = "Remission needs an elevated baseline"
+group = "Scales and outcomes"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+
+[calls.remission-thresholds]
+title = "Remission thresholds"
+group = "Scales and outcomes"
+firmness = "our-call"
+firmness_note = "; needs clinical sign-off beyond PHQ-9 and GAD-7"
+status = "proposed"
+approval = "needed"
+
+# In remission when the score is below `below`, or, for the Vanderbilt, when fewer than
+# `symptom_count_below` symptom items are rated 2 or 3.
+[calls.remission-thresholds.thresholds]
+phq9 = { below = 5, firmness = "our-call" }
+gad7 = { below = 5, firmness = "our-call" }
+pcl5 = { below = 33, firmness = "needs-clinical-sign-off" }
+scared = { below = 25, firmness = "needs-clinical-sign-off" }
+psc17 = { below = 15, firmness = "needs-clinical-sign-off" }
+smfq_child = { below = 8, firmness = "needs-clinical-sign-off" }
+vanderbilt = { symptom_count_below = 6, firmness = "needs-clinical-sign-off" }
+
+[calls.psychiatric-consultation-denominator]
+title = "Psychiatric consultation denominator"
+group = "Scales and outcomes"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+
+# ------------------------------------------------------------------ Contacts and reviews
+
+[calls.clinical-contact]
+title = "Clinical contact"
+group = "Contacts and reviews"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+counted_contact_kinds = ["treatment"]
+
+[calls.active-treatment]
+title = "Active treatment"
+group = "Contacts and reviews"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+
+[calls.psychiatric-case-review]
+title = "Psychiatric case review"
+group = "Contacts and reviews"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+window_days = 60             # set by NYS; ending on the last day of the month
+
+# ----------------------------------------------------------------------------- Screening
+
+[calls.who-should-be-screened]
+title = "Who should be screened"
+group = "Screening"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+age_floor = 12
+excluded_codes = ["99211"]
+
+[[calls.who-should-be-screened.visit_types]]
+visit = "Office or outpatient evaluation and management (E&M)"
+codes = ["99202-99205", "99212-99215"]
+
+[[calls.who-should-be-screened.visit_types]]
+visit = "Preventive medicine, new and established"
+codes = ["99381-99397"]
+
+[[calls.who-should-be-screened.visit_types]]
+visit = "Medicare annual wellness visit"
+codes = ["G0438", "G0439"]
+
+[[calls.who-should-be-screened.visit_types]]
+visit = "Telehealth equivalents of the above"
+codes = []                   # to be confirmed
+
+[calls.what-counts-as-screened]
+title = "What counts as screened"
+group = "Screening"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+lookback_months = 12         # set by NYS; ending on the last day of the month
+
+[calls.initial-phq-9]
+title = "Initial PHQ-9"
+group = "Screening"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+lookback_days = 365
+
+[calls.phq-a-counts-as-phq-9]
+title = "PHQ-A counts as PHQ-9"
+group = "Screening"
+firmness = "our-call"
+status = "proposed"
+approval = "needed"
+counts_as = "phq9"
+
+# ------------------------------------------------------------------------------ Staffing
+
+[calls.bhcm-fte]
+title = "BHCM FTE"
+group = "Staffing"
+firmness = "our-call"
+status = "adopted"
+approval = "needed"
+
+# ======================================================================== Not calls
+
+# Values that follow from the calls above, used by extraction.
+[extraction]
+# 12 months for metric 9, plus the 365 days before each PHQ-9 for metric 10.
+phq_history_months = 13
+
+# Values NYS sets directly.
+[nys]
+screening_yield_positive_at_or_above = 10
+
+# Display names for the scale keys used above.
+[scales]
+phq9 = "PHQ-9"
+gad7 = "GAD-7"
+pcl5 = "PCL-5"
+scared = "SCARED"
+psc17 = "PSC-17"
+smfq_child = "SMFQ (child form)"
+smfq_parent = "SMFQ (parent form)"
+vanderbilt = "NICHQ Vanderbilt"

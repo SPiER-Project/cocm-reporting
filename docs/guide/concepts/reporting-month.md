@@ -8,7 +8,7 @@ when to run the report, and when a submitted month can change.
 ## What NYS says
 
 Every metric says "this month" or "during the reporting period", and none defines it.
-Metric 9 also looks back 12 months, and metric 8 looks back 60 days.
+Metric 9 also looks back <!--rule:what-counts-as-screened.lookback_months-->12<!--/rule--> months, and metric 8 looks back <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days.
 
 ## The rule
 
@@ -24,7 +24,7 @@ or the record was keyed in. *Our call.*
 timestamps in UTC. In New York, a PHQ-9 completed at 9 p.m. on 31 March is stored as
 1 April in UTC, which moves it into the wrong month. *Our call.*
 
-**Run the report no earlier than the 15th of the following month.** That gives late
+**Run the report no earlier than the <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule-->th of the following month.** That gives late
 notes, scales and charges two weeks to land. *Our call:
 [when to run the report](../../reference/our-calls.md#when-to-run-the-report).*
 If NYS's deadline turns out to be earlier, the deadline wins.
@@ -36,7 +36,7 @@ already submitted. A correction is a mistake in the extract or the logic, not a 
 
 ## What the program should do
 
-- Set a standing date for the monthly run, on or after the 15th.
+- Set a standing date for the monthly run, on or after the <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule-->th.
 - Ask clinicians to document contacts and scales within the month, or within two weeks of
   month end at the latest.
 - Keep a short log of any month restated, and why.

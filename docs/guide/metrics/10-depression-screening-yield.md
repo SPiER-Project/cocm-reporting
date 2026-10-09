@@ -13,7 +13,7 @@ payers.
 
 - **Denominator:** patients with an [initial PHQ-9](../concepts/screening.md#initial-phq-9-metric-10)
   this month. That is a scored PHQ-9 (or PHQ-A) dated this month, with no other scored
-  PHQ-9 in the 365 days before it. Each patient counts once, on their first PHQ-9 of the
+  PHQ-9 in the <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days before it. Each patient counts once, on their first PHQ-9 of the
   month.
 - **Numerator:** those whose initial PHQ-9 scored **10 or more**. *NYS says.*
 - **Report both:** the numerator as the count, and numerator ÷ denominator as the
@@ -36,8 +36,8 @@ From the [screening](../concepts/screening.md#worked-example) example:
 
 ## Where the data lives
 
-The same PHQ results as [metric 9](09-depression-screening-rate.md), with at least 13
-months of PHQ-9 history, so that the 365 days before any PHQ-9 in the month are covered.
+The same PHQ results as [metric 9](09-depression-screening-rate.md), with at least <!--rule:extraction.phq_history_months-->13<!--/rule-->
+months of PHQ-9 history, so that the <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days before any PHQ-9 in the month are covered.
 See [screening](../concepts/screening.md#where-the-data-lives).
 
 ## Common mistakes
@@ -46,10 +46,10 @@ See [screening](../concepts/screening.md#where-the-data-lives).
 |---|---|
 | Treating every PHQ-9 in the month as initial | Dominated by repeat and monitoring scores; yield distorted |
 | Counting PHQ-2 results | Wrong instrument; PHQ-2 has a different scale |
-| Pulling too little history to see the prior 365 days | PHQ-9s are wrongly counted as initial |
+| Pulling too little history to see the prior <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days | PHQ-9s are wrongly counted as initial |
 | Reporting only the percentage | NYS asks for the count too |
 
 ## For automation
 
 Reads [`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
-(PHQ-9 and PHQ-A, with history back 365 days from the earliest PHQ-9 in the month).
+(PHQ-9 and PHQ-A, with history back <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days from the earliest PHQ-9 in the month).

@@ -55,8 +55,8 @@ See [Medicaid](concepts/medicaid.md#what-the-program-should-do).
 - **Every closed episode has a discharge date and reason.** Close any episode that has
   ended but is still open.
 - **Apply the inactivity rule.** Find every open episode with no clinical contact in the
-  last 90 days, and either re-engage the patient or discharge them. Then make the
-  90-day review part of the monthly routine.
+  last <!--rule:inactivity-discharge.days-->90<!--/rule--> days, and either re-engage the patient or discharge them. Then make the
+  <!--rule:inactivity-discharge.days-->90<!--/rule-->-day review part of the monthly routine.
 - **Returning patients get a new episode**, not a reopened one.
 
 If there's no enrollment record at all, the site will infer enrollment from billing and
@@ -102,7 +102,7 @@ or a tab in the spreadsheet all work. A meeting note listing names doesn't. See
 ## 9. Check the screening workflow
 
 - **Compare the practice's universal screening workflow with the guide's:**
-  - patients 12 and older;
+  - patients <!--rule:who-should-be-screened.age_floor-->12<!--/rule--> and older;
   - at qualifying medical visits;
   - PHQ-2 or PHQ-9 at least yearly.
   
@@ -142,7 +142,7 @@ Report a recent past month in full before the first real submission.
   - a contact rate near 100%, which often means outreach is being counted;
   - a screening rate far below what the clinic expects, which often means a missed
     questionnaire.
-- **Set the monthly calendar:** extracts on or after the 15th, review, sign-off, and
+- **Set the monthly calendar:** extracts on or after the <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule-->th, review, sign-off, and
   submission before the NYS deadline.
 
 ## The setup record

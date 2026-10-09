@@ -8,13 +8,13 @@ the guide uses them.
 
 | Instrument | Forms | Total score range | Elevated baseline at or above | Improved when (NYS) | Remission below | Firmness of our thresholds |
 |---|---|---|---|---|---|---|
-| PHQ-9 (and PHQ-A) | One | 0–27 | 10 | At most half the baseline, or below 10 | 5 | Our call, backed by HEDIS |
-| GAD-7 | One | 0–21 | 10 | At most half the baseline, or below 10 | 5 | Our call |
-| PCL-5 | One | 0–80 | 33 | At least 12 points below baseline | 33 | Needs clinical sign-off |
-| SCARED | Child; caregiver | 0–82 | 25 | Either form at most half its baseline | 25 | Needs clinical sign-off |
-| SMFQ | Child (SMFQ-C); parent (SMFQ-P) | 0–26 | 12 (child form) | Child form 8 points better, or parent form 6 | 8 (child form) | Needs clinical sign-off |
-| PSC-17 | One | 0–34 | 15 | At most half the baseline | 15 | Needs clinical sign-off |
-| NICHQ Vanderbilt | Parent; teacher | Subscale scores; no single total | Not set | Either form's score at most half its baseline | Fewer than 6 symptom items rated 2 or 3 | Needs clinical sign-off |
+| PHQ-9 (and PHQ-A) | One | 0–27 | <!--rule:elevated-baseline.thresholds.phq9.at_or_above-->10<!--/rule--> | At most half the baseline, or below 10 | <!--rule:remission-thresholds.thresholds.phq9.below-->5<!--/rule--> | <!--rule:elevated-baseline.thresholds.phq9.firmness-->Our call<!--/rule-->, backed by HEDIS |
+| GAD-7 | One | 0–21 | <!--rule:elevated-baseline.thresholds.gad7.at_or_above-->10<!--/rule--> | At most half the baseline, or below 10 | <!--rule:remission-thresholds.thresholds.gad7.below-->5<!--/rule--> | <!--rule:elevated-baseline.thresholds.gad7.firmness-->Our call<!--/rule--> |
+| PCL-5 | One | 0–80 | <!--rule:elevated-baseline.thresholds.pcl5.at_or_above-->33<!--/rule--> | At least 12 points below baseline | <!--rule:remission-thresholds.thresholds.pcl5.below-->33<!--/rule--> | <!--rule:elevated-baseline.thresholds.pcl5.firmness-->Needs clinical sign-off<!--/rule--> |
+| SCARED | Child; caregiver | 0–82 | <!--rule:elevated-baseline.thresholds.scared.at_or_above-->25<!--/rule--> | Either form at most half its baseline | <!--rule:remission-thresholds.thresholds.scared.below-->25<!--/rule--> | <!--rule:elevated-baseline.thresholds.scared.firmness-->Needs clinical sign-off<!--/rule--> |
+| SMFQ | Child (SMFQ-C); parent (SMFQ-P) | 0–26 | <!--rule:elevated-baseline.thresholds.smfq_child.at_or_above-->12<!--/rule--> (child form) | Child form 8 points better, or parent form 6 | <!--rule:remission-thresholds.thresholds.smfq_child.below-->8<!--/rule--> (child form) | <!--rule:elevated-baseline.thresholds.smfq_child.firmness-->Needs clinical sign-off<!--/rule--> |
+| PSC-17 | One | 0–34 | <!--rule:elevated-baseline.thresholds.psc17.at_or_above-->15<!--/rule--> | At most half the baseline | <!--rule:remission-thresholds.thresholds.psc17.below-->15<!--/rule--> | <!--rule:elevated-baseline.thresholds.psc17.firmness-->Needs clinical sign-off<!--/rule--> |
+| NICHQ Vanderbilt | Parent; teacher | Subscale scores; no single total | <!--rule:elevated-baseline.thresholds.vanderbilt.at_or_above-->not set<!--/rule--> | Either form's score at most half its baseline | Fewer than <!--rule:remission-thresholds.thresholds.vanderbilt.symptom_count_below-->6<!--/rule--> symptom items rated 2 or 3 | <!--rule:elevated-baseline.thresholds.vanderbilt.firmness-->Needs clinical sign-off<!--/rule--> |
 
 The improvement criteria are [NYS Appendix A](nys-source/nys-omh-cocm-metrics-2025.md#appendix-a-improvement-rate-specifications).
 Elevated-baseline and remission thresholds are the guide's calls:
