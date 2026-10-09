@@ -4,7 +4,8 @@ The secondary goal: electronic means of capturing the data, so sites don't have 
 assemble it by hand. This page is for the people building the tools. Clinic-facing
 collection guidance is in [`collecting/`](collecting/overview.md).
 
-**Status:** options for discussion. Nothing here is built.
+**Status:** the [calculator](#the-calculator) is built and tested against the guide's
+worked examples. The other ways in are options for discussion.
 
 ## The pieces
 
@@ -17,6 +18,38 @@ collection guidance is in [`collecting/`](collecting/overview.md).
   and why; that list stays at the site.
 - **Ways in:** the workbook, registry mappings, EHR report recipes, and FHIR. Each fills
   some or all of the tables.
+
+## The calculator
+
+[`calculator/`](../calculator/) computes the eleven metrics from a directory of
+data-contract CSVs, following [`rules/calls.toml`](../rules/calls.toml):
+
+```bash
+python3 -m calculator tests/fixtures/example-caseload --month 2025-03
+```
+
+Add `--json results.json` to also write the full results. The output includes:
+- the eleven numbers;
+- the disclosures for NYS;
+- warnings, such as a run before the 15th or calls still needing approval;
+- for each metric, the patients who fell out of the numerator and why. This list
+  identifies patients by pseudonymous id and stays at the site.
+
+**How it's built.** It uses the Python standard library only. The core works on text in
+memory, not files, so the same code can run in a browser through Pyodide: a site could
+drop its CSVs into a web page, and nothing would leave its machine. Each step of the
+calculation names the call it implements.
+
+**How it's tested.** `python3 -m unittest discover tests` runs it on every fixture in
+[`tests/fixtures/`](../tests/fixtures/) and compares the output with `expected.toml`,
+metric by metric and patient by patient. It also tests the edge of each rule: the
+90th day without contact, exactly half the baseline, a 12th birthday on the visit date,
+an empty denominator. CI runs the tests on every pull request.
+
+**Not yet built:**
+- the browser page;
+- the REDCap output format, which waits on NYS's form (Q-T5);
+- the pseudonymization tool (Q-T3).
 
 ## What each way in costs us
 
@@ -42,10 +75,9 @@ the registry for the CoCM half.
 
 This is Q-T1 in [open questions](open-questions.md#the-tooling). A proposal to react to:
 
-1. **The workbook and the calculator, together.** The workbook is the contract made
-   usable, and it gives the calculator real input to test against. The calculator's
-   first tests are the fixtures in [`tests/fixtures/`](../tests/fixtures/): it must
-   reproduce each `expected.toml`, metric by metric and patient by patient.
+1. **The workbook, now that the calculator exists.** The workbook is the contract made
+   usable. A workbook that exports the eight CSVs gives spreadsheet sites a way to run
+   the calculator.
 2. **Registry mappings**, starting with whichever registries a survey of NYS sites says
    are most common. They cover metrics 1–8 for most sites.
 3. **EHR report recipes** for metrics 9–10 and coverage, starting with the most common

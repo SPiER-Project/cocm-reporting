@@ -348,6 +348,20 @@ phq_history_months = 13
 [nys]
 screening_yield_positive_at_or_above = 10
 
+# NYS Appendix A improvement criteria, by scale. A form has improved when its current
+# score is at most `fraction_of_baseline` of its baseline (whether exactly that fraction
+# counts is the fifty-percent-improved call), or below `or_below`, or at least
+# `points_better` below its baseline.
+[nys.improvement]
+phq9 = { fraction_of_baseline = 0.5, or_below = 10 }
+gad7 = { fraction_of_baseline = 0.5, or_below = 10 }
+pcl5 = { points_better = 12 }
+scared = { fraction_of_baseline = 0.5 }
+psc17 = { fraction_of_baseline = 0.5 }
+smfq_child = { points_better = 8 }
+smfq_parent = { points_better = 6 }
+vanderbilt = { fraction_of_baseline = 0.5 }
+
 # Display names for the scale keys used above.
 [scales]
 phq9 = "PHQ-9"

@@ -17,5 +17,7 @@ jobs:
         run: python3 scripts/rules.py check
       - name: Worked examples match their fixtures and rules
         run: python3 scripts/examples.py check
+      - name: Calculator reproduces the fixtures
+        run: python3 -m unittest discover tests
       - name: Links and anchors resolve
         run: python3 scripts/check_links.py
