@@ -12,58 +12,64 @@ with the reasoning, in one place.
 - **Needs clinical sign-off**: our call, but a clinical judgement a reporting team
   shouldn't make alone. Treat the value as provisional.
 
-**Status**
+**Status**: whether the project has agreed the call.
 
 - **Proposed**: drafted, not yet agreed by the project.
 - **Adopted**: agreed by the project.
+
+**Approval**: whether the call can be relied on. Adopting a call doesn't approve it.
+
+- **Needed**: not yet approved. Treat the call as provisional.
+- **Approved**: approved by whoever approves the guide's calls (not yet decided; see
+  [open questions](../open-questions.md#about-the-guide)).
 - **Confirmed by NYS**: NYS has given the same answer.
 
-Every call below is **Proposed**. Each lists what it replaces in the archived
+Every call below still **needs approval**. Each lists what it replaces in the archived
 [draft v0.1](../archive/reporting-spec-draft-v0.1.md) and
 [review notes](../archive/review-notes-v0.1.md), so its history can be traced.
 
 ## Summary
 
-| Call | Firmness | Status |
-|---|---|---|
-| **Reporting** | | |
-| [Reporting month](#reporting-month) | Our call | Proposed |
-| [When to run the report](#when-to-run-the-report) | Our call | Proposed |
-| [Rounding](#rounding) | Our call | Proposed |
-| [Empty denominators](#empty-denominators) | Our call | Proposed |
-| **Enrollment and discharge** | | |
-| [What counts as enrolled](#what-counts-as-enrolled) | Our call | Proposed |
-| [Enrollment date](#enrollment-date) | Our call | Proposed |
-| [Enrolled this month](#enrolled-this-month) | Our call | Proposed |
-| [Inactivity discharge](#inactivity-discharge) | Our call | Proposed |
-| [Seventy days](#seventy-days) | Our call | Proposed |
-| [Diagnosed and enrolled](#diagnosed-and-enrolled) | Our call | Proposed |
-| [Duration in weeks](#duration-in-weeks) | Our call | Proposed |
-| **Medicaid** | | |
-| [Who counts as Medicaid](#who-counts-as-medicaid) | Our call | Proposed |
-| [Remission is a Medicaid metric](#remission-is-a-medicaid-metric) | Our call | Proposed |
-| **Scales and outcomes** | | |
-| [Primary scale](#primary-scale) | Our call | Proposed |
-| [Baseline](#baseline) | Our call | Proposed |
-| [Elevated baseline](#elevated-baseline) | Our call; needs clinical sign-off beyond PHQ-9 and GAD-7 | Proposed |
-| [Current score for improvement](#current-score-for-improvement) | Our call | Proposed |
-| [Fifty percent improved](#fifty-percent-improved) | Our call | Proposed |
-| [Paired forms](#paired-forms) | NYS says, for improvement | Proposed |
-| [Remission timing](#remission-timing) | Our call | Proposed |
-| [Remission needs an elevated baseline](#remission-needs-an-elevated-baseline) | Our call | Proposed |
-| [Remission thresholds](#remission-thresholds) | Our call; needs clinical sign-off beyond PHQ-9 and GAD-7 | Proposed |
-| [Psychiatric consultation denominator](#psychiatric-consultation-denominator) | Our call | Proposed |
-| **Contacts and reviews** | | |
-| [Clinical contact](#clinical-contact) | Our call | Proposed |
-| [Active treatment](#active-treatment) | Our call | Proposed |
-| [Psychiatric case review](#psychiatric-case-review) | Our call | Proposed |
-| **Screening** | | |
-| [Who should be screened](#who-should-be-screened) | Our call | Proposed |
-| [What counts as screened](#what-counts-as-screened) | Our call | Proposed |
-| [Initial PHQ-9](#initial-phq-9) | Our call | Proposed |
-| [PHQ-A counts as PHQ-9](#phq-a-counts-as-phq-9) | Our call | Proposed |
-| **Staffing** | | |
-| [BHCM FTE](#bhcm-fte) | Our call | Proposed |
+| Call | Firmness | Status | Approval |
+|---|---|---|---|
+| **Reporting** | | | |
+| [Reporting month](#reporting-month) | Our call | Adopted | Needed |
+| [When to run the report](#when-to-run-the-report) | Our call | Adopted | Needed |
+| [Rounding](#rounding) | Our call | Adopted | Needed |
+| [Empty denominators](#empty-denominators) | Our call | Adopted | Needed |
+| **Enrollment and discharge** | | | |
+| [What counts as enrolled](#what-counts-as-enrolled) | Our call | Adopted | Needed |
+| [Enrollment date](#enrollment-date) | Our call | Adopted | Needed |
+| [Enrolled this month](#enrolled-this-month) | Our call | Adopted | Needed |
+| [Inactivity discharge](#inactivity-discharge) | Our call | Proposed | Needed |
+| [Seventy days](#seventy-days) | Our call | Adopted | Needed |
+| [Diagnosed and enrolled](#diagnosed-and-enrolled) | Our call | Adopted | Needed |
+| [Duration in weeks](#duration-in-weeks) | Our call | Adopted | Needed |
+| **Medicaid** | | | |
+| [Who counts as Medicaid](#who-counts-as-medicaid) | Our call | Proposed | Needed |
+| [Remission is a Medicaid metric](#remission-is-a-medicaid-metric) | Our call | Proposed | Needed |
+| **Scales and outcomes** | | | |
+| [Primary scale](#primary-scale) | Our call | Adopted | Needed |
+| [Baseline](#baseline) | Our call | Adopted | Needed |
+| [Elevated baseline](#elevated-baseline) | Our call; needs clinical sign-off beyond PHQ-9 and GAD-7 | Proposed | Needed |
+| [Current score for improvement](#current-score-for-improvement) | Our call | Adopted | Needed |
+| [Fifty percent improved](#fifty-percent-improved) | Our call | Adopted | Needed |
+| [Paired forms](#paired-forms) | NYS says, for improvement | Adopted | Needed |
+| [Remission timing](#remission-timing) | Our call | Proposed | Needed |
+| [Remission needs an elevated baseline](#remission-needs-an-elevated-baseline) | Our call | Proposed | Needed |
+| [Remission thresholds](#remission-thresholds) | Our call; needs clinical sign-off beyond PHQ-9 and GAD-7 | Proposed | Needed |
+| [Psychiatric consultation denominator](#psychiatric-consultation-denominator) | Our call | Proposed | Needed |
+| **Contacts and reviews** | | | |
+| [Clinical contact](#clinical-contact) | Our call | Proposed | Needed |
+| [Active treatment](#active-treatment) | Our call | Proposed | Needed |
+| [Psychiatric case review](#psychiatric-case-review) | Our call | Adopted | Needed |
+| **Screening** | | | |
+| [Who should be screened](#who-should-be-screened) | Our call | Proposed | Needed |
+| [What counts as screened](#what-counts-as-screened) | Our call | Proposed | Needed |
+| [Initial PHQ-9](#initial-phq-9) | Our call | Proposed | Needed |
+| [PHQ-A counts as PHQ-9](#phq-a-counts-as-phq-9) | Our call | Proposed | Needed |
+| **Staffing** | | | |
+| [BHCM FTE](#bhcm-fte) | Our call | Adopted | Needed |
 
 ---
 

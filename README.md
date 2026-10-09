@@ -13,8 +13,9 @@ leaves much undefined:
 Where it's silent or ambiguous, the guide makes a call, says why, and says how firm it is.
 Two clinics that follow it should report the same numbers from the same patients.
 
-**Status:** the guide is written. All of its calls are **Proposed**: they haven't yet been
-adopted by the project or confirmed by NYS, and some need a clinician's sign-off. The
+**Status:** the guide is written. Every one of its calls still **needs approval**, so treat
+the guide as provisional. The project has adopted the more mechanical calls; the rest
+are proposed, and some need a clinician's sign-off. The
 [open questions](docs/open-questions.md) list what's outstanding. Nothing for automated
 capture is built yet.
 
@@ -63,11 +64,13 @@ capture is built yet.
 - **Every interpretation of NYS is a call** in [`our-calls.md`](docs/reference/our-calls.md).
   Pages state the rule and link to the call; they don't argue it. To change a rule, change
   the call first, then every page that links to it.
-- **Each call has a firmness and a status.**
+- **Each call has a firmness, a status and an approval.**
   - Firmness: *NYS says*, *Our call* or *Needs clinical sign-off*.
-  - Status: *Proposed*, *Adopted* or *Confirmed by NYS*.
+  - Status: *Proposed* or *Adopted* by the project.
+  - Approval: *Needed*, *Approved* or *Confirmed by NYS*. Adopting a call doesn't approve
+    it.
   
-  Adopting a call is a one-word edit; say who adopted it in the commit.
+  Changing either is a one-word edit; say who decided in the commit.
 - **Keep the example caseload right.** If a call changes a result in the
   [example caseload](docs/guide/example-caseload.md), update its tables and every metric
   page that quotes it.

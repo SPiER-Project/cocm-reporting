@@ -1,7 +1,7 @@
 # Start here
 
-**Status:** written. Every call the guide makes is **Proposed** until the project adopts
-it; see [`our-calls.md`](../reference/our-calls.md).
+**Status:** written, but provisional: every call the guide makes still needs approval. See
+[`our-calls.md`](../reference/our-calls.md) for each call's status.
 
 This guide tells a New York clinic how to report the eleven CoCM metrics NYS OMH asks for
 each month, and how to get each fact out of the systems it has. Where the

@@ -2,7 +2,7 @@
 
 Only what is still open. Each measure question raised after draft v0.1 (Q-01 – Q-09)
 now has a call in [`our-calls.md`](reference/our-calls.md), and each call lists the
-question it replaces. Those calls are still **Proposed** until the project adopts them.
+question it replaces. Every call still needs approval.
 
 ## For NYS
 
@@ -46,3 +46,4 @@ about:
 | Question | Notes |
 |---|---|
 | Whose calls are these? | "Our call" needs an "our": SPiER, HTD, a named working group, or unattributed. |
+| Who approves a call? | Every call is marked **approval needed**. Someone has to be able to approve it: the same group, a clinical lead for the calls that need clinical sign-off, or NYS itself. |
