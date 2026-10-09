@@ -204,5 +204,27 @@ class RuleTests(unittest.TestCase):
         self.assertEqual(months_back(date(2024, 12, 1), -1), date(2025, 1, 1))
 
 
+class WebEntryPointTests(unittest.TestCase):
+    """The browser page passes strings to calculator.web.run and gets JSON back."""
+
+    def test_runs_the_example_caseload(self):
+        import json
+        from calculator.web import run
+        directory = os.path.join(ROOT, "tests", "fixtures", "example-caseload")
+        texts = {}
+        for path in glob.glob(os.path.join(directory, "*.csv")):
+            with open(path, newline="") as f:
+                texts[os.path.splitext(os.path.basename(path))[0]] = f.read()
+        results = json.loads(run(json.dumps(texts), RULES_TEXT, "2025-03"))
+        values = {row["metric"]: row["value"] for row in results["rows"]}
+        self.assertEqual(values["5"], "7 of 8, 87.5%")
+        self.assertEqual(values["4"], "18.7 weeks")
+
+    def test_reports_bad_input_as_an_error(self):
+        import json
+        from calculator.web import run
+        self.assertIn("error", json.loads(run(json.dumps({"visits": ""}), RULES_TEXT, "2025-03")))
+
+
 if __name__ == "__main__":
     unittest.main()
