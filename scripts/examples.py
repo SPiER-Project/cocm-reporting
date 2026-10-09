@@ -33,12 +33,12 @@ import tomllib
 from decimal import ROUND_HALF_UP, Decimal
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import contract  # noqa: E402
 import rules as R  # noqa: E402
 
 ROOT = R.ROOT
 REGISTRY = os.path.join(ROOT, "tests", "examples.toml")
 LOCK = os.path.join(ROOT, "tests", "examples.lock.json")
-CONTRACT = os.path.join(ROOT, "docs", "reference", "data-contract.md")
 
 METRICS = {
     "m1": ("1. Total enrollment", "metrics/01-total-enrollment.md"),
@@ -67,20 +67,9 @@ def load_toml(path):
 
 def contract_tables():
     """{table: {column: (type, required, allowed values or None)}} from the data contract."""
-    text = open(CONTRACT).read()
-    tables = {}
-    for m in re.finditer(r"^### T\d+\. `(\w+)`.*?\n\n(\|.*?)\n\n", text, re.M | re.S):
-        cols = {}
-        for row in m.group(2).splitlines()[2:]:
-            cells = [c.strip() for c in row.strip("|").split("|")]
-            name, typ, req, notes = cells[0].strip("`"), cells[1], cells[2] == "✓", cells[3]
-            allowed = None
-            if typ == "enum" and " · " in notes:
-                first = re.split(r"\. |$", notes, maxsplit=1)[0]
-                allowed = set(re.findall(r"`([\w]+)`", first))
-            cols[name] = (typ, req, allowed)
-        tables[m.group(1)] = cols
-    return tables
+    return {name: {c["name"]: (c["type"], c["required"], set(c["allowed"]) if c["allowed"] else None)
+                   for c in columns}
+            for name, _, columns in contract.tables()}
 
 
 def check_value(typ, value):

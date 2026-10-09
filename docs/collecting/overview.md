@@ -36,9 +36,9 @@ for the CoCM facts, and the EHR for everything else.
 
 **For:** sites whose CoCM registry is a spreadsheet, and sites without a report writer.
 
-Keep the registry, and add to it what the metrics need that a basic registry doesn't
-hold. Get the EHR facts (visits, PHQs, coverage) from one or two standard reports that
-the practice-management system can already run. See [the workbook route](workbook.md).
+Fill in the reporting workbook from the registry spreadsheet and one or two standard
+reports the practice-management system can already run (visits, PHQs, coverage). The
+calculator page reads the workbook directly. See [the workbook route](workbook.md).
 
 - **Cost:** some manual work each month, mostly the visit and screening data for metric 9.
 - **Risk:** hand-copied dates and missing rows. Keep the copying to a minimum and check
