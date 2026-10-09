@@ -33,7 +33,7 @@ improve:
 | P4 | 20 Nov 2024 | No |
 | P6 | 5 Mar 2025, with recommendation | **Yes** |
 
-**Metric 8: 1 of 2, 50.0%.**
+**Metric 8: <!--expect:example-caseload.m8-->1 of 2, 50.0%<!--/expect-->.**
 
 P1, P3, P7 and P9 also had reviews, but they improved, so they aren't in the
 denominator. P4 had no contact for three months and no review since November. The metric

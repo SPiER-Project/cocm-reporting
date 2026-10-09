@@ -32,7 +32,7 @@ From the [screening](../concepts/screening.md#worked-example) example:
 - **Patient D:** has monthly CoCM PHQ-9s, so their March PHQ-9 isn't initial.
 - **Patient A:** had only a PHQ-2.
 
-**Metric 10: 1 patient, 1 of 2, 50.0%.**
+**Metric 10: <!--expect:screening-example.m10-->1 patient, 1 of 2, 50.0%<!--/expect-->.**
 
 ## Where the data lives
 

@@ -20,7 +20,7 @@ From the [example caseload](../example-caseload.md): metric 1's nine patients, l
 who has commercial coverage. P3 is dual Medicare–Medicaid and counts; P6 is in a HARP,
 which is Medicaid managed care, and counts.
 
-**Metric 2: 8.**
+**Metric 2: <!--expect:example-caseload.m2-->8<!--/expect-->.**
 
 ## Where the data lives
 

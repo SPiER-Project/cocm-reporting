@@ -1,0 +1,76 @@
+# The guide's worked examples, and the calls each one depends on.
+#
+# scripts/examples.py check fails when a call an example depends on has changed since the
+# example was last verified: its values in rules/calls.toml, or the wording of its
+# "Call." paragraph in docs/reference/our-calls.md. Then:
+#   1. rework the example on its pages (and its fixture, if it has one);
+#   2. run  python3 scripts/examples.py verify <name>  to record that it's been checked.
+# The fingerprints it records live in tests/examples.lock.json; don't edit that by hand.
+#
+# Each example has:
+#   pages       every page that shows the example or quotes its results
+#   fixture     (optional) a directory of data-contract CSVs plus expected.toml
+#   depends_on  the calls whose rules the example's results follow from
+
+[examples.example-caseload]
+pages = [
+  "docs/guide/example-caseload.md",
+  "docs/guide/metrics/01-total-enrollment.md",
+  "docs/guide/metrics/02-medicaid-enrollment.md",
+  "docs/guide/metrics/03-newly-enrolled.md",
+  "docs/guide/metrics/04-average-duration-of-treatment.md",
+  "docs/guide/metrics/05-monthly-contact-rate.md",
+  "docs/guide/metrics/06-improvement-rate.md",
+  "docs/guide/metrics/07-remission-rate.md",
+  "docs/guide/metrics/08-psychiatric-consultation-rate.md",
+]
+fixture = "tests/fixtures/example-caseload"
+depends_on = [
+  "reporting-month", "rounding",
+  "what-counts-as-enrolled", "enrollment-date", "enrolled-this-month",
+  "inactivity-discharge", "seventy-days", "diagnosed-and-enrolled", "duration-in-weeks",
+  "who-counts-as-medicaid", "remission-is-a-medicaid-metric",
+  "primary-scale", "baseline", "elevated-baseline", "current-score-for-improvement",
+  "fifty-percent-improved", "remission-timing", "remission-needs-an-elevated-baseline",
+  "remission-thresholds", "psychiatric-consultation-denominator",
+  "clinical-contact", "active-treatment", "psychiatric-case-review",
+]
+
+[examples.screening-example]
+pages = [
+  "docs/guide/concepts/screening.md",
+  "docs/guide/metrics/09-depression-screening-rate.md",
+  "docs/guide/metrics/10-depression-screening-yield.md",
+]
+fixture = "tests/fixtures/screening-example"
+depends_on = [
+  "reporting-month", "rounding",
+  "who-should-be-screened", "what-counts-as-screened", "initial-phq-9",
+  "phq-a-counts-as-phq-9",
+]
+
+[examples.enrollment-example]
+pages = ["docs/guide/concepts/enrollment-and-discharge.md"]
+depends_on = [
+  "rounding", "what-counts-as-enrolled", "enrollment-date", "enrolled-this-month",
+  "inactivity-discharge", "seventy-days", "diagnosed-and-enrolled", "duration-in-weeks",
+]
+
+[examples.scales-example]
+pages = ["docs/guide/concepts/scales-and-outcomes.md"]
+depends_on = [
+  "primary-scale", "baseline", "elevated-baseline", "current-score-for-improvement",
+  "fifty-percent-improved", "remission-timing", "remission-needs-an-elevated-baseline",
+  "remission-thresholds", "seventy-days", "active-treatment",
+]
+
+[examples.contacts-example]
+pages = ["docs/guide/concepts/contacts-and-reviews.md"]
+depends_on = ["rounding", "clinical-contact", "active-treatment"]
+
+[examples.bhcm-fte-example]
+pages = [
+  "docs/guide/concepts/bhcm-fte.md",
+  "docs/guide/metrics/11-bhcm-staffing.md",
+]
+depends_on = ["bhcm-fte"]

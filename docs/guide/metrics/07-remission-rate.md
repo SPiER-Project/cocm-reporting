@@ -43,7 +43,7 @@ From the [example caseload](../example-caseload.md):
 | P8 | PHQ-9 4 | **No**, baseline 8 | No: below 5, but never had an elevated baseline |
 | P9 | PHQ-9 4 | Yes | **Yes** |
 
-**Metric 7: 2 of 8, 25.0%.**
+**Metric 7: <!--expect:example-caseload.m7-->2 of 8, 25.0%<!--/expect-->.**
 
 P8 is why the elevated-baseline guard exists: without it, a patient who enrolled with
 mild symptoms would count as in remission from the start.

@@ -75,6 +75,35 @@ def validate(rules):
     return errors
 
 
+# ------------------------------------------------------------------------- fingerprints
+
+# Keys that describe a call rather than set its rule. Changing them doesn't change any
+# result, so they're left out of the fingerprint.
+METADATA = ("title", "group", "firmness", "firmness_note", "status", "approval")
+CALL_END = re.compile(r"^(\*\*(NYS says|Why|If NYS rules otherwise|Replaces|Consequence)\b|#{1,3} )", re.M)
+
+
+def call_text(name):
+    """The call's "Call." paragraph and anything before its reasoning, from our-calls.md."""
+    text = open(CALLS_PAGE).read()
+    for m in re.finditer(r"^### (.*)$", text, re.M):
+        if slug(m.group(1)) == name:
+            body = text[m.end():]
+            end = CALL_END.search(body)
+            return body[: end.start()] if end else body
+    return ""
+
+
+def fingerprint(rules, name):
+    """A short hash of everything that defines a call's rule: its values in the rules file
+    and the wording of its Call paragraph. It changes when the rule does."""
+    import hashlib
+    import json
+    values = {k: v for k, v in rules["calls"][name].items() if k not in METADATA}
+    data = json.dumps(values, sort_keys=True) + "\n" + call_text(name).strip()
+    return hashlib.sha256(data.encode()).hexdigest()[:12]
+
+
 # ------------------------------------------------------------------------- rendering
 
 

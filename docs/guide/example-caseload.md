@@ -7,6 +7,10 @@ same patients.
 
 **Reporting month:** March 2025. The metric 8 review window is 31 January to 31 March.
 
+The same patients are test data in [`tests/fixtures/example-caseload`](../../tests/fixtures/example-caseload),
+in the data contract's shape, with the expected results in `expected.toml`. Any tool that
+calculates the metrics should reproduce the results below from it.
+
 ## The patients
 
 | Patient | Coverage on 1 March | Enrolled | Discharged | Primary scale |
@@ -24,6 +28,10 @@ same patients.
 
 ## Their scores and contacts
 
+March in detail. Every patient also had a treatment contact at least monthly from
+enrollment until March, except P4, whose last was on 10 December; P4's calls since then
+went unanswered.
+
 | Patient | Baseline | Elevated? | March activity | Last psychiatric review |
 |---|---|---|---|---|
 | P1 | 18 (12 Nov) | Yes | Phone session and PHQ-9 of 8, 10 Mar | 12 Feb, with recommendation |
@@ -31,7 +39,7 @@ same patients.
 | P3 | 15 (13 Jan) | Yes | Video session and PHQ-9 of 7, 17 Mar | 3 Mar, with recommendation |
 | P4 | 16 (8 Oct) | Yes | None. Last GAD-7 was 12, on 10 Dec | 20 Nov, with recommendation |
 | P5 | 13 (10 Feb) | Yes | Phone session and PHQ-9 of 11, 7 Mar | — |
-| P6 | 48 (9 Dec) | Yes, with the candidate PCL-5 threshold of 33 | In-person session and PCL-5 of 40, 20 Mar | 5 Mar, with recommendation |
+| P6 | 48 (9 Dec) | Yes, with the PCL-5 threshold of 33, which needs clinical sign-off | In-person session and PCL-5 of 40, 20 Mar | 5 Mar, with recommendation |
 | P7 | 12 (16 Sep) | Yes | Phone session and PHQ-9 of 3, 24 Mar (February's was 4) | 15 Jan, with recommendation |
 | P8 | 8 (18 Dec) | **No** | Video session and PHQ-9 of 4, 6 Mar | — |
 | P9 | 13 (9 Dec) | Yes | Phone session and PHQ-9 of 4, 14 Mar | 26 Feb, with recommendation |
@@ -57,6 +65,7 @@ concept pages explain each rule.
 
 ## The results
 
+<!--expects:example-caseload-results-->
 | Metric | Result | Page |
 |---|---|---|
 | 1. Total enrollment | 9 | [metric 1](metrics/01-total-enrollment.md) |
@@ -67,6 +76,7 @@ concept pages explain each rule.
 | 6. Improvement rate | 4 of 6, 66.7% | [metric 6](metrics/06-improvement-rate.md) |
 | 7. Remission rate | 2 of 8, 25.0% | [metric 7](metrics/07-remission-rate.md) |
 | 8. Psychiatric consultation rate | 1 of 2, 50.0% | [metric 8](metrics/08-psychiatric-consultation-rate.md) |
+<!--/expects-->
 
 Metrics 9 and 10 use the whole practice, not the caseload; their example is on the
 [screening](concepts/screening.md#worked-example) page. Metric 11's is on the

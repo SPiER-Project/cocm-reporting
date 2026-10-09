@@ -86,16 +86,29 @@ python3 scripts/rules.py sync
     it.
   
   Say who decided in the commit.
-- **Keep the example caseload right.** If a call changes a result in the
-  [example caseload](docs/guide/example-caseload.md), update its tables and every metric
-  page that quotes it.
+- **Keep the worked examples right.** Each example names the calls it depends on in
+  [`tests/examples.toml`](tests/examples.toml). If one of those calls changes, CI marks
+  the example stale until someone reworks it and records that:
+
+```bash
+python3 scripts/examples.py verify example-caseload
+```
+
+  The [example caseload](docs/guide/example-caseload.md) and the screening example are
+  also test data in [`tests/fixtures/`](tests/fixtures/), in the data contract's shape.
+  Change a result in `expected.toml`, not in the pages, then run
+  `python3 scripts/examples.py sync`.
 - **Look up codes and thresholds; don't recall them.** Cite the source on the
   [instruments](docs/reference/instruments.md) page.
 - **The archive doesn't change.** Fix the guide instead.
-- **Check before committing.** CI runs both checks on every pull request:
+- **Check before committing.** CI runs all three checks on every pull request:
 
 ```bash
 python3 scripts/rules.py check
+```
+
+```bash
+python3 scripts/examples.py check
 ```
 
 ```bash

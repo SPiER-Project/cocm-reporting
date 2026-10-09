@@ -21,7 +21,7 @@ A returning patient who starts a new episode this month counts as newly enrolled
 From the [example caseload](../example-caseload.md): only P2 has an enrollment date in
 March (12 March), and P2 has Medicaid. P5 enrolled in February.
 
-**Metric 3: 1.**
+**Metric 3: <!--expect:example-caseload.m3-->1<!--/expect-->.**
 
 ## Where the data lives
 
