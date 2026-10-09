@@ -25,10 +25,11 @@ decisions.
 
 | Path | What it is |
 |---|---|
-| [`docs/source/`](docs/source/) | The NYS OMH metrics document (2025) |
-| [`docs/spec/reporting-spec-draft.md`](docs/spec/reporting-spec-draft.md) | Shared definitions, draft v0.1 |
-| [`docs/spec/review-notes.md`](docs/spec/review-notes.md) | Where draft v0.1 departs from the NYS document, contradicts itself, or leaves a term undefined |
+| [`docs/guide/`](docs/guide/start-here.md) | The guide: one page per metric and per shared concept. **Start here.** Being written |
+| [`docs/reference/our-calls.md`](docs/reference/our-calls.md) | Every place the guide interprets NYS or goes beyond it: the call, why, and how firm it is |
+| [`docs/reference/nys-source/`](docs/reference/nys-source/) | The NYS OMH metrics document (2025), as a PDF and as a linkable transcription |
 | [`docs/data-contract.md`](docs/data-contract.md) | The eight tables |
 | [`docs/filling-the-tables.md`](docs/filling-the-tables.md) | Where each table's facts live, the ways to fill them, and what to build first |
 | [`docs/mappings/`](docs/mappings/) | One page per source system, mapping its data model to the eight tables |
-| [`docs/open-questions.md`](docs/open-questions.md) | Questions raised since v0.1, about the measures and about the tooling |
+| [`docs/open-questions.md`](docs/open-questions.md) | What's still open: for NYS, for a clinician, to verify, and about the tooling |
+| [`docs/archive/`](docs/archive/) | Draft v0.1 and its review notes, frozen. Superseded by the guide and `our-calls.md` |

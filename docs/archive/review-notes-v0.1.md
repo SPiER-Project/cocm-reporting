@@ -1,11 +1,12 @@
 # Review notes on draft v0.1
 
-Each note compares [`reporting-spec-draft.md`](reporting-spec-draft.md) against the
-NYS source document ([`../source/nys-omh-cocm-metrics-2025.pdf`](../source/nys-omh-cocm-metrics-2025.pdf)).
-None is applied to the draft yet. When one is, the commit should cite its id.
-
-Notes that need a policy answer, not just an edit, are also carried as questions in
-[`../open-questions.md`](../open-questions.md).
+Each note compares [`reporting-spec-draft-v0.1.md`](reporting-spec-draft-v0.1.md) against the
+NYS source document ([`../reference/nys-source/nys-omh-cocm-metrics-2025.pdf`](../reference/nys-source/nys-omh-cocm-metrics-2025.pdf)).
+> **Archived.** These notes are frozen. The draft itself is never corrected; instead
+> each note is resolved in the guide. Notes that change a measure (R-01 – R-10) became
+> calls in [`our-calls.md`](../reference/our-calls.md), each of which lists the notes it
+> replaces. The editorial notes (R-11 – R-13) are fixed as the guide is written, and R-14
+> (LOINC codes) is the job of verifying every code in the instruments reference.
 
 ## Where the draft changes the source
 

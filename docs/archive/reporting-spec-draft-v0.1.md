@@ -2,15 +2,19 @@
 
 **Status:** Draft v0.1 for review
 
-**Source document:** NYS OMH, "The following metrics are reported for your Collaborative Care (CoCM) Caseload" (2025) — [`docs/source/nys-omh-cocm-metrics-2025.pdf`](../source/nys-omh-cocm-metrics-2025.pdf)
+**Source document:** NYS OMH, "The following metrics are reported for your Collaborative Care (CoCM) Caseload" (2025) — [`docs/reference/nys-source/nys-omh-cocm-metrics-2025.pdf`](../reference/nys-source/nys-omh-cocm-metrics-2025.pdf)
 
 **Audience:** Reporting analysts, EHR report writers, registry administrators, and CoCM program leads
 
+> **Archived.** This draft is frozen and is no longer the current guidance. Its
+> definitions are being rewritten as the [guide](../guide/start-here.md), and every
+> decision it left open now has a call in [`our-calls.md`](../reference/our-calls.md).
+>
 > **About this copy.** This is draft v0.1 as circulated, retitled to match the framework's
 > name and with decision owners removed.
-> Known errors and gaps are listed in [`review-notes.md`](review-notes.md) and are
-> deliberately **not** corrected here yet, so each correction stays traceable to a
-> review note. Questions raised after v0.1 are in [`../open-questions.md`](../open-questions.md).
+> Known errors and gaps are listed in [`review-notes-v0.1.md`](review-notes-v0.1.md) and are
+> deliberately **not** corrected here, so each correction stays traceable to a
+> review note.
 
 ## Open Data Gaps
 
@@ -392,7 +396,7 @@ The 60-day lookback in metric 8 is measured backward from the last day of the re
 
 ## Decision Log
 
-Items where the NYS source document is silent or ambiguous. Each needs a decision before Section 2 is final. Further questions raised after v0.1 are in [`../open-questions.md`](../open-questions.md).
+Items where the NYS source document is silent or ambiguous. Each needs a decision before Section 2 is final. The calls now made on each item are in [`our-calls.md`](../reference/our-calls.md).
 
 | ID | Topic | Recommended |
 | :---- | :---- | :---- |
