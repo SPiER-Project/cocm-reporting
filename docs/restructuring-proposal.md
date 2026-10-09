@@ -1,6 +1,6 @@
 # Proposal: restructure the docs as a clinic's reporting guide
 
-**Status:** agreed; Markdown in the repo. Steps 1 to 5 are done. The calls table below has
+**Status:** agreed; Markdown in the repo. All six steps are done; only the site-setup page is still a stub. The calls table below has
 moved to [`reference/our-calls.md`](reference/our-calls.md), which is now the version to
 review and edit.
 
@@ -163,7 +163,8 @@ Each step is a reviewable PR.
 5. **Reference.** Write `instruments.md` with verified LOINC codes. Update the data
    contract wherever a call changed what's needed. Q-04 and Q-07 shrink what `context`
    must carry.
-6. **README.** Rewrite it around the two readers and the "start here" path.
+6. **README.** Rewrite it around the two readers and the "start here" path. Done, with
+   a short guide to changing the guide and a link checker (`scripts/check_links.py`).
 
 **Data-contract changes found while writing the concept pages,** for step 5. All done;
 the contract also gained `primary_scale_source`, an `unknown` staff role and a
