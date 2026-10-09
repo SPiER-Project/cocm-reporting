@@ -11,7 +11,7 @@ generated from it; change them there, then run `python3 scripts/rules.py sync`.
 **Firmness**
 
 - **NYS says**: the source document settles it; we only restate it.
-- **Our call**: NYS is silent or ambiguous, so we decided. A site that follows the guide
+- **Our call**: a practical decision the guidelines leave to the site, so we made one. A site that follows the guide
   should follow the call, and disclose it if NYS asks.
 - **Needs clinical sign-off**: our call, but a clinical judgement a reporting team
   shouldn't make alone. Treat the value as provisional.
