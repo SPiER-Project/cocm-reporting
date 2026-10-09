@@ -1,7 +1,8 @@
 # Start here
 
-**Status:** skeleton. The metric and concept pages are being written; until they are,
-the rules are in [`our-calls.md`](../reference/our-calls.md).
+**Status:** the concept pages are written; the metric pages are not yet. Until they
+are, each metric's rules are in the concept pages and in
+[`our-calls.md`](../reference/our-calls.md).
 
 This guide tells a New York clinic how to report the eleven CoCM metrics NYS OMH asks for
 each month, and how to get each fact out of the systems it has. Where the

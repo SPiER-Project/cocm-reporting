@@ -1,6 +1,6 @@
 # Proposal: restructure the docs as a clinic's reporting guide
 
-**Status:** agreed; Markdown in the repo. Step 1 is done. The calls table below has
+**Status:** agreed; Markdown in the repo. Steps 1 and 2 are done. The calls table below has
 moved to [`reference/our-calls.md`](reference/our-calls.md), which is now the version to
 review and edit.
 
@@ -161,6 +161,18 @@ Each step is a reviewable PR.
    contract wherever a call changed what's needed. Q-04 and Q-07 shrink what `context`
    must carry.
 6. **README.** Rewrite it around the two readers and the "start here" path.
+
+**Data-contract changes found while writing the concept pages,** for step 5:
+
+- `scale_result.instrument` needs `phq_a`, or a rule that the PHQ-A is extracted as `phq9`.
+- `scale_result.context` and `context_basis` are no longer read by the screening metrics,
+  and the baseline only needs the date. They could become optional, or go.
+- The extraction lookbacks need stating: 12 months of PHQ-2 and PHQ-9 for metric 9, 365
+  days before the month's earliest PHQ-9 for metric 10, and 90 days of contacts for the
+  inactivity rule.
+- Who applies the inactivity discharge: the site in `cocm_episode`, or the calculator from
+  `contact`. The concept page assumes either can.
+- `psych_review.recommendation_to` isn't used by any rule.
 
 Automation work (the calculator, the workbook file, connectors) waits until step 3,
 because the metric pages are its specification.

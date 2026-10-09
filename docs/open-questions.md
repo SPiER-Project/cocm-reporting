@@ -29,6 +29,8 @@ about:
 - The candidate elevated-baseline cutoffs for PCL-5, SCARED and PSC-17.
 - That HEDIS and the AIMS Center use PHQ-9 and GAD-7 below 5 for remission.
 - The qualifying-visit code list, including the telehealth codes.
+- The CoCM billing codes used to infer enrollment when there's no enrollment record,
+  including any codes FQHCs and rural health clinics bill for CoCM instead.
 
 ## The tooling
 

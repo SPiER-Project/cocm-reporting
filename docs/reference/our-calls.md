@@ -45,6 +45,7 @@ Every call below is **Proposed**. Each lists what it replaces in the archived
 | [Baseline](#baseline) | Our call | Proposed |
 | [Elevated baseline](#elevated-baseline) | Our call; needs clinical sign-off beyond PHQ-9 and GAD-7 | Proposed |
 | [Current score for improvement](#current-score-for-improvement) | Our call | Proposed |
+| [Fifty percent improved](#fifty-percent-improved) | Our call | Proposed |
 | [Paired forms](#paired-forms) | NYS says, for improvement | Proposed |
 | [Remission timing](#remission-timing) | Our call | Proposed |
 | [Remission needs an elevated baseline](#remission-needs-an-elevated-baseline) | Our call | Proposed |
@@ -107,8 +108,10 @@ undercounts it, because an enrolled patient can go a month unbilled.
 
 ### Enrollment date
 
-**Call.** The enrollment date is the date of the initial assessment by the BHCM. It is
-the start date for every metric, not just metric 4.
+**Call.** The enrollment date is the date of the initial assessment by the BHCM. If the
+assessment takes more than one contact, it's the first contact at which a
+symptom-monitoring scale was given. It is the start date for every metric, not just
+metric 4.
 
 **NYS says.** Metric 4 counts weeks "between initial assessment to date of discharge."
 
@@ -188,7 +191,9 @@ gives different answers from the same data.
 State Medicaid coverage on the first day of the month, whether fee-for-service or a
 Medicaid managed care plan, and whether it is their primary or secondary coverage. Dual
 Medicare–Medicaid patients count. Child Health Plus and the Essential Plan do not. A
-patient whose coverage changes mid-month keeps their first-of-month status.
+patient whose coverage changes mid-month keeps their first-of-month status. Use the
+coverage known at the run date; Medicaid granted retroactively later doesn't restate a
+submitted month.
 
 **Why.**
 - First of the month: payer as of the report run date reclassifies patients after the fact.
@@ -288,6 +293,20 @@ patient who improved in month 3 and missed a scale in month 4 has not stopped im
 Metric 5 already penalizes the missing scale.
 
 **Replaces.** D-15, D-15a.
+
+### Fifty percent improved
+
+**Call.** "Score 50% improved from baseline" means the current score is at most half
+the baseline. The boundary counts: a PHQ-9 baseline of 15 is improved at 7.5 or below,
+which in whole scores is 7 or below.
+
+**NYS says.** "Score 50% improved from baseline", without saying whether exactly 50%
+counts.
+
+**Why.** "Improved by 50%" reads naturally as "by at least 50%". Stating it stops one
+site using "less than" and another "at most".
+
+**Replaces.** Nothing; first raised here.
 
 ### Paired forms
 
@@ -435,7 +454,8 @@ qualifying visit in the month and was 12 or older on the visit date. No other ex
 
 A qualifying visit is an in-person or telehealth visit with a medical (not behavioral
 health) provider, billed with one of these codes:
-- office or outpatient evaluation and management (E&M), 99202–99215;
+- office or outpatient evaluation and management (E&M), 99202–99215, except 99211,
+  which is normally billed for a nurse-only visit;
 - preventive medicine, 99381–99397;
 - annual wellness visit, G0438 and G0439;
 - their telehealth equivalents.
@@ -514,7 +534,9 @@ sees adolescents.
 Each BHCM counts as the share of a full-time schedule spent on CoCM: a BHCM at 60% CoCM
 contributes 0.6. Psychiatric consultants, PCPs, supervisors' supervisory time, trainees,
 and care coordinators or community health workers who support the BHCM are not counted.
-The site attests the figure.
+A supervisor who also carries a CoCM caseload counts for the share spent as a BHCM.
+Use scheduled effort, prorated for start and end dates, extended leave and vacancies;
+ordinary vacation days aren't deducted. The site attests the figure.
 
 **Why.** It matches the optimal caseload NYS states (more than 75 patients per BHCM FTE),
 which is about care-manager capacity.
