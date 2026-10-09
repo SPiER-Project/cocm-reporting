@@ -60,6 +60,50 @@ def read_tables(texts):
     return {t: read_table(t, texts[t]) if t in texts else [] for t in TABLES}
 
 
+# Rows that are the same fact from two sources (say a registry and an EHR) are kept once.
+SAME_FACT = {
+    "patient": ("patient_id",),
+    "scale_result": ("patient_id", "administered_date", "instrument", "total_score"),
+}
+
+
+def combine(*sources):
+    """Merge several {table: csv text} into one, keeping each fact once.
+
+    A patient is kept once by id (the first source with a birth date wins). A scale result
+    is kept once by patient, date, instrument and score, since a registry and an EHR often
+    hold the same PHQ-9. Other tables keep every distinct row.
+    """
+    merged = {}
+    for table in TABLES:
+        texts = [s[table] for s in sources if s.get(table)]
+        if not texts:
+            continue
+        header, rows, seen = [], [], {}
+        for text in texts:
+            reader = csv.DictReader(io.StringIO(text))
+            for col in reader.fieldnames or []:
+                if col not in header:
+                    header.append(col)
+            for row in reader:
+                fields = SAME_FACT.get(table)
+                key = tuple(row.get(f, "") for f in fields) if fields else tuple(sorted(row.items()))
+                if key in seen:
+                    kept = rows[seen[key]]
+                    for col, value in row.items():  # fill gaps from the later source
+                        if value and not kept.get(col):
+                            kept[col] = value
+                    continue
+                seen[key] = len(rows)
+                rows.append(row)
+        out = io.StringIO()
+        writer = csv.DictWriter(out, fieldnames=header, lineterminator="\n", restval="")
+        writer.writeheader()
+        writer.writerows(rows)
+        merged[table] = out.getvalue()
+    return merged
+
+
 # ------------------------------------------------------------------------- settings
 
 
@@ -68,6 +112,7 @@ class Settings:
     """The values the calculator takes from rules/calls.toml."""
 
     decimal_places: int
+    time_zone: str
     earliest_run_day: int
     inactivity_days: int
     seventy_days: int
@@ -112,6 +157,7 @@ def read_rules(text):
         codes |= _expand(v["codes"])
     return Settings(
         decimal_places=c["rounding"]["decimal_places"],
+        time_zone=c["reporting-month"]["time_zone"],
         earliest_run_day=c["when-to-run-the-report"]["earliest_run_day"],
         inactivity_days=c["inactivity-discharge"]["days"],
         seventy_days=c["seventy-days"]["days"],

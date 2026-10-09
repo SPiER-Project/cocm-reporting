@@ -73,10 +73,14 @@ Everything comes from EHR reports, written by the site's report writer from
   - **Which contacts delivered treatment:** encounter types and signed notes.
   - **The primary scale:** usually the default mapping, disclosed.
   - **Case reviews:** often only in consultant notes.
-- **FHIR:** a site with access to its EHR's FHIR API can pull patients, coverage,
-  encounters and PHQ results that way instead of writing reports. FHIR doesn't help with
-  the CoCM-specific facts (enrollment, contact purpose, case reviews), because EHRs don't
-  expose them in a standard form.
+- **FHIR:** a site that can export from its EHR's FHIR API can give the calculator the
+  export instead of writing reports for the EHR half. The calculator reads Patient,
+  Coverage, Encounter (with Claim) and Observation resources, as Bundles or bulk-export
+  NDJSON, into patients, coverage, visits and PHQ results. FHIR doesn't help with the
+  CoCM-specific facts (enrollment, contact purpose, case reviews), because EHRs don't
+  expose them in a standard form; those still come from the registry or the workbook.
+  The calculator combines the two, as long as both use the same patient id (see
+  [FHIR in the tooling plan](../tooling.md#reading-fhir)).
 
 ## What every route must get right
 

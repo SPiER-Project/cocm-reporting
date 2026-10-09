@@ -58,6 +58,37 @@ an empty denominator. CI runs the tests on every pull request.
 - Pages republishes it whenever `main` changes. CI fails if the built file is out of
   date with its sources.
 
+## Reading FHIR
+
+[`calculator/fhir.py`](../calculator/fhir.py) reads FHIR R4 resources into the tables, so a
+site with a FHIR export from its EHR doesn't need report recipes for the EHR half:
+
+| FHIR | Table | Notes |
+|---|---|---|
+| Patient | `patient` | |
+| Coverage | `coverage` | `Coverage.type` by the PHDSC Source of Payment Typology (US Core's Payer Type), from NAHDO's published code table. New York programs the codes can't tell apart, the Essential Plan and Child Health Plus, are recognized by plan name. Out-of-state Medicaid isn't counted as Medicaid. Anything unrecognized becomes `other`, and the site is told which plans |
+| Encounter, Claim | `practice_visit` | CPT and HCPCS codes from `Encounter.type`, or from a Claim item that points to the encounter. Provider category from the practitioner's NUCC taxonomy, where the export includes it |
+| Observation | `scale_result` | Final results with a LOINC total-score code from the [instruments](reference/instruments.md#loinc-codes) page |
+
+- **What it accepts:** Bundles, single resources, JSON arrays, or the NDJSON a FHIR Bulk
+  Data export writes.
+- **Dates:** converted to New York dates, including in the browser, which has no
+  time-zone database of its own.
+- **What it can't fill:** episodes, contacts and case reviews. EHRs don't expose them in a
+  standard form, so they come from the registry or the workbook.
+- **Combining sources:** the calculator combines FHIR with the registry or workbook, and
+  keeps a PHQ-9 found in both only once. The two halves must use the same patient id:
+  by default the FHIR `Patient.id`, or the `Patient.identifier` with a system the site
+  names (`--fhir-patient-identifier` at the command line, or under *FHIR options* on the
+  page). How sites keep ids consistent is open question Q-T3.
+- **Tested** on [`tests/fixtures/screening-example-fhir`](../tests/fixtures/screening-example-fhir),
+  the screening example as a FHIR Bundle, which must give the same results as its CSV
+  twin.
+
+```bash
+python3 -m calculator workbook.xlsx ehr-export/ --month 2025-03
+```
+
 **Not yet built:**
 - the REDCap output format, which waits on NYS's form (Q-T5);
 - the pseudonymization tool (Q-T3).
@@ -94,7 +125,8 @@ This is Q-T1 in [open questions](open-questions.md#the-tooling). A proposal to r
    are most common. They cover metrics 1–8 for most sites.
 3. **EHR report recipes** for metrics 9–10 and coverage, starting with the most common
    EHRs among NYS CoCM sites, written against [the generic specification](collecting/ehrs/README.md).
-4. **FHIR**, as an alternative to step 3, when a site asks for it.
+4. **FHIR**, as an alternative to step 3. Built for the EHR half:
+   [reading FHIR](#reading-fhir).
 
 The survey (which registries and which EHRs NYS's CoCM sites use) is the one piece of
 information that would most change this order.
