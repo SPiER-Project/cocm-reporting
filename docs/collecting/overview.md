@@ -86,7 +86,7 @@ The registry and the EHR have to identify the same patient the same way, or the 
 halves never join. Use the **MRN** as the link inside the site. Don't use a registry's
 internal id, which the EHR never sees.
 
-The [data contract](../data-contract.md) goes one step further for anything that leaves
+The [data contract](../reference/data-contract.md) goes one step further for anything that leaves
 the site's systems: it replaces the MRN with a keyed hash, a pseudonym made with a secret
 only the site holds. How sites will do that consistently is still open (Q-T3 in
 [open questions](../open-questions.md#the-tooling)).

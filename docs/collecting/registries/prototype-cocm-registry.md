@@ -1,7 +1,7 @@
 # Mapping: a prototype CoCM registry → data contract
 
 This page maps the data model of a prototype CoCM registry (Next.js + Prisma +
-PostgreSQL) to the [data contract](../../data-contract.md). It is the first registry
+PostgreSQL) to the [data contract](../../reference/data-contract.md). It is the first registry
 mapping (the [registry route](../overview.md#2-a-registry-product-plus-an-ehr-report)),
 and also a worked example of what a mapping has to settle. Where it applies a rule from
 the guide, it links to the page that sets the rule.
@@ -91,9 +91,13 @@ The cleanest mapping.
 | `administered_date` | `administeredAt` | Stored in UTC. **Convert to the site's time zone before taking the date** ([reporting month](../../guide/concepts/reporting-month.md#the-rule)), or an evening score on the last day of the month lands in the next month |
 | `instrument` | `instrumentType` | `PHQ9` → `phq9`, `GAD7` → `gad7`, `PHQ2` → `phq2`. `GAD2` and `CSSRS` are not NYS instruments and are not extracted |
 | `total_score` | `totalScore` | |
-| `context` / `context_basis` | `monitoring` / `registry` | No metric reads this under the guide's calls ([screening or monitoring?](../../guide/concepts/screening.md#screening-or-monitoring)). A score dated before the episode's `startDate` is a screening score entered into the episode; its date alone keeps it from being the [baseline](../../guide/concepts/scales-and-outcomes.md#baseline) |
 | `administered_by_role` | `performer.role` | `BHCM` → `bhcm`, `PCP` → `medical_provider`, else `other`. The performer is whoever "administered or entered" it, so this is weak evidence |
-| `loinc` | `loincCode` | |
+| `loinc` | `loincCode` | Check the GAD-7 code: the registry's documentation gives `69737-5`, which is the GAD-7 panel. The total score is `70274-6` ([instruments](../../reference/instruments.md#loinc-codes)) |
+
+A score dated before the episode's `startDate` is a screening score entered into the
+episode. Extract it anyway: its date alone keeps it from being the
+[baseline](../../guide/concepts/scales-and-outcomes.md#baseline), and it may count for
+[screening](../../guide/concepts/screening.md#screening-or-monitoring).
 
 ## T6 `psych_review` ← `Consultation`
 

@@ -54,9 +54,9 @@ See [screening](../concepts/screening.md#where-the-data-lives).
 
 ## For automation
 
-Reads [`patient`](../../data-contract.md#t1-patient) (`birth_date`),
-[`practice_visit`](../../data-contract.md#t7-practice_visit--the-denominator-for-metric-9),
-[`scale_result`](../../data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
+Reads [`patient`](../../reference/data-contract.md#t1-patient) (`birth_date`),
+[`practice_visit`](../../reference/data-contract.md#t7-practice_visit--the-denominator-for-metric-9),
+[`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
 (12 months of PHQ-2, PHQ-9 and PHQ-A) and
-[`site_month`](../../data-contract.md#t8-site_month--one-row-per-submission)
+[`site_month`](../../reference/data-contract.md#t8-site_month--one-row-per-submission)
 (`screening_age_floor`).

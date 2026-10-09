@@ -146,12 +146,12 @@ All of it is in the EHR or practice-management system.
 
 ## For automation
 
-- [`practice_visit`](../../data-contract.md#t7-practice_visit--the-denominator-for-metric-9)
+- [`practice_visit`](../../reference/data-contract.md#t7-practice_visit--the-denominator-for-metric-9)
   holds every visit with provider category and billing codes. The qualifying-visit list,
   including leaving out 99211, is a calculator setting.
-- [`scale_result`](../../data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
+- [`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
   needs 12 months of PHQ-2 and PHQ-9 history for metric 9. Metric 10 needs PHQ-9 history
   going back 365 days from the earliest PHQ-9 in the month.
-- [`site_month.screening_age_floor`](../../data-contract.md#t8-site_month--one-row-per-submission)
+- [`site_month.screening_age_floor`](../../reference/data-contract.md#t8-site_month--one-row-per-submission)
   records the floor used.
-- Under these rules the screening metrics no longer read `scale_result.context`.
+- The data contract has no screening-or-monitoring column; rows are selected by instrument and date.

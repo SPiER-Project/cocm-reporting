@@ -46,5 +46,6 @@ See [enrollment and discharge](../concepts/enrollment-and-discharge.md#where-the
 
 ## For automation
 
-Reads [`cocm_episode`](../../data-contract.md#t3-cocm_episode--one-row-per-enrollment).
-Distinct `patient_id` among episodes overlapping the month.
+Reads [`cocm_episode`](../../reference/data-contract.md#t3-cocm_episode--one-row-per-enrollment),
+and [`contact`](../../reference/data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient) for the inactivity discharge. Distinct `patient_id` among episodes overlapping
+the month.

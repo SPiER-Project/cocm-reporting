@@ -65,7 +65,7 @@ The same scores as [metric 6](06-improvement-rate.md). See
 
 ## For automation
 
-Reads [`cocm_episode`](../../data-contract.md#t3-cocm_episode--one-row-per-enrollment),
-[`coverage`](../../data-contract.md#t2-coverage) and
-[`scale_result`](../../data-contract.md#t5-scale_result--one-row-per-completed-scored-administration).
+Reads [`cocm_episode`](../../reference/data-contract.md#t3-cocm_episode--one-row-per-enrollment),
+[`coverage`](../../reference/data-contract.md#t2-coverage), [`contact`](../../reference/data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient) (for the inactivity
+discharge) and [`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration).
 Remission thresholds are calculator settings.

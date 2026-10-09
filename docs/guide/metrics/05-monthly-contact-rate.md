@@ -64,8 +64,8 @@ Scales from the registry's scale table, or questionnaires and flowsheets in the 
 
 ## For automation
 
-Reads [`cocm_episode`](../../data-contract.md#t3-cocm_episode--one-row-per-enrollment),
-[`coverage`](../../data-contract.md#t2-coverage),
-[`contact`](../../data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient)
+Reads [`cocm_episode`](../../reference/data-contract.md#t3-cocm_episode--one-row-per-enrollment),
+[`coverage`](../../reference/data-contract.md#t2-coverage),
+[`contact`](../../reference/data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient)
 (`contact_kind = treatment`) and
-[`scale_result`](../../data-contract.md#t5-scale_result--one-row-per-completed-scored-administration).
+[`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration).

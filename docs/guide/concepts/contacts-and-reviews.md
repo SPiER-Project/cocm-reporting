@@ -131,10 +131,10 @@ Metric 5 for these six: 3 of 6, or **50.0%**.
 
 ## For automation
 
-- [`contact`](../../data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient)
+- [`contact`](../../reference/data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient)
   holds every interaction, including attempts and messages. Only `contact_kind =
   treatment` counts as a clinical contact.
-- [`psych_review`](../../data-contract.md#t6-psych_review--one-row-per-patient-discussed)
+- [`psych_review`](../../reference/data-contract.md#t6-psych_review--one-row-per-patient-discussed)
   is one row per patient discussed, never one per meeting. Only
   `recommendation_documented = true` counts.
 - Active treatment is derived by the calculator from `contact` and `scale_result`.

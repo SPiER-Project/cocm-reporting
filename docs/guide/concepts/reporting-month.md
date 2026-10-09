@@ -69,7 +69,7 @@ example.
 
 ## For automation
 
-- [`site_month.extract_run_date`](../../data-contract.md#t8-site_month--one-row-per-submission):
+- [`site_month.extract_run_date`](../../reference/data-contract.md#t8-site_month--one-row-per-submission):
   the calculator warns if it is earlier than the 15th of the following month.
 - Every date column in the data contract is a local date, not a timestamp. Extraction
   converts to local time.

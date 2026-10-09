@@ -41,5 +41,5 @@ cross-check, but they aren't scheduled effort.
 
 ## For automation
 
-[`site_month.bhcm_fte`](../../data-contract.md#t8-site_month--one-row-per-submission),
+[`site_month.bhcm_fte`](../../reference/data-contract.md#t8-site_month--one-row-per-submission),
 typed in by the program lead.

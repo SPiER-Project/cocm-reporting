@@ -58,5 +58,5 @@ often the hardest fact to extract from an EHR alone.
 ## For automation
 
 Reads everything [metric 6](06-improvement-rate.md) reads, plus
-[`psych_review`](../../data-contract.md#t6-psych_review--one-row-per-patient-discussed)
+[`psych_review`](../../reference/data-contract.md#t6-psych_review--one-row-per-patient-discussed)
 (`review_date`, `recommendation_documented = true`).

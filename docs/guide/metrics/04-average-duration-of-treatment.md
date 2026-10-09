@@ -57,5 +57,7 @@ record was last updated.
 
 ## For automation
 
-Reads [`cocm_episode`](../../data-contract.md#t3-cocm_episode--one-row-per-enrollment)
-(`enrollment_date`, `discharge_date`) and [`coverage`](../../data-contract.md#t2-coverage).
+Reads [`cocm_episode`](../../reference/data-contract.md#t3-cocm_episode--one-row-per-enrollment)
+(`enrollment_date`, `discharge_date`), [`coverage`](../../reference/data-contract.md#t2-coverage),
+and [`contact`](../../reference/data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient): the effective discharge date is the earlier of the recorded date and the
+inactivity date.

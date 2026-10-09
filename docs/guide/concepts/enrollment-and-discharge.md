@@ -44,7 +44,8 @@ A patient is discharged on the date their CoCM episode is closed, for any reason
 graduation, transfer to specialty care, withdrawal, loss to follow-up, death.
 
 A patient with **no clinical contact for 90 consecutive days** is discharged, with a
-discharge date of the last clinical contact plus 90 days. *Our call:
+discharge date of the last clinical contact plus 90 days. If there has been no clinical
+contact since enrollment, count the 90 days from the enrollment date. *Our call:
 [inactivity discharge](../../reference/our-calls.md#inactivity-discharge).*
 
 Don't backdate a discharge to the last contact. Months already reported counted the
@@ -149,11 +150,11 @@ works through each of these.
 
 ## For automation
 
-- [`cocm_episode`](../../data-contract.md#t3-cocm_episode--one-row-per-enrollment) holds
+- [`cocm_episode`](../../reference/data-contract.md#t3-cocm_episode--one-row-per-enrollment) holds
   enrollment and discharge as recorded. "Enrolled this month", days in treatment, newly
   enrolled and duration are derived by the calculator, never extracted.
 - `enrollment_source = billing_inferred` triggers the disclosure.
 - The inactivity rule can be applied by the calculator from
-  [`contact`](../../data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient)
+  [`contact`](../../reference/data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient)
   rows. That only works if the extract includes enough contact history to see 90 days
   back.

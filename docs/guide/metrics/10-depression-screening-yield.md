@@ -51,5 +51,5 @@ See [screening](../concepts/screening.md#where-the-data-lives).
 
 ## For automation
 
-Reads [`scale_result`](../../data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
+Reads [`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
 (PHQ-9 and PHQ-A, with history back 365 days from the earliest PHQ-9 in the month).

@@ -8,7 +8,7 @@ collection guidance is in [`collecting/`](collecting/overview.md).
 
 ## The pieces
 
-- **The [data contract](data-contract.md):** the eight tables every route produces.
+- **The [data contract](reference/data-contract.md):** the eight tables every route produces.
 - **The calculator:** reads the eight tables and returns the eleven numbers in the REDCap
   form's shape. It also returns a patient-level list of who fell out of each numerator
   and why; that list stays at the site.

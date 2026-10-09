@@ -38,5 +38,5 @@ episode. See [enrollment and discharge](../concepts/enrollment-and-discharge.md#
 
 ## For automation
 
-Reads [`cocm_episode`](../../data-contract.md#t3-cocm_episode--one-row-per-enrollment)
-(`enrollment_date`) and [`coverage`](../../data-contract.md#t2-coverage).
+Reads [`cocm_episode`](../../reference/data-contract.md#t3-cocm_episode--one-row-per-enrollment)
+(`enrollment_date`) and [`coverage`](../../reference/data-contract.md#t2-coverage).

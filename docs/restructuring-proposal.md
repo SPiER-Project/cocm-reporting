@@ -1,6 +1,6 @@
 # Proposal: restructure the docs as a clinic's reporting guide
 
-**Status:** agreed; Markdown in the repo. Steps 1 to 4 are done. The calls table below has
+**Status:** agreed; Markdown in the repo. Steps 1 to 5 are done. The calls table below has
 moved to [`reference/our-calls.md`](reference/our-calls.md), which is now the version to
 review and edit.
 
@@ -165,7 +165,9 @@ Each step is a reviewable PR.
    must carry.
 6. **README.** Rewrite it around the two readers and the "start here" path.
 
-**Data-contract changes found while writing the concept pages,** for step 5:
+**Data-contract changes found while writing the concept pages,** for step 5. All done;
+the contract also gained `primary_scale_source`, an `unknown` staff role and a
+`treatment_contact_rule`, so the calculator can make the disclosures itself:
 
 - `scale_result.instrument` needs `phq_a`, or a rule that the PHQ-A is extracted as `phq9`.
 - `scale_result.context` and `context_basis` are no longer read by the screening metrics,

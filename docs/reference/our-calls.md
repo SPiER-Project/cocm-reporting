@@ -162,7 +162,9 @@ day.
 ### Inactivity discharge
 
 **Call.** A patient with no [clinical contact](#clinical-contact) for 90 consecutive days
-is discharged, with a discharge date of the last clinical contact plus 90 days.
+is discharged, with a discharge date of the last clinical contact plus 90 days. A patient
+with no clinical contact since enrollment is discharged 90 days after the enrollment
+date.
 
 **Why.** Patients who stop engaging but are never discharged inflate enrollment and pull
 the contact rate down. Setting the date at day 90, rather than backdating it to the last
@@ -290,21 +292,23 @@ the baseline to the episode stops it carrying over between enrollments.
 |---|---|---|
 | PHQ-9 | 10 | Our call |
 | GAD-7 | 10 | Our call |
-| PCL-5 | 33 (candidate) | Needs clinical sign-off |
-| SCARED | 25 (candidate) | Needs clinical sign-off |
-| PSC-17 | 15 (candidate) | Needs clinical sign-off |
-| SMFQ | none yet | Needs clinical sign-off |
-| NICHQ Vanderbilt | none yet | Needs clinical sign-off |
+| PCL-5 | 33 | Needs clinical sign-off |
+| SCARED (either form) | 25 | Needs clinical sign-off |
+| PSC-17 | 15 | Needs clinical sign-off |
+| SMFQ (child form) | 12 | Needs clinical sign-off |
+| SMFQ (parent form), NICHQ Vanderbilt | none yet | Needs clinical sign-off |
 
-The candidate values are each instrument's commonly used positive cutoff. They have not
-yet been checked against the instrument sources.
+Each value is a published screening cutoff for the instrument; the
+[instruments](instruments.md#where-the-thresholds-come-from) page gives the sources.
+Until a scale has a threshold, its patients can't count as improved or in remission.
 
 **NYS says.** Appendix A includes only patients "who had an elevated baseline score", but
 doesn't say what elevated means.
 
 **Why.**
 - PHQ-9 and GAD-7: 10 mirrors Appendix A's "score below 10" improvement criterion, so a patient can't qualify as improved at baseline.
-- The other three candidates match the remission thresholds proposed in the draft. That pairs naturally: elevated is at or above the cutoff, remission is below it.
+- PCL-5, SCARED and PSC-17: each threshold is the instrument's published screening cutoff, and it matches the remission threshold the draft proposed. That pairs naturally: elevated is at or above the cutoff, remission is below it.
+- SMFQ: 12 is supported for adolescents seeking help, but the instrument's developers recommend no single cutpoint. It needs a clinician's judgement more than the others.
 - The draft promised these thresholds in an appendix that was never written.
 
 **Replaces.** D-12b, R-12 (in part).
@@ -395,10 +399,14 @@ enrolled this month.
 
 **NYS says.** Nothing; remission criteria aren't defined anywhere in the source.
 
-**Why.** For PHQ-9 and GAD-7, the draft cites HEDIS and the University of Washington AIMS
-Center as using below 5; that citation still needs checking. The rest are the draft's
-proposals and need a clinician's review. The Vanderbilt rule also needs a symptom count,
-not a total score (Q-08).
+**Why.**
+- PHQ-9: below 5 is the HEDIS depression remission definition (DRR-E).
+- GAD-7: below 5 is the instrument's "minimal" band.
+- PCL-5, SCARED and PSC-17: below each instrument's screening cutoff.
+- SMFQ (below 8) and the Vanderbilt rule: the draft's proposals, with no source yet. The Vanderbilt rule also needs a symptom count, not a total score (Q-08).
+
+Sources are on the [instruments](instruments.md#where-the-thresholds-come-from) page. Every
+threshold beyond PHQ-9 and GAD-7 needs a clinician's review.
 
 **Replaces.** D-16, D-16a, Q-08 (in part).
 

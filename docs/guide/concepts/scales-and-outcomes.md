@@ -79,13 +79,14 @@ Only a patient with an **elevated baseline** can count as improved or in remissi
 | PCL-5 | 33 | Needs clinical sign-off |
 | SCARED | 25 | Needs clinical sign-off |
 | PSC-17 | 15 | Needs clinical sign-off |
-| SMFQ | not yet set | Needs clinical sign-off |
-| NICHQ Vanderbilt | not yet set | Needs clinical sign-off |
+| SMFQ (child form) | 12 | Needs clinical sign-off |
+| SMFQ (parent form), NICHQ Vanderbilt | not yet set | Needs clinical sign-off |
 
 *[Elevated baseline](../../reference/our-calls.md#elevated-baseline).* The values marked
-for sign-off are commonly used cutoffs that haven't been checked against the instrument
-sources. Until a threshold is set, patients on that scale can't be counted as improved
-or in remission.
+for sign-off are each instrument's published screening cutoff (sources on the
+[instruments](../../reference/instruments.md#where-the-thresholds-come-from) page), but a
+clinician still needs to agree to use them this way. Until a scale has a threshold,
+patients on that scale can't be counted as improved or in remission.
 
 ### Improvement (metrics 6 and 8)
 
@@ -214,10 +215,10 @@ for metric 5, because no scale was completed.
 
 ## For automation
 
-- [`scale_result`](../../data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
+- [`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
   holds every scored result. Each form is its own `instrument` value, so pairing is the
   calculator's job.
-- [`cocm_episode.primary_scale`](../../data-contract.md#t3-cocm_episode--one-row-per-enrollment)
+- [`cocm_episode.primary_scale`](../../reference/data-contract.md#t3-cocm_episode--one-row-per-enrollment)
   is required. Where the source has none, the extract fills it from the default mapping,
   and the disclosure says so.
 - Baseline, elevated baseline, current score, improvement and remission are all derived

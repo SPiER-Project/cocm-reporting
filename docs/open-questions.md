@@ -24,10 +24,11 @@ Calls marked **Needs clinical sign-off** in [`our-calls.md`](reference/our-calls
 Things stated from memory, which is the mistake the archived review note R-14 warns
 about:
 
-- LOINC codes for every instrument, starting with the GAD-7 total (`70274-6` in the
-  draft, `69737-5` in the prototype registry).
-- The candidate elevated-baseline cutoffs for PCL-5, SCARED and PSC-17.
-- That HEDIS and the AIMS Center use PHQ-9 and GAD-7 below 5 for remission.
+- A spot-check of the [LOINC codes](reference/instruments.md#loinc-codes) on loinc.org,
+  which blocks automated access. They were checked against the HL7 terminology server
+  and the NLM's LOINC index.
+- The PCL-5 cutoff against the National Center for PTSD's own guidance, and the GAD-7
+  severity bands against Spitzer et al. (2006).
 - The qualifying-visit code list, including the telehealth codes.
 - The CoCM billing codes used to infer enrollment when there's no enrollment record,
   including any codes FQHCs and rural health clinics bill for CoCM instead.

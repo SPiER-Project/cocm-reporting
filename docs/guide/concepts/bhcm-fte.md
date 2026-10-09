@@ -68,5 +68,5 @@ and it's usually lower because not every minute is logged.
 
 ## For automation
 
-- [`site_month.bhcm_fte`](../../data-contract.md#t8-site_month--one-row-per-submission) is
+- [`site_month.bhcm_fte`](../../reference/data-contract.md#t8-site_month--one-row-per-submission) is
   attested and typed in. The calculator reports caseload per FTE alongside metric 1.

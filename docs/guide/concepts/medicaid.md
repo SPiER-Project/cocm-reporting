@@ -78,7 +78,7 @@ registry.
 
 ## For automation
 
-- [`coverage`](../../data-contract.md#t2-coverage) holds each coverage period with a raw
+- [`coverage`](../../reference/data-contract.md#t2-coverage) holds each coverage period with a raw
   `payer_category`. The calculator decides which categories count as Medicaid, so a change
   of rule doesn't need a new extract.
 - `plan_name` is optional but worth extracting. It lets a reviewer spot a managed care
