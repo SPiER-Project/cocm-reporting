@@ -1,0 +1,291 @@
+<!doctype html>
+<!--
+  The CoCM caseload calculator, in the browser.
+
+  Built from web/template.html by scripts/build_web.py, which inlines the calculator's
+  Python source, rules/calls.toml and the example caseload. Don't edit web/index.html
+  directly; edit the template or the sources and rebuild.
+
+  The calculation runs in this page through Pyodide (Python compiled to WebAssembly).
+  The site's files are read in the browser and never sent anywhere.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoCM caseload calculator</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1d2330; --muted: #5b6475; --line: #d9dde5; --panel: #f5f7fa;
+    --accent: #2f5fb3; --accent-fg: #ffffff; --warn-bg: #fff4dc; --warn-fg: #6b4a00;
+    --ok: #1f7a3d; --error-bg: #fde8e8; --error-fg: #8a1c1c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12151b; --fg: #e6e9ef; --muted: #a1a9b8; --line: #2c323d; --panel: #1a1f27;
+      --accent: #7aa2ec; --accent-fg: #0d1117; --warn-bg: #3a2f12; --warn-fg: #f2d38a;
+      --ok: #6cc98a; --error-bg: #3d1a1a; --error-fg: #f3b0b0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 52rem; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  h1 { font-size: 1.75rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.15rem; margin: 2rem 0 .75rem; }
+  p, li { color: var(--fg); }
+  .lede { color: var(--muted); margin-top: 0; }
+  .note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+          padding: .75rem 1rem; }
+  .status { font-size: .95rem; color: var(--muted); min-height: 1.5em; }
+  .status.ready { color: var(--ok); }
+  label { font-weight: 600; display: block; margin-bottom: .35rem; }
+  input[type=month] { font: inherit; padding: .4rem .5rem; border: 1px solid var(--line);
+                      border-radius: 6px; background: var(--bg); color: var(--fg); }
+  .drop { border: 2px dashed var(--line); border-radius: 10px; padding: 1.5rem; text-align: center;
+          background: var(--panel); }
+  .drop.over { border-color: var(--accent); }
+  .drop input { display: block; margin: .75rem auto 0; max-width: 100%; }
+  .tables { list-style: none; padding: 0; margin: .75rem 0 0;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .25rem .75rem; }
+  .tables li { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9rem; }
+  .tables .have { color: var(--ok); }
+  .tables .missing { color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+  button { font: inherit; padding: .55rem 1rem; border-radius: 6px; border: 1px solid var(--accent);
+           background: var(--accent); color: var(--accent-fg); cursor: pointer; }
+  button.secondary { background: transparent; color: var(--accent); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: .9rem; }
+  td.num { width: 2.5rem; color: var(--muted); }
+  .warn { background: var(--warn-bg); color: var(--warn-fg); border-radius: 8px; padding: .75rem 1rem; }
+  .warn ul, .note ul { margin: .25rem 0 0; padding-left: 1.25rem; }
+  .error { background: var(--error-bg); color: var(--error-fg); border-radius: 8px; padding: .75rem 1rem; }
+  details { border: 1px solid var(--line); border-radius: 8px; padding: .5rem .75rem; margin-bottom: .5rem; }
+  summary { cursor: pointer; font-weight: 600; }
+  .ids { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  [hidden] { display: none !important; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>CoCM caseload calculator</h1>
+  <p class="lede">The eleven monthly Collaborative Care metrics for the New York State Office
+    of Mental Health, calculated the way the
+    <a href="https://github.com/SPiER-Project/nys-omh-cocm-caseload-reporting">reporting guide</a>
+    describes.</p>
+
+  <p class="note"><strong>Your files stay on this computer.</strong> The calculation runs
+    inside this page. The files you add are read by your browser and are never uploaded
+    or sent anywhere. The page downloads the calculation engine the first time it opens.</p>
+
+  <p class="status" id="status" role="status" aria-live="polite">Loading the calculator…</p>
+
+  <h2>1. Reporting month</h2>
+  <label for="month">Month to report</label>
+  <input type="month" id="month" required>
+
+  <h2>2. Your data</h2>
+  <p>Add one CSV file per table, in the
+    <a href="https://github.com/SPiER-Project/nys-omh-cocm-caseload-reporting/blob/main/docs/reference/data-contract.md">data contract's</a>
+    shape and named after the table, for example <code>patient.csv</code>. A table you
+    don't add is treated as empty.</p>
+  <div class="drop" id="drop">
+    <span>Drag CSV files here, or choose them:</span>
+    <input type="file" id="files" accept=".csv,text/csv" multiple aria-label="Choose CSV files">
+  </div>
+  <ul class="tables" id="tables"></ul>
+  <p class="status" id="ignored"></p>
+
+  <div class="actions">
+    <button id="calculate" disabled>Calculate</button>
+    <button id="example" class="secondary" disabled>Try it with the example caseload</button>
+  </div>
+
+  <section id="results" hidden>
+    <h2>Results for <span id="results-month"></span></h2>
+    <div id="error" class="error" hidden></div>
+    <div id="output">
+      <table>
+        <thead><tr><th scope="col">#</th><th scope="col">Metric</th><th scope="col">Result</th></tr></thead>
+        <tbody id="metrics"></tbody>
+      </table>
+      <div id="warnings" class="warn" hidden><strong>Warnings</strong><ul></ul></div>
+      <h2>Disclosures for NYS</h2>
+      <ul id="disclosures"></ul>
+      <h2>Who fell out of each numerator</h2>
+      <p>For checking the numbers. Patients are listed by the pseudonymous id in your files.
+        This list is for your site only; don't send it to NYS.</p>
+      <div id="fellout"></div>
+      <div class="actions">
+        <button id="download" class="secondary">Download the full results (JSON)</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="application/json" id="calculator-sources">__CALCULATOR_SOURCES__</script>
+<script type="application/json" id="rules">__RULES__</script>
+<script type="application/json" id="example-caseload">__EXAMPLE_CASELOAD__</script>
+<script src="https://cdn.jsdelivr.net/pyodide/__PYODIDE_VERSION__/full/pyodide.js"></script>
+<script>
+"use strict";
+const TABLES = ["patient", "coverage", "cocm_episode", "contact", "scale_result",
+                "psych_review", "practice_visit", "site_month"];
+const json = id => JSON.parse(document.getElementById(id).textContent);
+const $ = id => document.getElementById(id);
+let texts = {};
+let fromExample = false;
+let lastResults = null;
+let run = null;
+
+function setStatus(text, ready) {
+  $("status").textContent = text;
+  $("status").classList.toggle("ready", !!ready);
+}
+
+function previousMonth() {
+  const d = new Date();
+  d.setDate(1);
+  d.setMonth(d.getMonth() - 1);
+  return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+}
+
+function showTables() {
+  $("tables").replaceChildren(...TABLES.map(t => {
+    const li = document.createElement("li");
+    const have = t in texts;
+    li.className = have ? "have" : "missing";
+    li.textContent = (have ? "✓ " : "– ") + t + ".csv";
+    return li;
+  }));
+}
+
+async function addFiles(fileList) {
+  if (fromExample) {  // don't mix the site's files with the example's
+    texts = {};
+    fromExample = false;
+  }
+  const ignored = [];
+  for (const file of fileList) {
+    const name = file.name.replace(/\.csv$/i, "").toLowerCase();
+    if (TABLES.includes(name)) texts[name] = await file.text();
+    else ignored.push(file.name);
+  }
+  $("ignored").textContent = ignored.length
+    ? "Not a data-contract table, so not used: " + ignored.join(", ") : "";
+  showTables();
+}
+
+async function start() {
+  $("month").value = previousMonth();
+  showTables();
+  try {
+    const pyodide = await loadPyodide();
+    pyodide.FS.mkdirTree("/app/calculator");
+    for (const [name, source] of Object.entries(json("calculator-sources"))) {
+      pyodide.FS.writeFile("/app/calculator/" + name, source);
+    }
+    pyodide.runPython("import sys; sys.path.insert(0, '/app')");
+    run = pyodide.pyimport("calculator.web").run;
+    $("calculate").disabled = false;
+    $("example").disabled = false;
+    setStatus("Ready. The calculator is running in this page.", true);
+  } catch (e) {
+    setStatus("The calculator couldn't load: " + e.message +
+              ". It needs an internet connection the first time.");
+  }
+}
+
+function calculateWith(data, month) {
+  const results = JSON.parse(run(JSON.stringify(data), json("rules"), month));
+  $("results").hidden = false;
+  $("results-month").textContent = month;
+  $("error").hidden = !results.error;
+  $("output").hidden = !!results.error;
+  if (results.error) {
+    $("error").textContent = "Your files couldn't be read: " + results.error;
+    return;
+  }
+  lastResults = results;
+  $("metrics").replaceChildren(...results.rows.map(r => {
+    const tr = document.createElement("tr");
+    for (const [text, cls] of [[r.metric, "num"], [r.name, ""], [r.value, ""]]) {
+      const td = document.createElement("td");
+      td.textContent = text;
+      if (cls) td.className = cls;
+      tr.append(td);
+    }
+    return tr;
+  }));
+  const list = (el, items) => el.replaceChildren(...items.map(x => {
+    const li = document.createElement("li");
+    li.textContent = x;
+    return li;
+  }));
+  $("warnings").hidden = !results.warnings.length;
+  list($("warnings").querySelector("ul"), results.warnings);
+  list($("disclosures"), results.disclosures.length ? results.disclosures : ["None"]);
+  const names = Object.fromEntries(results.rows.map(r => ["m" + r.metric, r.name]));
+  const groups = Object.entries(results.fell_out);
+  $("fellout").replaceChildren(...(groups.length ? groups.map(([m, rows]) => {
+    const d = document.createElement("details");
+    const s = document.createElement("summary");
+    s.textContent = names[m] + " (" + rows.length + ")";
+    const t = document.createElement("table");
+    for (const r of rows) {
+      const tr = document.createElement("tr");
+      const id = document.createElement("td");
+      id.className = "ids";
+      id.textContent = r.patient_id;
+      const why = document.createElement("td");
+      why.textContent = r.reason;
+      tr.append(id, why);
+      t.append(tr);
+    }
+    d.append(s, t);
+    return d;
+  }) : [Object.assign(document.createElement("p"), {textContent: "Nobody."})]));
+  $("results").scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+$("files").addEventListener("change", e => addFiles(e.target.files));
+const drop = $("drop");
+drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", e => {
+  e.preventDefault();
+  drop.classList.remove("over");
+  addFiles(e.dataTransfer.files);
+});
+$("calculate").addEventListener("click", () => {
+  if (!Object.keys(texts).length) {
+    setStatus("Add at least one CSV file first.");
+    return;
+  }
+  calculateWith(texts, $("month").value);
+});
+$("example").addEventListener("click", () => {
+  texts = json("example-caseload");
+  fromExample = true;
+  showTables();
+  $("ignored").textContent = "Loaded the guide's example caseload (invented patients).";
+  $("month").value = "2025-03";
+  calculateWith(texts, "2025-03");
+});
+$("download").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(lastResults, null, 2)], {type: "application/json"});
+  const a = Object.assign(document.createElement("a"), {
+    href: URL.createObjectURL(blob), download: "cocm-results-" + lastResults.reporting_month + ".json"});
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+start();
+</script>
+</body>
+</html>

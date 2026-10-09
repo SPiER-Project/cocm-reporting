@@ -46,8 +46,19 @@ metric by metric and patient by patient. It also tests the edge of each rule: th
 90th day without contact, exactly half the baseline, a 12th birthday on the visit date,
 an empty denominator. CI runs the tests on every pull request.
 
+**In the browser.** The same calculator runs in a web page:
+[https://spier-project.github.io/nys-omh-cocm-caseload-reporting/](https://spier-project.github.io/nys-omh-cocm-caseload-reporting/).
+- A site adds its CSV files and gets the numbers. The files are read in the browser and
+  never uploaded.
+- The page is one self-contained file, [`web/index.html`](../web/index.html), built from
+  [`web/template.html`](../web/template.html) by `python3 scripts/build_web.py`. The
+  build inlines the calculator's source, the rules file and the example caseload.
+- Only Pyodide, the Python engine, comes from a CDN.
+- The file works from GitHub Pages, from a download, or from a shared drive.
+- Pages republishes it whenever `main` changes. CI fails if the built file is out of
+  date with its sources.
+
 **Not yet built:**
-- the browser page;
 - the REDCap output format, which waits on NYS's form (Q-T5);
 - the pseudonymization tool (Q-T3).
 
