@@ -16,8 +16,9 @@ Two clinics that follow it should report the same numbers from the same patients
 **Status:** the guide is written. Every one of its calls still **needs approval**, so treat
 the guide as provisional. The project has adopted the more mechanical calls; the rest
 are proposed, and some need a clinician's sign-off. The
-[open questions](docs/open-questions.md) list what's outstanding. Nothing for automated
-capture is built yet.
+[open questions](docs/open-questions.md) list what's outstanding. The
+[calculator](docs/tooling.md#the-calculator) is built; the other tools for automated
+capture aren't yet.
 
 ## Start here
 
@@ -27,6 +28,7 @@ capture is built yet.
 | A **report writer or analyst** | [Collecting the data](docs/collecting/overview.md) for your route, then the metric pages' "Where the data lives" sections |
 | Checking a **number you've already reported** | The [example caseload](docs/guide/example-caseload.md), which works all eight CoCM metrics through ten patients |
 | Reviewing the **guide's decisions** | [Our calls](docs/reference/our-calls.md), which lists each one with its reasoning, firmness and status |
+| **Calculating the metrics** from your own data | The [calculator](docs/tooling.md#the-calculator): put your data in the data contract's CSV shape, then run `python3 -m calculator DATA_DIR --month YYYY-MM` |
 | **Building tools** to capture the data | The [tooling plan](docs/tooling.md) and the [data contract](docs/reference/data-contract.md) |
 
 ## The metrics

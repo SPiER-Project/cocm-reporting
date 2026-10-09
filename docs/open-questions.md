@@ -38,7 +38,6 @@ about:
 | ID | Question | Notes |
 |---|---|---|
 | Q-T1 | Which way in do we build first? | See the [tooling plan](tooling.md#what-to-build-first). |
-| Q-T2 | Where does the calculator run? | In the browser on the site's machine (no patient data leaves the site), or as a script the site runs. |
 | Q-T3 | How do sites pseudonymize `patient_id` consistently across sources? | The registry and the EHR must produce the same id for the same patient, or nothing joins. |
 
 ## About the guide

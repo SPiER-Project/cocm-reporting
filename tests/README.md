@@ -42,7 +42,13 @@ call has changed when its values in `rules/calls.toml` change, or when the wordi
 "Call." paragraph in `our-calls.md` changes. Changing a call's status or approval doesn't
 count.
 
-## When there's a calculator
+## The calculator's tests
 
-Its test suite should run it on each fixture and compare the output with
-`expected.toml`, metrics first, then patients.
+```bash
+python3 -m unittest discover tests
+```
+
+[`test_calculator.py`](test_calculator.py) runs the [calculator](../calculator/) on each
+fixture and compares the output with `expected.toml`, metric by metric and patient by
+patient. It also checks the edges of individual calls on small, made-up tables. A new
+fixture directory is picked up automatically.
