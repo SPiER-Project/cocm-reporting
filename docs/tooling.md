@@ -16,8 +16,8 @@ worked examples. The other ways in are options for discussion.
 - **The calculator:** reads the eight tables and the rules file, and returns the eleven
   numbers in the REDCap form's shape. It also returns a patient-level list of who fell out of each numerator
   and why; that list stays at the site.
-- **Ways in:** the workbook, registry mappings, EHR report recipes, and FHIR. Each fills
-  some or all of the tables.
+- **Ways in:** the [workbook](collecting/workbook.md), registry mappings, EHR report
+  recipes, and FHIR. Each fills some or all of the tables.
 
 ## The calculator
 
@@ -86,9 +86,9 @@ the registry for the CoCM half.
 
 This is Q-T1 in [open questions](open-questions.md#the-tooling). A proposal to react to:
 
-1. **The workbook, now that the calculator exists.** The workbook is the contract made
-   usable. A workbook that exports the eight CSVs gives spreadsheet sites a way to run
-   the calculator.
+1. **The workbook.** Built: [the workbook route](collecting/workbook.md). It's generated
+   from the data contract by `scripts/build_workbook.py`, and the calculator (command
+   line and browser) reads it directly.
 2. **Registry mappings**, starting with whichever registries a survey of NYS sites says
    are most common. They cover metrics 1–8 for most sites.
 3. **EHR report recipes** for metrics 9–10 and coverage, starting with the most common

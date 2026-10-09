@@ -199,6 +199,13 @@ class RuleTests(unittest.TestCase):
                    scale_result=[score("2024-06-01", 5, "phq_a"), score("2025-03-05", 12, "phq9")])
         self.assertFalse(self.run_month(t)["patients"]["X"]["initial_phq9"])
 
+    def test_phq_a_as_the_primary_scale(self):
+        t = tables(patient=[{"patient_id": "X"}], coverage=MEDICAID,
+                   cocm_episode=[episode("2024-12-01", scale="phq_a")],
+                   contact=[contact(d) for d in ("2024-12-01", "2025-01-15", "2025-02-15", "2025-03-15")],
+                   scale_result=[score("2024-12-01", 15, "phq_a"), score("2025-03-15", 6, "phq_a")])
+        self.assertTrue(self.run_month(t)["patients"]["X"]["improved"])
+
     def test_months_back_wraps_years(self):
         self.assertEqual(months_back(date(2025, 3, 1), 11), date(2024, 4, 1))
         self.assertEqual(months_back(date(2024, 12, 1), -1), date(2025, 1, 1))

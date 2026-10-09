@@ -6,6 +6,9 @@
   Python source, rules/calls.toml and the example caseload. Don't edit web/index.html
   directly; edit the template or the sources and rebuild.
 
+  The workbooks it links to (cocm-workbook.xlsx and cocm-workbook-example.xlsx) are built
+  by scripts/build_workbook.py and published next to it.
+
   The calculation runs in this page through Pyodide (Python compiled to WebAssembly).
   The site's files are read in the browser and never sent anywhere.
 -->
@@ -91,13 +94,16 @@
   <input type="month" id="month" required>
 
   <h2>2. Your data</h2>
-  <p>Add one CSV file per table, in the
+  <p>Add the <strong>reporting workbook</strong>, or one CSV file per table in the
     <a href="https://github.com/SPiER-Project/nys-omh-cocm-caseload-reporting/blob/main/docs/reference/data-contract.md">data contract's</a>
-    shape and named after the table, for example <code>patient.csv</code>. A table you
+    shape, named after the table (for example <code>patient.csv</code>). A table you
     don't add is treated as empty.</p>
+  <p>No workbook yet? Download the <a href="cocm-workbook.xlsx" download>blank workbook</a>,
+    or an <a href="cocm-workbook-example.xlsx" download>example filled with invented patients</a>.
+    It opens in Excel, Google Sheets, Numbers or LibreOffice.</p>
   <div class="drop" id="drop">
-    <span>Drag CSV files here, or choose them:</span>
-    <input type="file" id="files" accept=".csv,text/csv" multiple aria-label="Choose CSV files">
+    <span>Drag the workbook or CSV files here, or choose them:</span>
+    <input type="file" id="files" accept=".xlsx,.csv,text/csv" multiple aria-label="Choose the workbook or CSV files">
   </div>
   <ul class="tables" id="tables"></ul>
   <p class="status" id="ignored"></p>
@@ -143,6 +149,7 @@ let texts = {};
 let fromExample = false;
 let lastResults = null;
 let run = null;
+let readWorkbook = null;
 
 function setStatus(text, ready) {
   $("status").textContent = text;
@@ -161,7 +168,7 @@ function showTables() {
     const li = document.createElement("li");
     const have = t in texts;
     li.className = have ? "have" : "missing";
-    li.textContent = (have ? "✓ " : "– ") + t + ".csv";
+    li.textContent = (have ? "✓ " : "– ") + t;
     return li;
   }));
 }
@@ -171,14 +178,25 @@ async function addFiles(fileList) {
     texts = {};
     fromExample = false;
   }
-  const ignored = [];
+  const ignored = [], notes = [];
   for (const file of fileList) {
+    if (/\.xlsx$/i.test(file.name)) {
+      if (!readWorkbook) { notes.push("The calculator is still loading; add the workbook again in a moment."); continue; }
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      let binary = "";
+      for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+      const got = JSON.parse(readWorkbook(btoa(binary)));
+      if (got.error) { notes.push(file.name + ": " + got.error); continue; }
+      Object.assign(texts, got.texts);
+      notes.push("Read " + Object.keys(got.texts).length + " tables from " + file.name + ".");
+      continue;
+    }
     const name = file.name.replace(/\.csv$/i, "").toLowerCase();
     if (TABLES.includes(name)) texts[name] = await file.text();
     else ignored.push(file.name);
   }
-  $("ignored").textContent = ignored.length
-    ? "Not a data-contract table, so not used: " + ignored.join(", ") : "";
+  if (ignored.length) notes.push("Not a data-contract table, so not used: " + ignored.join(", "));
+  $("ignored").textContent = notes.join(" ");
   showTables();
 }
 
@@ -192,7 +210,9 @@ async function start() {
       pyodide.FS.writeFile("/app/calculator/" + name, source);
     }
     pyodide.runPython("import sys; sys.path.insert(0, '/app')");
-    run = pyodide.pyimport("calculator.web").run;
+    const web = pyodide.pyimport("calculator.web");
+    run = web.run;
+    readWorkbook = web.workbook;
     $("calculate").disabled = false;
     $("example").disabled = false;
     setStatus("Ready. The calculator is running in this page.", true);

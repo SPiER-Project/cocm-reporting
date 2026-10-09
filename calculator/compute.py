@@ -154,7 +154,8 @@ def calculate(tables, settings, month):
 
         # Primary scale, baseline and outcomes, form by form (primary-scale, baseline,
         # paired-forms, elevated-baseline, current-score-for-improvement, remission-*).
-        forms = FORMS.get(e["primary_scale"], (e["primary_scale"],))
+        primary = s.phq_a_counts_as if e["primary_scale"] == "phq_a" else e["primary_scale"]
+        forms = FORMS.get(primary, (primary,))
         elevated_any, improved_any, remission_any = False, False, False
         notes, remission_notes = [], []
         for form in forms:
