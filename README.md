@@ -4,14 +4,16 @@ How a New York clinic reports the eleven monthly CoCM caseload metrics that the 
 State Office of Mental Health (OMH) asks for, and how to get each fact out of the
 systems it has: a spreadsheet registry, a registry product, or the EHR alone.
 
-The guide is opinionated. The [NYS document](docs/reference/nys-source/nys-omh-cocm-metrics-2025.md)
-leaves much undefined:
+This is an opinionated approach to the
+[NYS reporting guidelines](docs/reference/nys-source/nys-omh-cocm-metrics-2025.md).
+The guidelines set out what to report. Turning them into numbers takes a series of
+practical decisions, such as:
 - who counts as enrolled;
 - what remission means;
 - which visits should be followed by a depression screen.
 
-Where it's silent or ambiguous, the guide makes a call, says why, and says how firm it is.
-Two clinics that follow it should report the same numbers from the same patients.
+For each, the guide makes a call, explains it, and says how firm it is, so that two clinics
+following it report the same numbers from the same patients.
 
 **Status:** the guide is written. Every one of its calls still **needs approval**, so treat
 the guide as provisional. The project has adopted the more mechanical calls; the rest

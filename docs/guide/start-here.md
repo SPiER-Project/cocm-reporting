@@ -4,9 +4,10 @@
 [`our-calls.md`](../reference/our-calls.md) for each call's status.
 
 This guide tells a New York clinic how to report the eleven CoCM metrics NYS OMH asks for
-each month, and how to get each fact out of the systems it has. Where the
-[NYS document](../reference/nys-source/nys-omh-cocm-metrics-2025.md) is silent or
-ambiguous, the guide makes a call and says why.
+each month, and how to get each fact out of the systems it has. It's an opinionated
+approach to the [NYS reporting guidelines](../reference/nys-source/nys-omh-cocm-metrics-2025.md):
+where turning them into numbers takes a practical decision, the guide makes a call and
+says why.
 
 ## The metrics
 
