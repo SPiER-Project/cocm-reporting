@@ -43,13 +43,13 @@ From the practice-management or EHR system, as standard reports where they exist
 2. **Visits this month**: MRN, date of birth, visit date, provider type, and billing
    codes. This is the hardest report and the one most worth asking a vendor or billing
    service to set up once.
-3. **PHQ-2 and PHQ-9 results** for the past 13 months: MRN, date, instrument, score.
+3. **PHQ-2 and PHQ-9 results** for the past <!--rule:extraction.phq_history_months-->13<!--/rule--> months: MRN, date, instrument, score.
 
 ## Checks before submitting
 
 - Does the number of enrolled patients match the caseload the BHCMs think they have?
-- Does every patient enrolled 70 days or more have a primary scale and a baseline?
-- Is anyone enrolled with no clinical contact in the last 90 days? They should be
+- Does every patient enrolled <!--rule:seventy-days.days-->70<!--/rule--> days or more have a primary scale and a baseline?
+- Is anyone enrolled with no clinical contact in the last <!--rule:inactivity-discharge.days-->90<!--/rule--> days? They should be
   re-engaged or discharged.
 - Does every Medicaid managed care plan in the coverage report appear in the payer
   mapping?

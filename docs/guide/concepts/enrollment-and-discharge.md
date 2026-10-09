@@ -27,8 +27,8 @@ EHR. *Our call: [what counts as enrolled](../../reference/our-calls.md#what-coun
 
 - A referral is not an enrollment. Neither is a warm handoff or verbal consent with
   nothing recorded.
-- A site with no enrollment record at all may infer enrollment from CoCM billing (99492,
-  99493, 99494, G2214), and must say so in its submission. Billing undercounts: an
+- A site with no enrollment record at all may infer enrollment from CoCM billing
+  (<!--rule:what-counts-as-enrolled.cocm_billing_codes-->99492, 99493, 99494, G2214<!--/rule-->), and must say so in its submission. Billing undercounts: an
   enrolled patient can go a month without a billable service.
 
 ### Enrollment date
@@ -43,9 +43,9 @@ was given. This one date is the start for every metric. *Our call:
 A patient is discharged on the date their CoCM episode is closed, for any reason:
 graduation, transfer to specialty care, withdrawal, loss to follow-up, death.
 
-A patient with **no clinical contact for 90 consecutive days** is discharged, with a
-discharge date of the last clinical contact plus 90 days. If there has been no clinical
-contact since enrollment, count the 90 days from the enrollment date. *Our call:
+A patient with **no clinical contact for <!--rule:inactivity-discharge.days-->90<!--/rule--> consecutive days** is discharged, with a
+discharge date of the last clinical contact plus <!--rule:inactivity-discharge.days-->90<!--/rule--> days. If there has been no clinical
+contact since enrollment, count the <!--rule:inactivity-discharge.days-->90<!--/rule--> days from the enrollment date. *Our call:
 [inactivity discharge](../../reference/our-calls.md#inactivity-discharge).*
 
 Don't backdate a discharge to the last contact. Months already reported counted the
@@ -63,7 +63,7 @@ A patient discharged on the 1st counts; a patient enrolled on the 31st counts. *
 
 ### Seventy days
 
-A patient has been enrolled "70 days or greater" when **at least 70 days have elapsed**
+A patient has been enrolled "70 days or greater" when **at least <!--rule:seventy-days.days-->70<!--/rule--> days have elapsed**
 between the enrollment date and the last day of the month. If they were discharged during
 the month, measure to the discharge date instead. A patient enrolled on 6 January 2025
 reaches 70 days on 17 March 2025. *Our call:
@@ -104,7 +104,7 @@ Patient D shows two consequences of the inactivity rule:
 - D's 90 inactive days lengthen average duration.
 
 Both are accurate: the patient was on the caseload and wasn't being reached. The fix is
-operational, not a reporting one: discharge disengaged patients sooner than 90 days where
+operational, not a reporting one: discharge disengaged patients sooner than <!--rule:inactivity-discharge.days-->90<!--/rule--> days where
 the program's protocol allows.
 
 ## What the program should do
@@ -113,7 +113,7 @@ the program's protocol allows.
   arrives.
 - Close episodes when they end, with a discharge date and reason. An open episode with no
   activity is the most common reason enrollment is overstated.
-- Review the caseload monthly for anyone approaching 90 days without a clinical contact,
+- Review the caseload monthly for anyone approaching <!--rule:inactivity-discharge.days-->90<!--/rule--> days without a clinical contact,
   and either re-engage them or discharge them.
 - Open a new episode for a returning patient rather than reopening the old one.
 
@@ -140,12 +140,12 @@ works through each of these.
 
 | Mistake | Effect |
 |---|---|
-| Counting from the referral date | Enrollment overstated; duration understated; patients reach 70 days early |
+| Counting from the referral date | Enrollment overstated; duration understated; patients reach <!--rule:seventy-days.days-->70<!--/rule--> days early |
 | Counting only patients billed this month | Enrollment understated |
 | Never discharging disengaged patients | Enrollment overstated; contact rate understated |
 | Backdating a discharge to the last contact | Prior months change after submission |
 | Counting enrollment as of the last day of the month only | Patients discharged mid-month drop out of metrics 5 and 7 |
-| Measuring time in treatment to the run date instead of month end | Patients reach 70 days early |
+| Measuring time in treatment to the run date instead of month end | Patients reach <!--rule:seventy-days.days-->70<!--/rule--> days early |
 | Reopening an old episode for a returning patient | The old baseline is reused; improvement is measured against the wrong starting point |
 
 ## For automation
@@ -156,5 +156,5 @@ works through each of these.
 - `enrollment_source = billing_inferred` triggers the disclosure.
 - The inactivity rule can be applied by the calculator from
   [`contact`](../../reference/data-contract.md#t4-contact--one-row-per-bhcm-or-team-interaction-with-the-patient)
-  rows. That only works if the extract includes enough contact history to see 90 days
+  rows. That only works if the extract includes enough contact history to see <!--rule:inactivity-discharge.days-->90<!--/rule--> days
   back.

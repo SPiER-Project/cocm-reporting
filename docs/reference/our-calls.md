@@ -4,6 +4,10 @@ Every place this guide interprets the [NYS document](nys-source/nys-omh-cocm-met
 or goes beyond it. The guide's pages state these rules inline; this page collects them,
 with the reasoning, in one place.
 
+The values each call sets, and every call's status and approval, live in
+[`rules/calls.toml`](../../rules/calls.toml). The tables and numbers on this page are
+generated from it; change them there, then run `python3 scripts/rules.py sync`.
+
 **Firmness**
 
 - **NYS says**: the source document settles it; we only restate it.
@@ -30,6 +34,7 @@ Every call below still **needs approval**. Each lists what it replaces in the ar
 
 ## Summary
 
+<!--rules:calls-summary-->
 | Call | Firmness | Status | Approval |
 |---|---|---|---|
 | **Reporting** | | | |
@@ -70,6 +75,7 @@ Every call below still **needs approval**. Each lists what it replaces in the ar
 | [PHQ-A counts as PHQ-9](#phq-a-counts-as-phq-9) | Our call | Proposed | Needed |
 | **Staffing** | | | |
 | [BHCM FTE](#bhcm-fte) | Our call | Adopted | Needed |
+<!--/rules-->
 
 ---
 
@@ -88,14 +94,14 @@ can fall in one month's denominator and the next month's numerator.
 
 ### When to run the report
 
-**Call.** Run a month's report no earlier than 15 days after the month ends, so late
+**Call.** Run a month's report no earlier than <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule--> days after the month ends, so late
 notes and coding can close. Once a month is submitted, don't restate it except to correct
 an error.
 
 **Why.** Running on the 1st undercounts contacts and scales documented late.
 
 **If NYS rules otherwise.** NYS's submission deadline (unknown; see
-[open questions](../open-questions.md)) overrides the 15 days if it is sooner.
+[open questions](../open-questions.md)) overrides the <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule--> days if it is sooner.
 
 **Replaces.** D-19, D-19a.
 
@@ -132,8 +138,8 @@ one to measure.
 **Call.** A patient is enrolled from a documented CoCM enrollment (in a registry, or a
 structured program-enrollment record in the EHR) until discharged. A referral is not an
 enrollment, and neither is verbal consent with nothing recorded. A site with no
-enrollment record may infer enrollment from CoCM billing codes (99492, 99493, 99494,
-G2214), but must disclose that it did.
+enrollment record may infer enrollment from CoCM billing codes
+(<!--rule:what-counts-as-enrolled.cocm_billing_codes-->99492, 99493, 99494, G2214<!--/rule-->), but must disclose that it did.
 
 **Why.** Counting from referral inflates enrollment; counting only billed months
 undercounts it, because an enrolled patient can go a month unbilled.
@@ -167,9 +173,9 @@ day.
 
 ### Inactivity discharge
 
-**Call.** A patient with no [clinical contact](#clinical-contact) for 90 consecutive days
-is discharged, with a discharge date of the last clinical contact plus 90 days. A patient
-with no clinical contact since enrollment is discharged 90 days after the enrollment
+**Call.** A patient with no [clinical contact](#clinical-contact) for <!--rule:inactivity-discharge.days-->90<!--/rule--> consecutive days
+is discharged, with a discharge date of the last clinical contact plus <!--rule:inactivity-discharge.days-->90<!--/rule--> days. A patient
+with no clinical contact since enrollment is discharged <!--rule:inactivity-discharge.days-->90<!--/rule--> days after the enrollment
 date.
 
 **Why.** Patients who stop engaging but are never discharged inflate enrollment and pull
@@ -180,7 +186,7 @@ contact, means months already reported don't change.
 
 ### Seventy days
 
-**Call.** A patient has been "enrolled for 70 days or greater" when at least 70 days have
+**Call.** A patient has been "enrolled for 70 days or greater" when at least <!--rule:seventy-days.days-->70<!--/rule--> days have
 elapsed from the enrollment date to the last day of the month, or to the discharge date
 if they were discharged in the month. For example, a patient enrolled on 1 January 2025
 reaches 70 days on 12 March 2025. "At least 10 weeks" in Appendix A means the same.
@@ -259,15 +265,17 @@ with the other Medicaid metrics in the source.
 during the episode. It is the scale the clinic uses to treat the primary diagnosis. When
 a site has no record of which that is, use this default:
 
+<!--rules:primary-scale-table-->
 | Primary diagnosis | Primary scale |
 |---|---|
 | Depression, adult | PHQ-9 |
-| Depression, adolescent | PHQ-9 or SMFQ; the site picks one and uses it for every adolescent |
+| Depression, adolescent | PHQ-9 or SMFQ (child form); the site picks one and uses it for every adolescent |
 | Anxiety, adult | GAD-7 |
 | Anxiety, child or adolescent | SCARED |
 | PTSD | PCL-5 |
 | ADHD | NICHQ Vanderbilt |
 | General pediatric behavioral concern | PSC-17 |
+<!--/rules-->
 
 **NYS says.** Patients count toward improvement "when they meet criteria for the scale
 used to treat their primary diagnosis."
@@ -279,7 +287,7 @@ Changing the scale mid-episode loses the baseline.
 
 ### Baseline
 
-**Call.** The baseline is the first score on the primary scale dated on or within 14
+**Call.** The baseline is the first score on the primary scale dated on or within <!--rule:baseline.window_days-->14<!--/rule-->
 days after the enrollment date. If there is none in that window, it is the first score
 on the primary scale after enrollment. A score from before the enrollment date, such as
 the screening PHQ-9 that led to the referral, is never the baseline. A re-enrollment is
@@ -294,15 +302,18 @@ the baseline to the episode stops it carrying over between enrollments.
 
 **Call.** A baseline is elevated when it is at or above the scale's threshold:
 
+<!--rules:elevated-baseline-table-->
 | Scale | Elevated at or above | Firmness |
 |---|---|---|
 | PHQ-9 | 10 | Our call |
 | GAD-7 | 10 | Our call |
 | PCL-5 | 33 | Needs clinical sign-off |
-| SCARED (either form) | 25 | Needs clinical sign-off |
+| SCARED | 25 | Needs clinical sign-off |
 | PSC-17 | 15 | Needs clinical sign-off |
 | SMFQ (child form) | 12 | Needs clinical sign-off |
-| SMFQ (parent form), NICHQ Vanderbilt | none yet | Needs clinical sign-off |
+| SMFQ (parent form) | not yet set | Needs clinical sign-off |
+| NICHQ Vanderbilt | not yet set | Needs clinical sign-off |
+<!--/rules-->
 
 Each value is a published screening cutoff for the instrument; the
 [instruments](instruments.md#where-the-thresholds-come-from) page gives the sources.
@@ -391,6 +402,7 @@ enrolled this month.
 
 **Call.**
 
+<!--rules:remission-thresholds-table-->
 | Scale | Remission below | Firmness |
 |---|---|---|
 | PHQ-9 | 5 | Our call |
@@ -400,6 +412,7 @@ enrolled this month.
 | PSC-17 | 15 | Needs clinical sign-off |
 | SMFQ (child form) | 8 | Needs clinical sign-off |
 | NICHQ Vanderbilt | fewer than 6 symptom items rated 2 or 3 | Needs clinical sign-off |
+<!--/rules-->
 
 [Paired forms](#paired-forms) apply: either form meeting the threshold counts.
 
@@ -419,7 +432,7 @@ threshold beyond PHQ-9 and GAD-7 needs a clinician's review.
 ### Psychiatric consultation denominator
 
 **Call.** The metric 8 denominator is the metric 6 denominator minus the metric 6
-numerator: Medicaid patients enrolled for [70 days or more](#seventy-days), with an
+numerator: Medicaid patients enrolled for [<!--rule:seventy-days.days-->70<!--/rule--> days or more](#seventy-days), with an
 [elevated baseline](#elevated-baseline), who did not meet improvement criteria this month.
 
 **NYS says.** Patients "who have not met clinical improvement criteria this month", with a
@@ -476,7 +489,7 @@ month," with the list of appropriate scales.
 
 **Call.** A case review counts when the psychiatric consultant reviewed this patient and
 documented a recommendation to the PCP or BHCM. "Continue current treatment" is a
-recommendation. The review must fall within the 60 days ending on the last day of the
+recommendation. The review must fall within the <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days ending on the last day of the
 month, counting both ends. For March 2025, that is 31 January to 31 March.
 
 **NYS says.** "Reviewed by the Psychiatric Consultant with treatment recommendations
@@ -492,19 +505,24 @@ the caseload. Counting back from the run date instead of month end shifts the wi
 ### Who should be screened
 
 **Call.** The metric 9 denominator is each patient, counted once, who had at least one
-qualifying visit in the month and was 12 or older on the visit date. No other exclusions.
+qualifying visit in the month and was <!--rule:who-should-be-screened.age_floor-->12<!--/rule--> or older on the visit date. No other exclusions.
 
 A qualifying visit is an in-person or telehealth visit with a medical (not behavioral
 health) provider, billed with one of these codes:
-- office or outpatient evaluation and management (E&M), 99202–99215, except 99211,
-  which is normally billed for a nurse-only visit;
-- preventive medicine, 99381–99397;
-- annual wellness visit, G0438 and G0439;
-- their telehealth equivalents.
 
-Nurse-only visits, lab and vaccine visits, and visits with the BHCM or any behavioral
-health clinician aren't qualifying visits. The code list is the draft's, and will be
-checked when the screening page is written.
+<!--rules:visit-codes-table-->
+| Visit | Codes |
+|---|---|
+| Office or outpatient evaluation and management (E&M) | 99202–99205, 99212–99215 |
+| Preventive medicine, new and established | 99381–99397 |
+| Medicare annual wellness visit | G0438, G0439 |
+| Telehealth equivalents of the above | To be confirmed |
+<!--/rules-->
+
+<!--rule:who-should-be-screened.excluded_codes-->99211<!--/rule--> is left out: it's normally billed for a nurse-only visit. Nurse-only visits,
+lab and vaccine visits, and visits with the BHCM or any behavioral health clinician
+aren't qualifying visits. The code list still needs checking against a source (see
+[open questions](../open-questions.md#to-verify-against-a-source)).
 
 **NYS says.** "Patients seen in the practice for any reason this month that meet practice
 criteria for universal depression screen (Refer to practice workflow)."
@@ -523,7 +541,7 @@ contract already extracts every visit with its provider type and codes.
 ### What counts as screened
 
 **Call.** A patient in the metric 9 denominator is screened if they have a scored PHQ-2
-or PHQ-9 dated in the 12 months ending on the last day of the month, by anyone, for any
+or PHQ-9 dated in the <!--rule:what-counts-as-screened.lookback_months-->12<!--/rule--> months ending on the last day of the month, by anyone, for any
 reason. That includes a CoCM monitoring PHQ-9. A declined screen does not count. A
 positive PHQ-2 with no follow-up PHQ-9 still counts as screened.
 
@@ -539,7 +557,7 @@ in the last 12 months."
 ### Initial PHQ-9
 
 **Call.** A PHQ-9 is a patient's initial PHQ-9 if it is dated in the month and the
-patient has no other scored PHQ-9 in the 365 days before it. Each patient counts at
+patient has no other scored PHQ-9 in the <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days before it. Each patient counts at
 most once a month. Context doesn't matter: a PHQ-9 given by a medical provider or by the
 BHCM counts the same.
 
@@ -548,7 +566,7 @@ BHCM counts the same.
 **Why.**
 - "First ever" can't be known from most systems.
 - "First this month" would count a CoCM patient's monthly monitoring PHQ-9 every month.
-- 365 days lines up with the annual screening in metric 9.
+- <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days lines up with the annual screening in metric 9.
 
 **Consequence.** With this rule and [what counts as screened](#what-counts-as-screened),
 neither screening metric needs to know whether a PHQ was for screening or monitoring.

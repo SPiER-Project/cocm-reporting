@@ -23,7 +23,7 @@ clinical sign-off. Expect this metric's rules to change more than any other's.
      primary scale.
   2. A primary-scale score **dated this month**. If there's more than one, use the last.
   3. That score is below the scale's remission threshold. For PHQ-9 and GAD-7 that's
-     below 5.
+     below <!--rule:remission-thresholds.thresholds.phq9.below-->5<!--/rule-->.
 
 Unlike improvement, nothing carries forward. A patient in remission last month with no
 score this month isn't in remission this month.

@@ -8,16 +8,16 @@
 > — [NYS, metric 8](../../reference/nys-source/nys-omh-cocm-metrics-2025.md#8-psychiatric-consultation-rate)
 
 **Reported as:** a percentage. **Target:** 80% or more. **Population:** CoCM, Medicaid,
-70 days or more, elevated baseline, not improved.
+<!--rule:seventy-days.days-->70<!--/rule--> days or more, elevated baseline, not improved.
 
 ## The rule
 
 - **Denominator:** [metric 6](06-improvement-rate.md)'s denominator minus its numerator:
-  Medicaid patients with 70 days or more in treatment and an elevated baseline who **have
+  Medicaid patients with <!--rule:seventy-days.days-->70<!--/rule--> days or more in treatment and an elevated baseline who **have
   not improved** this month. *Our call:
   [psychiatric consultation denominator](../../reference/our-calls.md#psychiatric-consultation-denominator).*
 - **Numerator:** those with a [psychiatric case review](../concepts/contacts-and-reviews.md#psychiatric-case-review-metric-8)
-  in the 60 days ending on the last day of the month. The review must be of this patient,
+  in the <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days ending on the last day of the month. The review must be of this patient,
   with a recommendation to the PCP or BHCM documented. "Continue current treatment" is a
   recommendation.
 
@@ -52,7 +52,7 @@ often the hardest fact to extract from an EHR alone.
 |---|---|
 | Counting the consultant's attendance at a caseload meeting as a review of every patient | Overstated |
 | Counting a review with no documented recommendation | Overstated |
-| Measuring 60 days back from the run date | Reviews early in the window drop out; understated |
+| Measuring <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days back from the run date | Reviews early in the window drop out; understated |
 | Including patients without an elevated baseline in the denominator | The denominator includes patients who can never improve under Appendix A |
 
 ## For automation

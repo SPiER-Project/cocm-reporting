@@ -8,12 +8,12 @@
 > and [Appendix A](../../reference/nys-source/nys-omh-cocm-metrics-2025.md#appendix-a-improvement-rate-specifications)
 
 **Reported as:** a percentage. **Target:** 60% or more. **Population:** CoCM, Medicaid,
-70 days or more, with an elevated baseline.
+<!--rule:seventy-days.days-->70<!--/rule--> days or more, with an elevated baseline.
 
 ## The rule
 
 - **Denominator:** Medicaid patients enrolled this month who have both of these:
-  - [70 days or more](../concepts/enrollment-and-discharge.md#seventy-days) in treatment,
+  - [<!--rule:seventy-days.days-->70<!--/rule--> days or more](../concepts/enrollment-and-discharge.md#seventy-days) in treatment,
     measured to month end or to discharge;
   - an [elevated baseline](../concepts/scales-and-outcomes.md#elevated-baseline) on their
     [primary scale](../concepts/scales-and-outcomes.md#primary-scale).
@@ -62,7 +62,7 @@ diagnosis and scale from the episode. See
 | Comparing with last month instead of baseline | Understated for patients who improved early and held steady |
 | Using a pre-enrollment screening score as baseline | Usually overstated |
 | Including patients without an elevated baseline | Overstated: a patient enrolled with a PHQ-9 of 8 is "below 10" on day one |
-| Counting from referral, so patients reach 70 days early | Understated: patients enter the denominator before treatment has had time to work |
+| Counting from referral, so patients reach <!--rule:seventy-days.days-->70<!--/rule--> days early | Understated: patients enter the denominator before treatment has had time to work |
 
 ## For automation
 

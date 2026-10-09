@@ -105,10 +105,10 @@ A month's report needs more than a month of data:
 |---|---|
 | Episodes | Every episode that overlaps the month |
 | Contacts and scales for the caseload | Each open episode's enrollment date. The baseline and the inactivity rule both need the full episode |
-| Case reviews | 60 days before month end |
+| Case reviews | <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days before month end |
 | Coverage | Every coverage period that overlaps the month |
 | Practice visits | The month |
-| PHQ-2, PHQ-9 and PHQ-A across the practice | 13 months: 12 for metric 9, and 365 days before each PHQ-9 for metric 10 |
+| PHQ-2, PHQ-9 and PHQ-A across the practice | <!--rule:extraction.phq_history_months-->13<!--/rule--> months: <!--rule:what-counts-as-screened.lookback_months-->12<!--/rule--> for metric 9, and <!--rule:initial-phq-9.lookback_days-->365<!--/rule--> days before each PHQ-9 for metric 10 |
 
 ### What to disclose
 
@@ -125,7 +125,7 @@ When a site fills a gap with a substitute, it says so in its submission:
 | When | What |
 |---|---|
 | During the month | Document contacts, scales and case reviews as they happen; log outreach attempts |
-| Last week of the month | Review the caseload for anyone near 90 days without a clinical contact |
-| Month end to the 15th | Late notes and charges close. Don't run the report yet |
-| On or after the 15th | Run the extracts; calculate the metrics; review the patients who fell out of each numerator |
+| Last week of the month | Review the caseload for anyone near <!--rule:inactivity-discharge.days-->90<!--/rule--> days without a clinical contact |
+| Month end to the <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule-->th | Late notes and charges close. Don't run the report yet |
+| On or after the <!--rule:when-to-run-the-report.earliest_run_day-->15<!--/rule-->th | Run the extracts; calculate the metrics; review the patients who fell out of each numerator |
 | Before the NYS deadline | Submit the eleven numbers and the disclosures |

@@ -12,10 +12,10 @@ payers. It is not limited to CoCM patients, and the data isn't in the CoCM regis
 
 - **Denominator:** [who should be screened](../concepts/screening.md#who-should-be-screened-metric-9-denominator).
   Each patient counts once if this month they had at least one qualifying visit (an E&M,
-  preventive or annual wellness visit with a medical provider, but not 99211) and were 12
+  preventive or annual wellness visit with a medical provider, but not <!--rule:who-should-be-screened.excluded_codes-->99211<!--/rule-->) and were <!--rule:who-should-be-screened.age_floor-->12<!--/rule-->
   or older on the visit date.
 - **Numerator:** those [screened](../concepts/screening.md#what-counts-as-screened-metric-9-numerator):
-  a scored PHQ-2 or PHQ-9 (or PHQ-A) dated in the 12 months ending on the last day of the
+  a scored PHQ-2 or PHQ-9 (or PHQ-A) dated in the <!--rule:what-counts-as-screened.lookback_months-->12<!--/rule--> months ending on the last day of the
   month, given by anyone, for any reason. A declined screen doesn't count.
 
 A practice whose own screening workflow differs from this (for example, adults only)
@@ -57,6 +57,6 @@ See [screening](../concepts/screening.md#where-the-data-lives).
 Reads [`patient`](../../reference/data-contract.md#t1-patient) (`birth_date`),
 [`practice_visit`](../../reference/data-contract.md#t7-practice_visit--the-denominator-for-metric-9),
 [`scale_result`](../../reference/data-contract.md#t5-scale_result--one-row-per-completed-scored-administration)
-(12 months of PHQ-2, PHQ-9 and PHQ-A) and
+(<!--rule:what-counts-as-screened.lookback_months-->12<!--/rule--> months of PHQ-2, PHQ-9 and PHQ-A) and
 [`site_month`](../../reference/data-contract.md#t8-site_month--one-row-per-submission)
 (`screening_age_floor`).

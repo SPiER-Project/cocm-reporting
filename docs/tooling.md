@@ -9,8 +9,11 @@ collection guidance is in [`collecting/`](collecting/overview.md).
 ## The pieces
 
 - **The [data contract](reference/data-contract.md):** the eight tables every route produces.
-- **The calculator:** reads the eight tables and returns the eleven numbers in the REDCap
-  form's shape. It also returns a patient-level list of who fell out of each numerator
+- **The rules file, [`rules/calls.toml`](../rules/calls.toml):** every value the guide's
+  calls set. The calculator takes its settings from it, so changing a call there changes
+  the tool and the docs together.
+- **The calculator:** reads the eight tables and the rules file, and returns the eleven
+  numbers in the REDCap form's shape. It also returns a patient-level list of who fell out of each numerator
   and why; that list stays at the site.
 - **Ways in:** the workbook, registry mappings, EHR report recipes, and FHIR. Each fills
   some or all of the tables.

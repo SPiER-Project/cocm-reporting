@@ -65,7 +65,7 @@ recommendation. *Our call:
 - **It's per patient.** The consultant attending the weekly caseload meeting is not a
   review of everyone on the caseload. Only the patients discussed, with a recommendation
   recorded, count.
-- **The window is the 60 days ending on the last day of the month**, counting both ends.
+- **The window is the <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days ending on the last day of the month**, counting both ends.
   For March 2025 that's 31 January to 31 March. Count back from month end, not from the
   date the report is run.
 - A case review is not a clinical contact. A visit in which the consultant sees the
@@ -99,7 +99,7 @@ Metric 5 for these six: 3 of 6, or **50.0%**.
 - **Record case reviews patient by patient**, with the recommendation, on the day of the
   review. A meeting note listing twenty names with no recommendations doesn't count for
   any of them.
-- **Review every patient who isn't improving at least every 60 days.** Metric 8's
+- **Review every patient who isn't improving at least every <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days.** Metric 8's
   denominator is exactly those patients.
 
 ## Where the data lives
@@ -126,7 +126,7 @@ Metric 5 for these six: 3 of 6, or **50.0%**.
 | Counting outreach attempts as contacts | Contact rate overstated |
 | Counting a contact with no scale, or a scale with no contact | Contact rate overstated |
 | Counting the consultant's caseload meeting as a review of every patient | Metric 8 overstated |
-| Measuring the 60 days from the run date | The window shifts; reviews early in the window drop out |
+| Measuring the <!--rule:psychiatric-case-review.window_days-->60<!--/rule--> days from the run date | The window shifts; reviews early in the window drop out |
 | Counting the case review as a patient contact | Contact rate overstated for patients discussed but not seen |
 
 ## For automation

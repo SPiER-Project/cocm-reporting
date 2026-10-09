@@ -44,15 +44,17 @@ Each episode has **one primary scale**, recorded at enrollment and kept for the 
 episode. It is the scale the clinic uses to treat the primary diagnosis. If a site has
 no record of which that is, use the default:
 
+<!--rules:primary-scale-table-->
 | Primary diagnosis | Primary scale |
 |---|---|
 | Depression, adult | PHQ-9 |
-| Depression, adolescent | PHQ-9 or SMFQ. The site picks one and uses it for every adolescent |
+| Depression, adolescent | PHQ-9 or SMFQ (child form); the site picks one and uses it for every adolescent |
 | Anxiety, adult | GAD-7 |
 | Anxiety, child or adolescent | SCARED |
 | PTSD | PCL-5 |
 | ADHD | NICHQ Vanderbilt |
 | General pediatric behavioral concern | PSC-17 |
+<!--/rules-->
 
 *Our call: [primary scale](../../reference/our-calls.md#primary-scale).* A patient may
 complete other scales too. They count for metric 5, but improvement and remission are
@@ -60,7 +62,7 @@ judged only on the primary scale.
 
 ### Baseline
 
-The baseline is **the first primary-scale score on or within 14 days after the enrollment
+The baseline is **the first primary-scale score on or within <!--rule:baseline.window_days-->14<!--/rule--> days after the enrollment
 date**. If there's none in that window, it's the first primary-scale score after
 enrollment. A score from before the enrollment date, such as the screening PHQ-9 that led
 to the referral, is never the baseline. *Our call:
@@ -72,6 +74,7 @@ For scales with two forms, each form has its own baseline.
 
 Only a patient with an **elevated baseline** can count as improved or in remission.
 
+<!--rules:elevated-baseline-table-->
 | Scale | Elevated at or above | Firmness |
 |---|---|---|
 | PHQ-9 | 10 | Our call |
@@ -80,7 +83,9 @@ Only a patient with an **elevated baseline** can count as improved or in remissi
 | SCARED | 25 | Needs clinical sign-off |
 | PSC-17 | 15 | Needs clinical sign-off |
 | SMFQ (child form) | 12 | Needs clinical sign-off |
-| SMFQ (parent form), NICHQ Vanderbilt | not yet set | Needs clinical sign-off |
+| SMFQ (parent form) | not yet set | Needs clinical sign-off |
+| NICHQ Vanderbilt | not yet set | Needs clinical sign-off |
+<!--/rules-->
 
 *[Elevated baseline](../../reference/our-calls.md#elevated-baseline).* The values marked
 for sign-off are each instrument's published screening cutoff (sources on the
@@ -126,6 +131,7 @@ A patient is in remission this month when all three hold:
    the last.
 3. That score is **below the remission threshold**:
 
+<!--rules:remission-thresholds-table-->
 | Scale | Remission below | Firmness |
 |---|---|---|
 | PHQ-9 | 5 | Our call |
@@ -135,6 +141,7 @@ A patient is in remission this month when all three hold:
 | PSC-17 | 15 | Needs clinical sign-off |
 | SMFQ (child form) | 8 | Needs clinical sign-off |
 | NICHQ Vanderbilt | fewer than 6 symptom items rated 2 or 3 | Needs clinical sign-off |
+<!--/rules-->
 
 *Our calls: [remission timing](../../reference/our-calls.md#remission-timing),
 [remission needs an elevated baseline](../../reference/our-calls.md#remission-needs-an-elevated-baseline),
@@ -147,7 +154,7 @@ states. The elevated-baseline requirement applies only to the numerator.
 ### Not improved (metric 8)
 
 The metric 8 population is metric 6's denominator minus its numerator: Medicaid patients
-enrolled 70 days or more, with an elevated baseline, who have not improved this month.
+enrolled <!--rule:seventy-days.days-->70<!--/rule--> days or more, with an elevated baseline, who have not improved this month.
 *Our call: [psychiatric consultation denominator](../../reference/our-calls.md#psychiatric-consultation-denominator).*
 
 ## Worked example
