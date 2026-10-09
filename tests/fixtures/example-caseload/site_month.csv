@@ -1,0 +1,2 @@
+site_id,reporting_month,bhcm_fte,screening_age_floor,treatment_contact_rule,extract_run_date,source_system,notes
+EXAMPLE,2025-03,2.1,12,contact marked as a session in the registry,2025-04-15,registry,Invented data for the guide's example caseload

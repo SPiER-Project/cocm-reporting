@@ -43,9 +43,9 @@ the registry for the CoCM half.
 This is Q-T1 in [open questions](open-questions.md#the-tooling). A proposal to react to:
 
 1. **The workbook and the calculator, together.** The workbook is the contract made
-   usable, and it gives the calculator real input to test against. The guide's
-   [example caseload](guide/example-caseload.md) is the first test case: the calculator
-   must reproduce its eight results.
+   usable, and it gives the calculator real input to test against. The calculator's
+   first tests are the fixtures in [`tests/fixtures/`](../tests/fixtures/): it must
+   reproduce each `expected.toml`, metric by metric and patient by patient.
 2. **Registry mappings**, starting with whichever registries a survey of NYS sites says
    are most common. They cover metrics 1–8 for most sites.
 3. **EHR report recipes** for metrics 9–10 and coverage, starting with the most common

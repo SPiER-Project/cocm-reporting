@@ -33,7 +33,7 @@ From the [example caseload](../example-caseload.md):
 
 (160 + 102) ÷ 2 = 131 days; 131 ÷ 7 = 18.71.
 
-**Metric 4: 18.7 weeks.**
+**Metric 4: <!--expect:example-caseload.m4-->18.7 weeks<!--/expect-->.**
 
 P4's 90 days without contact are part of the 160. Inactivity discharges always lengthen
 the average. That's accurate, because the patient was on the caseload, but a program

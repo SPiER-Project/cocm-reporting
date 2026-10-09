@@ -39,7 +39,7 @@ From the [example caseload](../example-caseload.md):
 | P8 | Video, 6 Mar | PHQ-9, 6 Mar | Yes |
 | P9 | Phone, 14 Mar | PHQ-9, 14 Mar | Yes |
 
-**Metric 5: 7 of 8, 87.5%.** P4 counts against the rate in the month of their inactivity
+**Metric 5: <!--expect:example-caseload.m5-->7 of 8, 87.5%<!--/expect-->.** P4 counts against the rate in the month of their inactivity
 discharge, because they were still enrolled for the first ten days of March.
 
 The [contacts and reviews](../concepts/contacts-and-reviews.md#worked-example) page has a

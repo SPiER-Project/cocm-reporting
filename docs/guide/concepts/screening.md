@@ -94,7 +94,9 @@ That removes the hardest step in building the report from an EHR.
 
 ## Worked example
 
-Reporting month: March 2025.
+Reporting month: March 2025. The same patients are test data in
+[`tests/fixtures/screening-example`](../../../tests/fixtures/screening-example), with the
+expected results in `expected.toml`.
 
 | Patient | Age | March visits | PHQs on record | Metric 9 | Metric 10 |
 |---|---|---|---|---|---|
@@ -107,8 +109,8 @@ Reporting month: March 2025.
 | G | 50 | Nurse visit for a flu shot | — | Not in denominator: not a qualifying visit | — |
 | H | 16 | Office visit, 99213 | PHQ-A of 7, 18 Mar; none before | Denominator and **screened** | **Initial, negative** |
 
-- Metric 9: 5 of 6 screened (A, B, C, D and H, out of A to E and H), or **83.3%**.
-- Metric 10: 1 of 2 positive, or **50.0%**.
+- Metric 9: 5 of 6 screened (A, B, C, D and H, out of A to E and H), or **<!--expect:screening-example.m9.percent-->83.3%<!--/expect-->**.
+- Metric 10: 1 of 2 positive, or **<!--expect:screening-example.m10.percent-->50.0%<!--/expect-->**.
 
 ## What the program should do
 

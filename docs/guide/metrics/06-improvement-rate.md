@@ -46,7 +46,7 @@ Not in the denominator:
 - P8: 105 days, but a baseline of 8 isn't elevated.
 - P5: not Medicaid.
 
-**Metric 6: 4 of 6, 66.7%.**
+**Metric 6: <!--expect:example-caseload.m6-->4 of 6, 66.7%<!--/expect-->.**
 
 ## Where the data lives
 

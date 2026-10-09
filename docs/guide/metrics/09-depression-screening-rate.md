@@ -30,7 +30,7 @@ The [screening](../concepts/screening.md#worked-example) page has the full examp
 - **Numerator:** five of the six were screened, one of them through monthly CoCM PHQ-9s.
   The sixth declined.
 
-**Metric 9: 5 of 6, 83.3%.**
+**Metric 9: <!--expect:screening-example.m9-->5 of 6, 83.3%<!--/expect-->.**
 
 ## Where the data lives
 

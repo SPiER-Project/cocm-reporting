@@ -1,0 +1,65 @@
+{
+  "bhcm-fte-example": {
+    "bhcm-fte": "111b4a611742"
+  },
+  "contacts-example": {
+    "active-treatment": "0425a88ba35e",
+    "clinical-contact": "d0c6f5e27965",
+    "rounding": "8e689cac85cc"
+  },
+  "enrollment-example": {
+    "diagnosed-and-enrolled": "b4e7ce70f34f",
+    "duration-in-weeks": "1dbfebd2c7df",
+    "enrolled-this-month": "85ca6b414525",
+    "enrollment-date": "e75bf5f8d89e",
+    "inactivity-discharge": "7e5e8f9cdc8b",
+    "rounding": "8e689cac85cc",
+    "seventy-days": "833a8b87bb63",
+    "what-counts-as-enrolled": "548460a0bee1"
+  },
+  "example-caseload": {
+    "active-treatment": "0425a88ba35e",
+    "baseline": "c9c330b81e65",
+    "clinical-contact": "d0c6f5e27965",
+    "current-score-for-improvement": "510970dec9e8",
+    "diagnosed-and-enrolled": "b4e7ce70f34f",
+    "duration-in-weeks": "1dbfebd2c7df",
+    "elevated-baseline": "5ddba2256d8c",
+    "enrolled-this-month": "85ca6b414525",
+    "enrollment-date": "e75bf5f8d89e",
+    "fifty-percent-improved": "907e58b61ae3",
+    "inactivity-discharge": "7e5e8f9cdc8b",
+    "primary-scale": "3c3f846880b8",
+    "psychiatric-case-review": "51b4ea16fa03",
+    "psychiatric-consultation-denominator": "2af89ab9c7f2",
+    "remission-is-a-medicaid-metric": "7e9086512668",
+    "remission-needs-an-elevated-baseline": "1df0d1563dc9",
+    "remission-thresholds": "cfdb4738ca6f",
+    "remission-timing": "9d499ae6f16a",
+    "reporting-month": "44410e993774",
+    "rounding": "8e689cac85cc",
+    "seventy-days": "833a8b87bb63",
+    "what-counts-as-enrolled": "548460a0bee1",
+    "who-counts-as-medicaid": "1f2e8bff3589"
+  },
+  "scales-example": {
+    "active-treatment": "0425a88ba35e",
+    "baseline": "c9c330b81e65",
+    "current-score-for-improvement": "510970dec9e8",
+    "elevated-baseline": "5ddba2256d8c",
+    "fifty-percent-improved": "907e58b61ae3",
+    "primary-scale": "3c3f846880b8",
+    "remission-needs-an-elevated-baseline": "1df0d1563dc9",
+    "remission-thresholds": "cfdb4738ca6f",
+    "remission-timing": "9d499ae6f16a",
+    "seventy-days": "833a8b87bb63"
+  },
+  "screening-example": {
+    "initial-phq-9": "33d43dfae20b",
+    "phq-a-counts-as-phq-9": "5f58a14a8bac",
+    "reporting-month": "44410e993774",
+    "rounding": "8e689cac85cc",
+    "what-counts-as-screened": "e7c09366326b",
+    "who-should-be-screened": "9f670705fbb5"
+  }
+}

@@ -1,0 +1,40 @@
+# What the calculator must produce from this fixture, for March 2025.
+# The worked example is the one in docs/guide/concepts/screening.md; metrics 9 and 10
+# quote it.
+
+reporting_month = "2025-03"
+
+[metrics.m9]
+numerator = 5          # A, B, C, D, H
+denominator = 6        # A to E, and H. F is under 12; G had only a nurse visit
+[metrics.m10]
+numerator = 1          # B
+denominator = 2        # B, H. D's PHQ-9 isn't initial; A had only a PHQ-2
+
+[patients.A]
+in_screening_denominator = true
+screened = true
+[patients.B]
+in_screening_denominator = true
+screened = true
+initial_phq9 = true
+initial_phq9_positive = true
+[patients.C]
+in_screening_denominator = true
+screened = true
+[patients.D]
+in_screening_denominator = true
+screened = true
+initial_phq9 = false
+[patients.E]
+in_screening_denominator = true
+screened = false
+[patients.F]
+in_screening_denominator = false
+[patients.G]
+in_screening_denominator = false
+[patients.H]
+in_screening_denominator = true
+screened = true
+initial_phq9 = true
+initial_phq9_positive = false

@@ -1,0 +1,11 @@
+patient_id,payer_category,start_date,end_date,plan_name
+P1,medicaid_managed_care,2024-01-01,,Plan A Medicaid Managed Care
+P2,medicaid_ffs,2024-01-01,,NYS Medicaid
+P3,dual_medicare_medicaid,2024-01-01,,Plan C Dual Advantage
+P4,medicaid_managed_care,2024-01-01,,Plan A Medicaid Managed Care
+P5,commercial,2024-01-01,,Plan D Commercial PPO
+P6,medicaid_managed_care,2024-01-01,,Plan B HARP
+P7,medicaid_ffs,2024-01-01,,NYS Medicaid
+P8,medicaid_managed_care,2024-01-01,,Plan B Medicaid Managed Care
+P9,medicaid_managed_care,2024-01-01,,Plan A Medicaid Managed Care
+P10,medicaid_managed_care,2024-01-01,,Plan A Medicaid Managed Care

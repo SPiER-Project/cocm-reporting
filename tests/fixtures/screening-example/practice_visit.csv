@@ -1,0 +1,10 @@
+visit_id,patient_id,visit_date,provider_category,billing_codes,modality
+V1,A,2025-03-03,primary_care,99214,in_person
+V2,B,2025-03-12,primary_care,99395,in_person
+V3,C,2025-03-18,primary_care,99213,in_person
+V4,D,2025-03-06,primary_care,99213,in_person
+V5,D,2025-03-06,behavioral_health,99493,in_person
+V6,E,2025-03-14,primary_care,99214,in_person
+V7,F,2025-03-20,primary_care,99393,in_person
+V8,G,2025-03-10,nursing_only,90471;90686,in_person
+V9,H,2025-03-18,primary_care,99213,in_person

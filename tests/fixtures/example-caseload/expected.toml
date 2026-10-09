@@ -1,0 +1,96 @@
+# What the calculator must produce from this fixture, for March 2025.
+# The worked example is docs/guide/example-caseload.md; the metric pages quote it.
+# Percentages and weeks are computed from these counts by scripts/examples.py, using the
+# rounding rule in rules/calls.toml, so only the counts are stated here.
+
+reporting_month = "2025-03"
+
+[metrics.m1]
+count = 9
+[metrics.m2]
+count = 8
+[metrics.m3]
+count = 1
+[metrics.m4]
+discharged_days = [160, 102]          # P4 (inactivity), P9 (graduated)
+[metrics.m5]
+numerator = 7
+denominator = 8
+[metrics.m6]
+numerator = 4
+denominator = 6
+[metrics.m7]
+numerator = 2
+denominator = 8
+[metrics.m8]
+numerator = 1
+denominator = 2
+
+# Per-patient facts, for calculator tests that explain a difference.
+# improved and in_remission are omitted where the patient isn't assessed.
+[patients.P1]
+enrolled_this_month = true
+medicaid = true
+days_in_treatment = 147
+active_treatment = true
+improved = true
+in_remission = false
+[patients.P2]
+enrolled_this_month = true
+medicaid = true
+days_in_treatment = 19
+active_treatment = true
+in_remission = false
+[patients.P3]
+enrolled_this_month = true
+medicaid = true
+days_in_treatment = 84
+active_treatment = true
+improved = true
+in_remission = false
+[patients.P4]
+enrolled_this_month = true
+medicaid = true
+effective_discharge_date = "2025-03-10"   # inactivity: last treatment contact 2024-12-10 + 90 days
+days_in_treatment = 160
+active_treatment = false
+improved = false
+in_remission = false
+psych_review_in_window = false
+[patients.P5]
+enrolled_this_month = true
+medicaid = false
+days_in_treatment = 56
+active_treatment = true
+[patients.P6]
+enrolled_this_month = true
+medicaid = true
+days_in_treatment = 119
+active_treatment = true
+improved = false
+in_remission = false
+psych_review_in_window = true
+[patients.P7]
+enrolled_this_month = true
+medicaid = true
+days_in_treatment = 196
+active_treatment = true
+improved = true
+in_remission = true
+[patients.P8]
+enrolled_this_month = true
+medicaid = true
+days_in_treatment = 105
+active_treatment = true
+elevated_baseline = false
+in_remission = false
+[patients.P9]
+enrolled_this_month = true
+medicaid = true
+days_in_treatment = 102
+active_treatment = true
+improved = true
+in_remission = true
+[patients.P10]
+enrolled_this_month = false
+medicaid = true

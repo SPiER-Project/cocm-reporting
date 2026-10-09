@@ -1,0 +1,2 @@
+site_id,reporting_month,bhcm_fte,screening_age_floor,treatment_contact_rule,extract_run_date,source_system,notes
+EXAMPLE,2025-03,0,12,not applicable,2025-04-15,ehr,Invented data for the guide's screening example. E declined a screen on 14 Mar; declines aren't scale results

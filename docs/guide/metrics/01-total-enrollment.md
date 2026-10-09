@@ -28,7 +28,7 @@ From the [example caseload](../example-caseload.md):
 | P9 | Yes | Graduated 21 March |
 | P10 | No | Discharged in February |
 
-**Metric 1: 9.**
+**Metric 1: <!--expect:example-caseload.m1-->9<!--/expect-->.**
 
 ## Where the data lives
 
