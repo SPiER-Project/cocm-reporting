@@ -66,5 +66,7 @@ single most common error observed." Either cite where that was observed or softe
 a state reviewer will ask.
 
 **R-14. Codes need a terminology check before publication.** The three LOINC codes in
-D-11 are correct. The missing ones should be looked up against LOINC itself, not
-recalled.
+D-11 were confirmed from memory in review, which is the mistake this note warns
+against. A prototype CoCM registry's documentation gives the GAD-7 total as `69737-5`,
+where D-11 gives `70274-6`; at least one is wrong or a variant. Every code, listed and
+missing, should be looked up against LOINC itself, not recalled.
