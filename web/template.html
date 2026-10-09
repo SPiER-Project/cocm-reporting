@@ -69,6 +69,9 @@
   .warn ul, .note ul { margin: .25rem 0 0; padding-left: 1.25rem; }
   .error { background: var(--error-bg); color: var(--error-fg); border-radius: 8px; padding: .75rem 1rem; }
   details { border: 1px solid var(--line); border-radius: 8px; padding: .5rem .75rem; margin-bottom: .5rem; }
+  details.options { margin-top: .75rem; }
+  details.options input { font: inherit; padding: .4rem .5rem; border: 1px solid var(--line);
+                          border-radius: 6px; background: var(--bg); color: var(--fg); max-width: 100%; }
   summary { cursor: pointer; font-weight: 600; }
   .ids { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
   [hidden] { display: none !important; }
@@ -96,15 +99,25 @@
   <h2>2. Your data</h2>
   <p>Add the <strong>reporting workbook</strong>, or one CSV file per table in the
     <a href="https://github.com/SPiER-Project/nys-omh-cocm-caseload-reporting/blob/main/docs/reference/data-contract.md">data contract's</a>
-    shape, named after the table (for example <code>patient.csv</code>). A table you
-    don't add is treated as empty.</p>
+    shape, named after the table (for example <code>patient.csv</code>). Sites with a FHIR
+    export from their EHR can add it too (<code>.json</code> or <code>.ndjson</code>): it
+    fills in patients, coverage, visits and PHQ results. Everything you add is combined. A
+    table you don't add is treated as empty.</p>
   <p>No workbook yet? Download the <a href="cocm-workbook.xlsx" download>blank workbook</a>,
     or an <a href="cocm-workbook-example.xlsx" download>example filled with invented patients</a>.
     It opens in Excel, Google Sheets, Numbers or LibreOffice.</p>
   <div class="drop" id="drop">
     <span>Drag the workbook or CSV files here, or choose them:</span>
-    <input type="file" id="files" accept=".xlsx,.csv,text/csv" multiple aria-label="Choose the workbook or CSV files">
+    <input type="file" id="files" accept=".xlsx,.csv,text/csv,.json,.ndjson" multiple aria-label="Choose the workbook, CSV files or FHIR files">
   </div>
+  <details class="options">
+    <summary>FHIR options</summary>
+    <label for="fhir-id">Patient identifier system (optional)</label>
+    <input type="text" id="fhir-id" placeholder="for example urn:oid:… or https://…" size="40">
+    <p class="status">By default a FHIR patient is known by its FHIR id. If your workbook or
+      registry uses another id, give the system of the matching Patient.identifier here so
+      the two join.</p>
+  </details>
   <ul class="tables" id="tables"></ul>
   <p class="status" id="ignored"></p>
 
@@ -150,6 +163,13 @@ let fromExample = false;
 let lastResults = null;
 let run = null;
 let readWorkbook = null;
+let readFhir = null;
+let mergeTables = null;
+let fhirNotes = [];
+
+function addTables(more) {
+  texts = JSON.parse(mergeTables(JSON.stringify(texts), JSON.stringify(more)));
+}
 
 function setStatus(text, ready) {
   $("status").textContent = text;
@@ -176,24 +196,35 @@ function showTables() {
 async function addFiles(fileList) {
   if (fromExample) {  // don't mix the site's files with the example's
     texts = {};
+    fhirNotes = [];
     fromExample = false;
   }
-  const ignored = [], notes = [];
+  const ignored = [], notes = [], fhirFiles = [];
+  if (!run) { $("ignored").textContent = "The calculator is still loading; add the files again in a moment."; return; }
   for (const file of fileList) {
+    if (/\.(json|ndjson)$/i.test(file.name)) { fhirFiles.push(await file.text()); continue; }
     if (/\.xlsx$/i.test(file.name)) {
-      if (!readWorkbook) { notes.push("The calculator is still loading; add the workbook again in a moment."); continue; }
       const bytes = new Uint8Array(await file.arrayBuffer());
       let binary = "";
       for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
       const got = JSON.parse(readWorkbook(btoa(binary)));
       if (got.error) { notes.push(file.name + ": " + got.error); continue; }
-      Object.assign(texts, got.texts);
+      addTables(got.texts);
       notes.push("Read " + Object.keys(got.texts).length + " tables from " + file.name + ".");
       continue;
     }
     const name = file.name.replace(/\.csv$/i, "").toLowerCase();
-    if (TABLES.includes(name)) texts[name] = await file.text();
+    if (TABLES.includes(name)) addTables({[name]: await file.text()});
     else ignored.push(file.name);
+  }
+  if (fhirFiles.length) {
+    const got = JSON.parse(readFhir(JSON.stringify(fhirFiles), json("rules"), $("fhir-id").value.trim()));
+    if (got.error) notes.push(got.error);
+    else {
+      addTables(got.texts);
+      fhirNotes = fhirNotes.concat(got.notes);
+      notes.push("Read " + fhirFiles.length + " FHIR file" + (fhirFiles.length === 1 ? "" : "s") + ".");
+    }
   }
   if (ignored.length) notes.push("Not a data-contract table, so not used: " + ignored.join(", "));
   $("ignored").textContent = notes.join(" ");
@@ -213,6 +244,8 @@ async function start() {
     const web = pyodide.pyimport("calculator.web");
     run = web.run;
     readWorkbook = web.workbook;
+    readFhir = web.fhir;
+    mergeTables = web.merge;
     $("calculate").disabled = false;
     $("example").disabled = false;
     setStatus("Ready. The calculator is running in this page.", true);
@@ -232,6 +265,7 @@ function calculateWith(data, month) {
     $("error").textContent = "Your files couldn't be read: " + results.error;
     return;
   }
+  results.disclosures = results.disclosures.concat(fromExample ? [] : fhirNotes);
   lastResults = results;
   $("metrics").replaceChildren(...results.rows.map(r => {
     const tr = document.createElement("tr");
