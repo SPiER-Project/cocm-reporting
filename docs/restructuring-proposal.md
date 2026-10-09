@@ -1,6 +1,6 @@
 # Proposal: restructure the docs as a clinic's reporting guide
 
-**Status:** agreed; Markdown in the repo. All six steps are done; only the site-setup page is still a stub. The calls table below has
+**Status:** agreed; Markdown in the repo. All six steps are done, and the site-setup page is written. The calls table below has
 moved to [`reference/our-calls.md`](reference/our-calls.md), which is now the version to
 review and edit.
 

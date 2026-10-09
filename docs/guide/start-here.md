@@ -1,8 +1,7 @@
 # Start here
 
-**Status:** the metric and concept pages are written. Every call they make is
-**Proposed** until the project adopts it; see [`our-calls.md`](../reference/our-calls.md).
-Site setup is not yet written.
+**Status:** written. Every call the guide makes is **Proposed** until the project adopts
+it; see [`our-calls.md`](../reference/our-calls.md).
 
 This guide tells a New York clinic how to report the eleven CoCM metrics NYS OMH asks for
 each month, and how to get each fact out of the systems it has. Where the
