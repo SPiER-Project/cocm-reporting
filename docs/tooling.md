@@ -80,7 +80,8 @@ What FHIR can cover:
 | Episodes, contacts, case reviews | Poor: CoCM enrollment, contact purpose and psychiatric case review have no standard representation that EHRs expose |
 
 FHIR can replace an EHR report recipe for the EHR half of the tables. It can't replace
-the registry for the CoCM half.
+the registry for the CoCM half. The [data contract](reference/data-contract.md) gives the
+FHIR home of every column.
 
 ## What to build first
 
