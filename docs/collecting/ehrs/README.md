@@ -5,6 +5,9 @@ per EHR product will follow as they're written. Until then, this page is the
 specification any EHR's reports should meet.
 
 Sites with a registry need only the first four reports; EHR-only sites need all eight.
+A site with a FHIR export can skip the first four reports: the calculator
+[reads FHIR](../../tooling.md#reading-fhir) for patients, coverage, visits and PHQ
+results.
 The columns match the [data contract](../../reference/data-contract.md), so the same output can
 feed the calculator once it exists.
 

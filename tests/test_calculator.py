@@ -18,6 +18,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from calculator import calculate, read_rules, read_tables  # noqa: E402
+from calculator.data import combine  # noqa: E402
+from calculator.fhir import read_fhir  # noqa: E402
 from calculator.compute import months_back, rate  # noqa: E402
 
 with open(os.path.join(ROOT, "rules", "calls.toml")) as f:
@@ -26,10 +28,15 @@ SETTINGS = read_rules(RULES_TEXT)
 
 
 def load_fixture(directory):
+    """A fixture's tables, from CSV files or from FHIR resources (.json, .ndjson)."""
     texts = {}
     for path in glob.glob(os.path.join(directory, "*.csv")):
         with open(path, newline="") as f:
             texts[os.path.splitext(os.path.basename(path))[0]] = f.read()
+    fhir = [open(p).read() for p in sorted(glob.glob(os.path.join(directory, "*.json"))
+                                           + glob.glob(os.path.join(directory, "*.ndjson")))]
+    if fhir:
+        texts = combine(texts, read_fhir(fhir, SETTINGS)[0])
     return read_tables(texts)
 
 

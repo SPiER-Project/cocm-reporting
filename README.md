@@ -30,7 +30,7 @@ browser](https://spier-project.github.io/nys-omh-cocm-caseload-reporting/); the 
 | A **report writer or analyst** | [Collecting the data](docs/collecting/overview.md) for your route, then the metric pages' "Where the data lives" sections |
 | Checking a **number you've already reported** | The [example caseload](docs/guide/example-caseload.md), which works all eight CoCM metrics through ten patients |
 | Reviewing the **guide's decisions** | [Our calls](docs/reference/our-calls.md), which lists each one with its reasoning, firmness and status |
-| **Calculating the metrics** from your own data | The [calculator in your browser](https://spier-project.github.io/nys-omh-cocm-caseload-reporting/): add your data as CSV files in the [data contract's](docs/reference/data-contract.md) shape. Nothing is uploaded. Or run it at the command line: `python3 -m calculator DATA_DIR --month YYYY-MM` |
+| **Calculating the metrics** from your own data | The [calculator in your browser](https://spier-project.github.io/nys-omh-cocm-caseload-reporting/): add the [reporting workbook](docs/collecting/workbook.md), CSV files in the [data contract's](docs/reference/data-contract.md) shape, or a FHIR export from your EHR. Nothing is uploaded. Or run it at the command line: `python3 -m calculator DATA_DIR --month YYYY-MM` |
 | **Building tools** to capture the data | The [tooling plan](docs/tooling.md) and the [data contract](docs/reference/data-contract.md) |
 
 ## The metrics
