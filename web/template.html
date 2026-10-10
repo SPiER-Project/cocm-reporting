@@ -47,6 +47,8 @@
   label { font-weight: 600; display: block; margin-bottom: .35rem; }
   input[type=month] { font: inherit; padding: .4rem .5rem; border: 1px solid var(--line);
                       border-radius: 6px; background: var(--bg); color: var(--fg); }
+  label.button { display: inline-block; font: inherit; font-weight: 400; margin: 0; padding: .55rem 1rem;
+                 border-radius: 6px; border: 1px solid var(--accent); color: var(--accent); cursor: pointer; }
   .drop { border: 2px dashed var(--line); border-radius: 10px; padding: 1.5rem; text-align: center;
           background: var(--panel); }
   .drop.over { border-color: var(--accent); }
@@ -96,7 +98,19 @@
   <label for="month">Month to report</label>
   <input type="month" id="month" required>
 
-  <h2>2. Your data</h2>
+  <h2>2. Patient ids (optional)</h2>
+  <p>To keep MRNs out of the results, load your site's pseudonym key <em>before</em>
+    adding files. Each patient id is then replaced with a pseudonym made from it with the
+    key, so the same MRN gets the same pseudonym from every file and every month. Patient
+    ids should be MRNs, so the registry and the EHR agree.</p>
+  <div class="actions">
+    <label class="button secondary" for="key-file">Use our key file</label>
+    <input type="file" id="key-file" accept=".key,.txt" hidden>
+    <button id="new-key" class="secondary" disabled>Create a new key</button>
+  </div>
+  <p class="status" id="key-status">No key: patient ids are used as they are.</p>
+
+  <h2>3. Your data</h2>
   <p>Add the <strong>reporting workbook</strong>, or one CSV file per table in the
     <a href="https://github.com/SPiER-Project/nys-omh-cocm-caseload-reporting/blob/main/docs/reference/data-contract.md">data contract's</a>
     shape, named after the table (for example <code>patient.csv</code>). Sites with a FHIR
@@ -143,7 +157,10 @@
       <div id="fellout"></div>
       <div class="actions">
         <button id="download" class="secondary">Download the full results (JSON)</button>
+        <button id="download-tables" class="secondary">Download the tables (CSV, zip)</button>
+        <button id="download-crosswalk" class="secondary" hidden>Download the crosswalk</button>
       </div>
+      <p class="status" id="download-note"></p>
     </div>
   </section>
 </main>
@@ -166,9 +183,35 @@ let readWorkbook = null;
 let readFhir = null;
 let mergeTables = null;
 let fhirNotes = [];
+let web = null;
+let pseudonymKey = null;
+const crosswalk = new Map();
 
 function addTables(more) {
+  if (pseudonymKey) {  // pseudonymize each file before combining, so "00123" joins "123"
+    const got = JSON.parse(web.pseudonymize(JSON.stringify(more), pseudonymKey));
+    if (got.error) throw new Error(got.error);
+    more = got.texts;
+    for (const [original, pseudonym] of got.crosswalk) crosswalk.set(original, pseudonym);
+  }
   texts = JSON.parse(mergeTables(JSON.stringify(texts), JSON.stringify(more)));
+}
+
+function download(name, blob) {
+  const a = Object.assign(document.createElement("a"), {href: URL.createObjectURL(blob), download: name});
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function useKey(text, label) {
+  pseudonymKey = text;
+  crosswalk.clear();
+  const had = Object.keys(texts).length && !fromExample;
+  texts = {}; fhirNotes = []; fromExample = false;
+  showTables();
+  $("key-status").textContent = "Pseudonyms on (" + label + "). Patient ids are replaced as files are added." +
+    (had ? " Files added before the key were cleared; add them again." : "");
+  $("key-status").classList.add("ready");
 }
 
 function setStatus(text, ready) {
@@ -241,13 +284,14 @@ async function start() {
       pyodide.FS.writeFile("/app/calculator/" + name, source);
     }
     pyodide.runPython("import sys; sys.path.insert(0, '/app')");
-    const web = pyodide.pyimport("calculator.web");
+    web = pyodide.pyimport("calculator.web");
     run = web.run;
     readWorkbook = web.workbook;
     readFhir = web.fhir;
     mergeTables = web.merge;
     $("calculate").disabled = false;
     $("example").disabled = false;
+    $("new-key").disabled = false;
     setStatus("Ready. The calculator is running in this page.", true);
   } catch (e) {
     setStatus("The calculator couldn't load: " + e.message +
@@ -267,6 +311,7 @@ function calculateWith(data, month) {
   }
   results.disclosures = results.disclosures.concat(fromExample ? [] : fhirNotes);
   lastResults = results;
+  $("download-crosswalk").hidden = !(pseudonymKey && crosswalk.size);
   $("metrics").replaceChildren(...results.rows.map(r => {
     const tr = document.createElement("tr");
     for (const [text, cls] of [[r.metric, "num"], [r.name, ""], [r.value, ""]]) {
@@ -325,7 +370,7 @@ $("calculate").addEventListener("click", () => {
   calculateWith(texts, $("month").value);
 });
 $("example").addEventListener("click", () => {
-  texts = json("example-caseload");
+  texts = json("example-caseload");  // the example is shown with its own ids
   fromExample = true;
   showTables();
   $("ignored").textContent = "Loaded the guide's example caseload (invented patients).";
@@ -333,11 +378,39 @@ $("example").addEventListener("click", () => {
   calculateWith(texts, "2025-03");
 });
 $("download").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify(lastResults, null, 2)], {type: "application/json"});
-  const a = Object.assign(document.createElement("a"), {
-    href: URL.createObjectURL(blob), download: "cocm-results-" + lastResults.reporting_month + ".json"});
-  a.click();
-  URL.revokeObjectURL(a.href);
+  download("cocm-results-" + lastResults.reporting_month + ".json",
+           new Blob([JSON.stringify(lastResults, null, 2)], {type: "application/json"}));
+});
+$("download-tables").addEventListener("click", () => {
+  const bytes = Uint8Array.from(atob(web.zip_tables(JSON.stringify(texts))), c => c.charCodeAt(0));
+  download(pseudonymKey ? "cocm-tables-pseudonymized.zip" : "cocm-tables.zip",
+           new Blob([bytes], {type: "application/zip"}));
+  $("download-note").textContent = pseudonymKey
+    ? "These tables carry pseudonyms, not MRNs."
+    : "These tables carry the patient ids as you gave them. Load a key first to pseudonymize them.";
+});
+$("download-crosswalk").addEventListener("click", () => {
+  const lines = ["original_id,patient_id", ...[...crosswalk].sort().map(([o, p]) =>
+    [o, p].map(v => /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v).join(","))];
+  download("cocm-crosswalk.csv", new Blob([lines.join("\n") + "\n"], {type: "text/csv"}));
+  $("download-note").textContent = "The crosswalk links pseudonyms back to MRNs. Keep it at your site, with the key.";
+});
+$("key-file").addEventListener("change", async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const text = await file.text();
+  const check = JSON.parse(web.pseudonymize("{}", text));
+  if (check.error) {
+    $("key-status").textContent = file.name + ": " + check.error;
+    return;
+  }
+  useKey(text, file.name);
+});
+$("new-key").addEventListener("click", () => {
+  const text = web.new_key();
+  download("cocm-pseudonym.key", new Blob([text], {type: "text/plain"}));
+  useKey(text, "a new key, saved as cocm-pseudonym.key");
+  $("key-status").textContent += " Keep the key file safe and use it every month: a new key gives every patient a new pseudonym.";
 });
 start();
 </script>

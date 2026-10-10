@@ -15,16 +15,15 @@ their pseudonymous id; keep it at the site.
 """
 
 import argparse
-import glob
 import json
 import os
 import sys
 
-from . import TABLES, calculate, read_rules, read_tables
+from . import calculate, read_rules, read_tables
 from .data import combine
-from .fhir import read_fhir
+from .inputs import read_inputs
+from .pseudonym import pseudonymize
 from .report import summary
-from .xlsx import read_workbook
 
 DEFAULT_RULES = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                              "rules", "calls.toml")
@@ -41,40 +40,25 @@ def main(argv=None):
     parser.add_argument("--month", required=True, help="reporting month, YYYY-MM")
     parser.add_argument("--rules", default=DEFAULT_RULES, help="rules file (default: %(default)s)")
     parser.add_argument("--json", help="also write the full results to this file")
+    parser.add_argument("--pseudonym-key", metavar="KEY_FILE",
+                        help="replace patient ids with pseudonyms made with this key first, so "
+                             "the results name no MRNs (see python3 -m calculator.pseudonymize)")
     args = parser.parse_args(argv)
 
     with open(args.rules) as f:
         rules_text = f.read()
     settings = read_rules(rules_text)
-    sources, fhir_texts = [], []
-    for item in args.data:
-        paths = sorted(glob.glob(os.path.join(item, "*"))) if os.path.isdir(item) else [item]
-        csvs = {}
-        for path in paths:
-            lower = path.lower()
-            if lower.endswith(".xlsx"):
-                try:
-                    with open(path, "rb") as f:
-                        sources.append(read_workbook(f.read()))
-                except ValueError as e:
-                    parser.error(f"{path}: {e}")
-            elif lower.endswith((".json", ".ndjson")):
-                with open(path) as f:
-                    fhir_texts.append(f.read())
-            elif lower.endswith(".csv"):
-                name = os.path.splitext(os.path.basename(path))[0]
-                if name in TABLES:
-                    with open(path, newline="") as f:
-                        csvs[name] = f.read()
-        if csvs:
-            sources.append(csvs)
-    notes = []
-    if fhir_texts:
+    try:
+        sources, notes = read_inputs(args.data, settings, args.fhir_patient_identifier)
+    except ValueError as e:
+        parser.error(str(e))
+    if args.pseudonym_key:
+        with open(args.pseudonym_key) as f:
+            key = f.read()
         try:
-            tables, notes = read_fhir(fhir_texts, settings, args.fhir_patient_identifier)
+            sources = [pseudonymize(s, key)[0] for s in sources]
         except ValueError as e:
-            parser.error(f"FHIR: {e}")
-        sources.append(tables)
+            parser.error(str(e))
     texts = combine(*sources)
     if not texts:
         parser.error("no data-contract tables or FHIR resources in " + ", ".join(args.data))

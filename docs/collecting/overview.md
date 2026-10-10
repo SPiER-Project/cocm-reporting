@@ -87,13 +87,53 @@ Everything comes from EHR reports, written by the site's report writer from
 ### One patient id
 
 The registry and the EHR have to identify the same patient the same way, or the two
-halves never join. Use the **MRN** as the link inside the site. Don't use a registry's
-internal id, which the EHR never sees.
+halves never join. Use the **MRN** as `patient_id` in every source. Don't use a
+registry's internal id, which the EHR never sees.
 
-The [data contract](../reference/data-contract.md) goes one step further for anything that leaves
-the site's systems: it replaces the MRN with a keyed hash, a pseudonym made with a secret
-only the site holds. How sites will do that consistently is still open (Q-T3 in
-[open questions](../open-questions.md#the-tooling)).
+Inside the site, the MRN can stay as it is: the calculator runs at the site, and its list
+of who fell out of each numerator is easier to act on with MRNs. **Before tables leave
+the site** (to a vendor, a consultant, or anyone helping with the reporting), replace
+each MRN with its pseudonym:
+
+1. **Make a key, once.** At the command line:
+
+```bash
+python3 -m calculator.pseudonymize new-key site.key
+```
+
+   Or use **Create a new key** on the calculator page. Keep the key file somewhere safe at
+   the site, and use the same key every month: a new key gives every patient a new
+   pseudonym.
+2. **Pseudonymize the tables with it.** Load the key on the calculator page before adding
+   files, then download the tables. Or at the command line:
+
+```bash
+python3 -m calculator.pseudonymize registry.xlsx ehr-export/ --key site.key --out shared/ --crosswalk crosswalk.csv
+```
+
+   The crosswalk links each pseudonym back to its MRN. Like the key, it stays at the site.
+
+**How the pseudonym is made.** It's the HMAC-SHA256 of the normalized MRN, keyed with the
+site's 32-byte key, base32-encoded, lower-cased, cut to 16 characters and prefixed `p-`.
+Normalizing makes systems that format MRNs differently agree:
+- spaces, hyphens and dots are removed;
+- letters are capitalized;
+- leading zeros are dropped from an all-digit MRN.
+
+So `00123`, `123` and `1-23` are the same patient. Without the key, a pseudonym can't be
+reversed, and a guessed MRN can't be checked against it.
+
+**Doing it elsewhere.** A report writer who pseudonymizes inside their own system can
+check their output against this test vector:
+
+| Key file | MRN | Pseudonym |
+|---|---|---|
+| `cocm-pseudonym-key-v1:AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=` | `123` (or `00123`) | `p-47cvhcslcvte5vth` |
+| the same | `MRN-0042` | `p-vwwfuzieeoipmduc` |
+
+**FHIR exports** give a patient its FHIR id unless told otherwise. Use
+`--fhir-patient-identifier` with the system of the `Patient.identifier` that holds the MRN,
+or the same setting under *FHIR options* on the page.
 
 ### Event dates in local time
 

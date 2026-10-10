@@ -21,8 +21,10 @@ doesn't need it.
    [calls](our-calls.md) are calculator settings, read from
    [`rules/calls.toml`](../../rules/calls.toml), so if a call changes, no site rewrites
    its extract.
-4. **No direct identifiers.** `patient_id` is a stable pseudonym, the same in every
-   table and every source system (see [one patient id](../collecting/overview.md#one-patient-id)).
+4. **One patient id, and no MRNs once the tables leave the site.** `patient_id` is the
+   same for a patient in every table and every source: the MRN inside the site, or its
+   pseudonym, made with the site's key, whenever the tables go anywhere else (see
+   [one patient id](../collecting/overview.md#one-patient-id)).
 5. **Shaped like FHIR, without requiring it.** Each table is the flat form of a FHIR R4
    resource, as profiled by US Core, and each column says where its value lives in FHIR.
    A site with FHIR access can fill the tables from its EHR's FHIR API; a site without one
