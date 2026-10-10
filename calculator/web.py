@@ -7,6 +7,9 @@ calculation lives in JavaScript:
     workbook(xlsx_base64) -> {"texts": {table: csv text}} JSON
     fhir(files_json, rules_text, identifier_system) -> {"texts": ..., "notes": [...]} JSON
     merge(texts_json, more_json) -> {table: csv text} JSON
+    new_key() -> key text
+    pseudonymize(texts_json, key_text) -> {"texts": ..., "crosswalk": [[id, pseudonym]]} JSON
+    zip_tables(texts_json) -> base64 of a zip with one CSV per table
 
 texts_json is {"patient": csv text, ...}. The result is the calculator's results plus,
 under "rows", each metric's display text, or {"error": message} if the input couldn't be
@@ -14,11 +17,15 @@ read.
 """
 
 import base64
+import io
 import json
+import zipfile
 
 from .compute import calculate
 from .data import combine, read_rules, read_tables
 from .fhir import read_fhir
+from .pseudonym import new_key as _new_key
+from .pseudonym import pseudonymize as _pseudonymize
 from .report import NAMES, value
 from .xlsx import read_workbook
 
@@ -55,3 +62,25 @@ def fhir(files_json, rules_text, identifier_system=""):
 def merge(texts_json, more_json):
     """Two sets of tables combined, each fact kept once."""
     return json.dumps(combine(json.loads(texts_json), json.loads(more_json)))
+
+
+def new_key():
+    return _new_key()
+
+
+def pseudonymize(texts_json, key_text):
+    """Patient ids replaced with pseudonyms, and the crosswalk for the site to keep."""
+    try:
+        tables, crosswalk = _pseudonymize(json.loads(texts_json), key_text)
+    except ValueError as e:
+        return json.dumps({"error": str(e)})
+    return json.dumps({"texts": tables, "crosswalk": crosswalk})
+
+
+def zip_tables(texts_json):
+    """A zip of one CSV per table, as base64, for the page to offer as a download."""
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for table, text in json.loads(texts_json).items():
+            z.writestr(f"{table}.csv", text)
+    return base64.b64encode(buf.getvalue()).decode()

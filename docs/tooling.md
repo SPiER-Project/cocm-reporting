@@ -89,9 +89,17 @@ site with a FHIR export from its EHR doesn't need report recipes for the EHR hal
 python3 -m calculator workbook.xlsx ehr-export/ --month 2025-03
 ```
 
-**Not yet built:**
-- the REDCap output format, which waits on NYS's form (Q-T5);
-- the pseudonymization tool (Q-T3).
+**Not yet built:** the REDCap output format, which waits on NYS's form (Q-T5).
+
+## Pseudonyms
+
+[`calculator/pseudonym.py`](../calculator/pseudonym.py) gives each patient the same
+pseudonym from every source, from a key the site keeps: the HMAC-SHA256 of the
+normalized MRN. Run it with `python3 -m calculator.pseudonymize`, with the calculator's
+`--pseudonym-key` option, or from the page's *Patient ids* section. Each source is
+pseudonymized before the sources are combined, so `00123` in the registry joins `123`
+in the EHR. The scheme, the workflow and a test vector are in
+[one patient id](collecting/overview.md#one-patient-id). This settles Q-T3.
 
 ## What each way in costs us
 

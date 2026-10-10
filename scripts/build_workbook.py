@@ -212,8 +212,9 @@ def instructions(example):
         "result, a case review, a practice visit.",
         "2. Click a column heading's cell below it to see what the column holds. Columns with "
         "fixed values have a dropdown.",
-        "3. Use the same patient id on every tab: a registry number or another id your site "
-        "assigns, never a name. Keep the workbook at your site.",
+        "3. Use the patient's MRN as the patient id on every tab, never a name, so it matches "
+        "what the EHR uses. Keep the workbook at your site. To share the tables without MRNs, "
+        "load your site's pseudonym key on the calculator page first.",
         "4. Enter dates as dates (for example 2025-03-12). Leave a cell blank if you don't know "
         "the value.",
         "5. Add each month's new rows rather than starting over: the calculator looks back "

@@ -30,8 +30,10 @@ columns always match what the calculator reads.
 
 ## Filling it in
 
-- **Use the same patient id on every tab:** a registry number or another id the site
-  assigns, never a name. The workbook and the results stay at the site.
+- **Use the MRN as the patient id on every tab,** never a name, so it matches the EHR.
+  The workbook and the results stay at the site. To share the tables without MRNs, load
+  the site's pseudonym key on the calculator page before adding the workbook (see
+  [one patient id](overview.md#one-patient-id)).
 - **One row per fact,** not one row per patient:
   - one `cocm_episode` row per enrollment, so a returning patient gets a new row;
   - one `contact` row per contact or outreach attempt;
